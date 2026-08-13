@@ -23,9 +23,9 @@ npm run dev
 npm run build
 ```
 
-靜態站已部署到 GitHub Pages：<https://lucash2005.github.io/TOEFL-Go/>
+靜態站部署網址：<https://lucash2005.github.io/TOEFL-Go/>
 
-建置產物推送到 `gh-pages` 分支。
+建置產物在 `gh-pages` 分支。首次請到倉庫 Settings → Pages，Source 選 **Deploy from a branch**，Branch 選 `gh-pages` / `/ (root)`。之後推送到 `main` 會自動重建並部署。
 
 ## 與 N4 Go 的關係
 
