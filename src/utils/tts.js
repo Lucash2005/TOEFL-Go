@@ -17,3 +17,18 @@ export function speakEnglish(text, { rate = 0.95 } = {}) {
 export function stopSpeaking() {
   window.speechSynthesis?.cancel?.()
 }
+
+export function speakJapanese(text, { rate = 0.9 } = {}) {
+  if (typeof window === 'undefined' || !window.speechSynthesis) return
+  const cleaned = String(text || '').trim()
+  if (!cleaned) return
+  window.speechSynthesis.cancel()
+  const u = new SpeechSynthesisUtterance(cleaned)
+  u.lang = 'ja-JP'
+  u.rate = rate
+  const voices = window.speechSynthesis.getVoices()
+  const preferred =
+    voices.find((v) => v.lang === 'ja-JP') || voices.find((v) => v.lang?.startsWith('ja'))
+  if (preferred) u.voice = preferred
+  window.speechSynthesis.speak(u)
+}

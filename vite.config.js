@@ -12,9 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: 'TOEFL Go — 托福學習助手',
+        name: 'TOEFL Go — 托福與日檢 N4',
         short_name: 'TOEFL Go',
-        description: '托福四大科練習、單字 SRS、每日任務與測驗進度',
+        description: '托福四大科練習、日檢 N4 單字文法、每日任務與測驗進度',
         theme_color: '#1F4E5F',
         background_color: '#F3F6F4',
         display: 'standalone',

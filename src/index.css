@@ -13,6 +13,11 @@
   --color-paper: #f7f4ee;
   --color-line: #d5e0e4;
   --color-coral: #c45c4a;
+  --color-sea: #3a8a7a;
+  --color-sea-deep: #2b6b5e;
+  --color-sea-soft: #d4ebe5;
+  --color-foam: #e6f1ee;
+  --color-sand: #fff8f1;
 }
 
 @layer base {
@@ -75,6 +80,25 @@
   .stagger-3 {
     animation-delay: 0.15s;
   }
+  .stagger-4 {
+    animation-delay: 0.2s;
+  }
+
+  .wave-mask {
+    background-image:
+      linear-gradient(90deg, transparent 0 8%, rgb(58 138 122 / 0.08) 8% 12%, transparent 12% 100%),
+      repeating-linear-gradient(
+        -8deg,
+        transparent,
+        transparent 18px,
+        rgb(58 138 122 / 0.04) 18px,
+        rgb(58 138 122 / 0.04) 19px
+      );
+  }
+
+  .animate-flip-in {
+    animation: flip-in 0.45s ease-out both;
+  }
 }
 
 @keyframes fade-up {
@@ -86,4 +110,29 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes flip-in {
+  from {
+    opacity: 0;
+    transform: rotateY(-12deg) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0) scale(1);
+  }
+}
+
+html.theme-n4 {
+  --font-display: "Shippori Mincho", "Noto Serif TC", serif;
+  --font-sans: "Zen Maru Gothic", "Noto Sans TC", sans-serif;
+  --color-ink: #243833;
+  --color-ink-soft: #4a635c;
+  --color-mist: #f2f7f6;
+  --color-line: #c9ddd7;
+  --color-paper: #f7fbfa;
+  background:
+    radial-gradient(ellipse 120% 80% at 10% -10%, #dff0eb 0%, transparent 55%),
+    radial-gradient(ellipse 90% 70% at 100% 0%, #ffe8dc 0%, transparent 45%),
+    linear-gradient(180deg, #f7fbfa 0%, #eef5f3 48%, #f8f4ef 100%);
 }
