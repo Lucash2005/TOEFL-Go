@@ -6,7 +6,7 @@ import {
   writingPrompts,
 } from '../data/practice'
 import { useProgress } from '../hooks/useProgress'
-import { speakEnglish, stopSpeaking } from '../utils/tts'
+import { audioClipForListening, speakEnglish, stopSpeaking } from '../utils/tts'
 
 const TABS = [
   { id: 'reading', label: '閱讀' },
@@ -134,8 +134,17 @@ function ListeningPanel({ onDone }) {
   const item = listeningSets[idx]
   const question = item.questions[qIndex]
 
+  useEffect(() => () => stopSpeaking(), [])
+
+  useEffect(() => {
+    stopSpeaking()
+  }, [idx])
+
   function play() {
-    speakEnglish(item.script, { rate: 0.92 })
+    speakEnglish(item.script, {
+      rate: 0.92,
+      clipUrl: audioClipForListening(item.id),
+    })
   }
 
   function choose(i) {
@@ -172,7 +181,14 @@ function ListeningPanel({ onDone }) {
           onClick={play}
           className="rounded-2xl bg-tide px-4 py-2.5 text-sm text-white"
         >
-          播放聽力
+          播放聽力（Neural）
+        </button>
+        <button
+          type="button"
+          onClick={() => stopSpeaking()}
+          className="rounded-2xl bg-white px-4 py-2.5 text-sm ring-1 ring-line"
+        >
+          停止
         </button>
         <button
           type="button"

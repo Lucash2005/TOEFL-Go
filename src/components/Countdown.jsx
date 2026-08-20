@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react'
 import { EXAM_DATE } from '../data/config'
-
-function getLeft(target) {
-  const diff = Math.max(0, target.getTime() - Date.now())
-  const days = Math.floor(diff / 86400000)
-  const hours = Math.floor((diff % 86400000) / 3600000)
-  return { days, hours }
-}
+import { getCountdown, pad2 } from '../utils/countdown'
 
 export default function Countdown() {
-  const [left, setLeft] = useState(() => getLeft(EXAM_DATE))
+  const [now, setNow] = useState(() => new Date())
 
   useEffect(() => {
-    const id = setInterval(() => setLeft(getLeft(EXAM_DATE)), 60000)
+    const id = setInterval(() => setNow(new Date()), 1000)
     return () => clearInterval(id)
   }, [])
+
+  const { days, hours, minutes, seconds } = getCountdown(EXAM_DATE, now)
+
+  const units = [
+    { label: '天', value: days },
+    { label: '時', value: pad2(hours) },
+    { label: '分', value: pad2(minutes) },
+    { label: '秒', value: pad2(seconds) },
+  ]
 
   return (
     <section className="surface soft-shadow animate-fade-up relative overflow-hidden rounded-3xl p-5 sm:p-6">
@@ -26,15 +29,18 @@ export default function Countdown() {
       <h2 className="font-display relative mt-1 text-2xl font-bold text-ink sm:text-3xl">
         距離目標考試
       </h2>
-      <div className="relative mt-4 flex gap-4">
-        <div>
-          <div className="font-display text-3xl font-bold tabular-nums text-tide">{left.days}</div>
-          <div className="text-xs text-ink-soft">天</div>
-        </div>
-        <div>
-          <div className="font-display text-3xl font-bold tabular-nums text-tide">{left.hours}</div>
-          <div className="text-xs text-ink-soft">小時</div>
-        </div>
+      <div className="relative mt-5 grid grid-cols-4 gap-2 sm:gap-3">
+        {units.map((u, i) => (
+          <div
+            key={u.label}
+            className={`animate-fade-up stagger-${i + 1} rounded-2xl bg-white/80 px-2 py-3 text-center ring-1 ring-line/60`}
+          >
+            <div className="font-display text-2xl font-bold tabular-nums text-tide sm:text-3xl">
+              {u.value}
+            </div>
+            <div className="mt-1 text-xs text-ink-soft">{u.label}</div>
+          </div>
+        ))}
       </div>
       <p className="relative mt-3 text-xs text-ink-soft">
         預設目標日：{EXAM_DATE.toLocaleDateString('zh-TW')}（可在程式設定調整）

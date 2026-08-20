@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { DAILY_QUOTA, DEFAULT_TASKS, TARGETS } from '../data/config'
 import { vocabulary } from '../data/vocabulary'
-import { applyGrade, getDueIds, isLearned, normalizeEntry } from '../utils/srs'
+import { addDays, applyGrade, getDueIds, isLearned, normalizeEntry } from '../utils/srs'
 import { todayKey } from '../utils/storage'
 import { useLocalStorage } from './useLocalStorage'
 
@@ -121,6 +121,40 @@ export function ProgressProvider({ children }) {
       return normalizeEntry(cardProgress[id], today)
     }
 
+    function setCardStatus(id, status) {
+      setCardProgress((prev) => {
+        if (!status) {
+          const next = { ...prev }
+          delete next[id]
+          return next
+        }
+        const entry = normalizeEntry(prev[id], today) || {
+          status: 'learning',
+          ease: 2.5,
+          interval: 0,
+          repetitions: 0,
+          due: today,
+          lapses: 0,
+          lastGrade: null,
+        }
+        if (status === 'learned') {
+          return {
+            ...prev,
+            [id]: {
+              ...entry,
+              status: 'learned',
+              interval: Math.max(entry.interval || 0, 7),
+              due: addDays(today, 7),
+            },
+          }
+        }
+        return {
+          ...prev,
+          [id]: { ...entry, status: 'review', due: today },
+        }
+      })
+    }
+
     function toggleTask(id) {
       setDailyTasks((prev) => ({
         ...prev,
@@ -179,6 +213,7 @@ export function ProgressProvider({ children }) {
       cardProgress,
       gradeCard,
       getEntry,
+      setCardStatus,
       dailyTasks: dailyTasks.tasks,
       toggleTask,
       setTaskDone,
