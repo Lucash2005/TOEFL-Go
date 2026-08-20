@@ -91,6 +91,15 @@ export function isLearned(entry, today = todayKey()) {
   return Boolean(n && n.status === 'learned' && n.due > today)
 }
 
+/** Filter-friendly bucket: new | review | learned */
+export function getFilterStatus(cardProgress, id, today = todayKey()) {
+  const entry = normalizeEntry(cardProgress?.[id], today)
+  if (!entry) return 'new'
+  if (entry.due <= today) return 'review'
+  if (entry.status === 'learned') return 'learned'
+  return 'review'
+}
+
 export const GRADE_LABELS = {
   again: { label: '忘記', hint: '今天再看' },
   hard: { label: '困難', hint: '縮短間隔' },
