@@ -39,14 +39,14 @@ export default function N4Dashboard() {
             label="已掌握單字"
             value={learnedVocab}
             target={targets.vocabulary}
-            hint={`應用內目前收錄 ${totalVocabInApp} 字，可持續擴充資料`}
+            hint={`題庫 ${totalVocabInApp} 字，已對齊目標 ${targets.vocabulary}`}
           />
           <ProgressBar
             accent="sea"
             label="已學習文法"
             value={learnedGrammar}
             target={targets.grammar}
-            hint={`應用內目前收錄 ${totalGrammarInApp} 條文法`}
+            hint={`題庫 ${totalGrammarInApp} 條，已對齊目標 ${targets.grammar}`}
           />
         </div>
 
