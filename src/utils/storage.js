@@ -1,9 +1,8 @@
-export const TOEFL_PREFIX = 'toefl-go:'
-export const N4_PREFIX = 'n4-go:'
+export const PREFIX = 'toefl-go:'
 
-export function loadJSON(key, fallback, prefix = TOEFL_PREFIX) {
+export function loadJSON(key, fallback) {
   try {
-    const raw = localStorage.getItem(prefix + key)
+    const raw = localStorage.getItem(PREFIX + key)
     if (raw == null) return fallback
     return JSON.parse(raw)
   } catch {
@@ -11,8 +10,8 @@ export function loadJSON(key, fallback, prefix = TOEFL_PREFIX) {
   }
 }
 
-export function saveJSON(key, value, prefix = TOEFL_PREFIX) {
-  localStorage.setItem(prefix + key, JSON.stringify(value))
+export function saveJSON(key, value) {
+  localStorage.setItem(PREFIX + key, JSON.stringify(value))
 }
 
 export function todayKey() {

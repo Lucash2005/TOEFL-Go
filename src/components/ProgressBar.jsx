@@ -1,6 +1,5 @@
-export default function ProgressBar({ label, value, target, hint, accent = 'tide' }) {
+export default function ProgressBar({ label, value, target, hint }) {
   const pct = Math.min(100, Math.round((value / Math.max(1, target)) * 100))
-  const sea = accent === 'sea'
   return (
     <div>
       <div className="mb-1.5 flex items-end justify-between gap-2">
@@ -9,13 +8,8 @@ export default function ProgressBar({ label, value, target, hint, accent = 'tide
           {value}/{target}
         </p>
       </div>
-      <div className={`h-2.5 overflow-hidden rounded-full ${sea ? 'bg-foam' : 'bg-mist'}`}>
-        <div
-          className={`h-full rounded-full transition-all ${
-            sea ? 'bg-gradient-to-r from-sea to-sea-deep' : 'bg-tide'
-          }`}
-          style={{ width: `${pct}%` }}
-        />
+      <div className="h-2.5 overflow-hidden rounded-full bg-mist">
+        <div className="h-full rounded-full bg-tide transition-all" style={{ width: `${pct}%` }} />
       </div>
       {hint ? <p className="mt-1 text-xs text-ink-soft">{hint}</p> : null}
     </div>
