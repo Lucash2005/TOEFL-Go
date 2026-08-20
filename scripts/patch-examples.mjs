@@ -40,12 +40,13 @@ const missing = []
 const unused = []
 const weak = []
 for (const card of vocabulary) {
-  const pair = uniqueExamples[card.id]
-  if (!pair) {
+  const row = uniqueExamples[card.id]
+  if (!row) {
     missing.push(card.id + ' ' + card.word)
     continue
   }
-  if (!inflectionOk(card.word, pair[0])) weak.push(`${card.id} ${card.word} :: ${pair[0]}`)
+  const example = Array.isArray(row) && row.length >= 3 ? row[1] : row[0]
+  if (!inflectionOk(card.word, example)) weak.push(`${card.id} ${card.word} :: ${example}`)
 }
 for (const id of Object.keys(uniqueExamples)) {
   if (!vocabulary.find((c) => c.id === id)) unused.push(id)
@@ -62,8 +63,11 @@ if (weak.length) {
 }
 
 const next = vocabulary.map((card) => {
-  const [example, exampleMeaning] = uniqueExamples[card.id]
-  return { ...card, example, exampleMeaning }
+  const row = uniqueExamples[card.id]
+  const register = row[0]
+  const example = row[1]
+  const exampleMeaning = row[2]
+  return { ...card, register, example, exampleMeaning }
 })
 
 function jsString(value) {
@@ -71,7 +75,7 @@ function jsString(value) {
 }
 
 const lines = [
-  '/** @typedef {{ id: string, word: string, phonetic?: string, meaning: string, example: string, exampleMeaning: string, category: string }} VocabCard */',
+  '/** @typedef {{ id: string, word: string, phonetic?: string, meaning: string, example: string, exampleMeaning: string, category: string, register?: string }} VocabCard */',
   '',
   '/** @type {VocabCard[]} */',
   'export const vocabulary = [',
@@ -84,6 +88,7 @@ for (const card of next) {
   lines.push(`    meaning: ${jsString(card.meaning)},`)
   lines.push(`    example: ${jsString(card.example)},`)
   lines.push(`    exampleMeaning: ${jsString(card.exampleMeaning)},`)
+  if (card.register) lines.push(`    register: ${jsString(card.register)},`)
   lines.push(`    category: ${jsString(card.category)},`)
   lines.push('  },')
 }

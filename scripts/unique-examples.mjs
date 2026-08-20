@@ -1,3203 +1,807 @@
-/** Unique TOEFL-style example sentences, keyed by vocab id. */
+/**
+ * Original TOEFL-register examples (not ETS items).
+ * register: lecture | campus | reading
+ * Each value: [register, english, chinese]
+ */
 export const uniqueExamples = {
-  v001: [
-    'Biologists analyze soil samples before they plant a new crop.',
-    '生物學家在種植新作物之前會分析土壤樣本。',
-  ],
-  v002: [
-    'A new teaching approach helped quiet students speak more in class.',
-    '一種新的教學方法幫助較安靜的學生在課堂上多開口。',
-  ],
-  v003: [
-    'The study compared rainfall in a coastal area with that in the mountains.',
-    '這項研究比較了沿海地區與山區的降雨量。',
-  ],
-  v004: [
-    'Advisers assess each applicant’s writing before offering a scholarship.',
-    '顧問會在發放獎學金前評估每位申請者的寫作。',
-  ],
-  v005: [
-    'Do not assume the lecture will be recorded; many professors forbid it.',
-    '不要認定講座一定會被錄下來；許多教授禁止錄音。',
-  ],
-  v006: [
-    'The museum asked an authority on Egyptian art to check the statue.',
-    '博物館請一位埃及藝術權威來鑑定那座雕像。',
-  ],
-  v007: [
-    'Group rooms are available on weekends if you reserve them online.',
-    '週末的團體室可以使用，但必須先上網預約。',
-  ],
-  v008: [
-    'Regular sleep is a clear benefit of closing the library at midnight.',
-    '圖書館午夜關門的明顯益處是學生能規律睡眠。',
-  ],
-  v009: [
-    'The concept of supply and demand appears in almost every economics lecture.',
-    '供需這個概念幾乎出現在每一堂經濟學課裡。',
-  ],
-  v010: [
-    'A water molecule consists of two hydrogen atoms and one oxygen atom.',
-    '一個水分子由兩個氫原子和一個氧原子組成。',
-  ],
-  v011: [
-    'Women now constitute nearly half of the engineering graduating class.',
-    '女性現在構成工程系畢業班將近一半的人數。',
-  ],
-  v012: [
-    'Without historical context, the poem’s jokes are hard to understand.',
-    '沒有歷史情境，這首詩裡的玩笑就很難理解。',
-  ],
-  v013: [
-    'The athlete signed a two-year contract with the university team.',
-    '那位運動員與大學代表隊簽了兩年合約。',
-  ],
-  v014: [
-    'Design students create models from recycled cardboard and wire.',
-    '設計系學生用回收紙板和鐵絲創造模型。',
-  ],
-  v015: [
-    'The chart presents data from 3,000 households across five cities.',
-    '這張圖表呈現來自五座城市、三千戶家庭的數據。',
-  ],
-  v016: [
-    'Please define “urban heat island” in one sentence on the quiz.',
-    '請在測驗上用一句話定義「都市熱島」。',
-  ],
-  v017: [
-    'Many English scientific words derive from Latin or Greek roots.',
-    '許多英語科學詞彙衍生自拉丁或希臘字根。',
-  ],
-  v018: [
-    'Volunteers distribute water bottles at the finish line of the race.',
-    '志工在賽跑終點散佈（發放）瓶裝水。',
-  ],
-  v019: [
-    'Tourism is a major part of the island’s economy.',
-    '觀光是這座島嶼經濟的重要部分。',
-  ],
-  v020: [
-    'Plastic waste harms the ocean environment for decades.',
-    '塑膠廢棄物會傷害海洋環境數十年。',
-  ],
-  v021: [
-    'The city plans to establish a new public hospital near campus.',
-    '市政府計畫在校園附近建立一所新的公立醫院。',
-  ],
-  v022: [
-    'Engineers estimate that the bridge will last eighty years.',
-    '工程師估計這座橋可以使用八十年。',
-  ],
-  v023: [
-    'It is evident from the graph that summer temperatures are rising.',
-    '從圖表來看，夏季氣溫上升是明顯的。',
-  ],
-  v024: [
-    'The country decided to export extra rice after a record harvest.',
-    '在創紀錄的收成後，該國決定出口多餘的稻米。',
-  ],
-  v025: [
-    'Cost is only one factor when students choose a dormitory.',
-    '學生選宿舍時，費用只是因素之一。',
-  ],
-  v026: [
-    'She hopes to work in finance after completing her accounting degree.',
-    '她希望會計學位修完後從事金融工作。',
-  ],
-  v027: [
-    'The chemistry formula for table salt is NaCl.',
-    '食鹽的化學公式是 NaCl。',
-  ],
-  v028: [
-    'One function of roots is to hold the plant firmly in the soil.',
-    '根的一項功能是把植物穩穩固定在土壤裡。',
-  ],
-  v029: [
-    'Rangers identify bird species by their songs as well as their colors.',
-    '巡守員會靠鳥鳴和羽毛顏色來確認鳥種。',
-  ],
-  v030: [
-    'A higher minimum wage can raise family income in the short term.',
-    '提高最低工資短期內能提升家庭收入。',
-  ],
-  v031: [
-    'Dark clouds indicate that a storm may reach campus this afternoon.',
-    '烏雲表明今天下午暴風雨可能會抵達校園。',
-  ],
-  v032: [
-    'Each individual in the experiment wore a heart-rate monitor.',
-    '實驗中的每一個人都戴上心率監測器。',
-  ],
-  v033: [
-    'Readers must interpret the author’s tone, not only the facts.',
-    '讀者必須解釋作者的語氣，而不只是看事實。',
-  ],
-  v034: [
-    'Building the stadium will involve closing two campus roads.',
-    '興建體育場將涉及封閉兩條校園道路。',
-  ],
-  v035: [
-    'Housing costs have become a serious issue for first-year students.',
-    '住宿費用已成為一年級生的嚴重問題。',
-  ],
-  v036: [
-    'Farm labor is harder to find during the harvest season.',
-    '收成季節更難找到農業勞動力。',
-  ],
-  v037: [
-    'It is not legal to copy an entire textbook without permission.',
-    '未經許可複製整本教科書是不合法的。',
-  ],
-  v038: [
-    'Congress will legislate new rules for online privacy next year.',
-    '國會明年將為網路隱私立法訂定新規則。',
-  ],
-  v039: [
-    'Traffic is a major reason people move out of the downtown area.',
-    '交通是人們搬離市中心的主要原因。',
-  ],
-  v040: [
-    'The lab method requires heating the liquid slowly, not quickly.',
-    '這個實驗方法要求慢慢加熱液體，而不是快速加熱。',
-  ],
-  v041: [
-    'Earthquakes rarely occur in this part of the country.',
-    '這個國家的這個地區很少發生地震。',
-  ],
-  v042: [
-    'Only 12 percent of the survey respondents had visited the museum.',
-    '民調受訪者中只有百分之十二去過那座博物館。',
-  ],
-  v043: [
-    'The Romantic period in literature lasted through much of the 1800s.',
-    '文學上的浪漫時期延續了十九世紀的大部分時間。',
-  ],
-  v044: [
-    'The university’s new policy bans smoking anywhere on campus.',
-    '大學的新政策禁止在校園任何地方吸菸。',
-  ],
-  v045: [
-    'Fairness is a basic principle of the honor code.',
-    '公平是榮譽守則的基本原則。',
-  ],
-  v046: [
-    'After the fire alarm test, students may proceed to the next class.',
-    '火警測試結束後，學生可以繼續上下一堂課。',
-  ],
-  v047: [
-    'Photosynthesis is the process plants use to make food from sunlight.',
-    '光合作用是植物利用陽光製造養分的過程。',
-  ],
-  v048: [
-    'Most internships require students to work at least ten hours a week.',
-    '多數實習要求學生每週至少工作十小時。',
-  ],
-  v049: [
-    'Her research on coral reefs will be published next spring.',
-    '她關於珊瑚礁的研究將在明年春天發表。',
-  ],
-  v050: [
-    'Please respond to the email before Friday if you can attend.',
-    '若能出席，請在星期五前回應那封電子郵件。',
-  ],
-  v051: [
-    'Bees play an essential role in pollinating fruit trees.',
-    '蜜蜂在為果樹授粉上扮演不可或缺的角色。',
-  ],
-  v052: [
-    'Read the final section of the chapter before tomorrow’s quiz.',
-    '明天小考前請讀完這一章的最後部分。',
-  ],
-  v053: [
-    'Jobs in the health sector grew faster than jobs in manufacturing.',
-    '健康部門的工作成長速度快於製造業。',
-  ],
-  v054: [
-    'There was a significant drop in air pollution after the factory closed.',
-    '工廠關閉後，空氣汙染有了重要的下降。',
-  ],
-  v055: [
-    'The two dialects sound similar, but their grammar is not the same.',
-    '這兩種方言聽起來相似，但文法並不相同。',
-  ],
-  v056: [
-    'The Nile was the main source of water for ancient Egyptian farms.',
-    '尼羅河是古埃及農田的主要水源。',
-  ],
-  v057: [
-    'Give a specific date, not just “sometime next month.”',
-    '請給出具體日期，不要只說「下個月某個時候」。',
-  ],
-  v058: [
-    'The structure of the essay should include an introduction and a conclusion.',
-    '文章結構應包含引言與結論。',
-  ],
-  v059: [
-    'Darwin’s theory of natural selection changed biology forever.',
-    '達爾文的天擇理論徹底改變了生物學。',
-  ],
-  v060: [
-    'Ticket prices vary depending on the day of the week.',
-    '票價會依星期幾而各不相同。',
-  ],
-  v061: [
-    'She worked nights to achieve a high score on the TOEFL.',
-    '她晚上加班讀書，才達到托福高分。',
-  ],
-  v062: [
-    'Children acquire a first language without formal grammar lessons.',
-    '兒童不必上正式文法課就能獲得第一語言。',
-  ],
-  v063: [
-    'The dean must administrate three departments with one small office.',
-    '院長必須用一間小辦公室管理三個系所。',
-  ],
-  v064: [
-    'Late nights affect memory the next day in class.',
-    '熬夜會影響隔天課堂上的記憶力。',
-  ],
-  v065: [
-    'A short-sleeved shirt is not appropriate for a job interview.',
-    '短袖襯衫不適合用在求職面試。',
-  ],
-  v066: [
-    'Cost is one aspect of the problem; safety is another.',
-    '成本是問題的一個方面，安全則是另一個。',
-  ],
-  v067: [
-    'Tutors assist students who struggle with calculus homework.',
-    '家教會協助微積分作業有困難的學生。',
-  ],
-  v068: [
-    'Put each bird species into the correct category on the worksheet.',
-    '請把每種鳥歸入工作紙上正確的類別。',
-  ],
-  v069: [
-    'Chapter four explains how glaciers shape valleys.',
-    '第四章說明冰川如何塑造山谷。',
-  ],
-  v070: [
-    'A campus commission will review the new dining-hall menu.',
-    '校園委員會將審查新的餐廳菜單。',
-  ],
-  v071: [
-    'The library runs a reading community for international students.',
-    '圖書館為國際學生辦了一個閱讀社群。',
-  ],
-  v072: [
-    'The math proof looks simple, but the idea behind it is complex.',
-    '這道數學證明看起來簡單，背後的想法卻很複雜。',
-  ],
-  v073: [
-    'The software can compute the average in less than a second.',
-    '這個軟體能在不到一秒內計算出平均值。',
-  ],
-  v074: [
-    'From the experiment, we can conclude that plants need darkness as well as light.',
-    '從實驗我們可以得出結論：植物也需要黑暗，而不只需要光。',
-  ],
-  v075: [
-    'The team will conduct interviews with fifty bus drivers.',
-    '這個團隊將對五十位公車司機執行訪談。',
-  ],
-  v076: [
-    'Flooding was a consequent problem after the dam failed.',
-    '水壩潰堤後，淹水成了隨之而來的問題。',
-  ],
-  v077: [
-    'Beavers construct dams from logs, mud, and stones.',
-    '河狸用木頭、泥土和石頭構造水壩。',
-  ],
-  v078: [
-    'Air conditioners consume a large share of summer electricity.',
-    '冷氣在夏季消耗很大比例的電力。',
-  ],
-  v079: [
-    'You must show a credit card to check into the conference hotel.',
-    '入住研討會飯店時必須出示信用卡。',
-  ],
-  v080: [
-    'Food, music, and holidays are all parts of culture.',
-    '食物、音樂和節日都是文化的一部分。',
-  ],
-  v081: [
-    'Architects design buildings that stay cool without much air-conditioning.',
-    '建築師設計幾乎不靠冷氣也能保持涼爽的建築。',
-  ],
-  v082: [
-    'Each fingerprint has a distinct pattern.',
-    '每一枚指紋都有清楚不同的圖案。',
-  ],
-  v083: [
-    'Carbon is an element found in all living things.',
-    '碳是所有生物體內都有的元素。',
-  ],
-  v084: [
-    'You cannot equate a high test score with deep understanding.',
-    '你不能把高分等同於深刻的理解。',
-  ],
-  v085: [
-    'Teachers evaluate essays for organization as well as grammar.',
-    '老師評價作文時會看組織，而不只看文法。',
-  ],
-  v086: [
-    'A long neck is a famous feature of the giraffe.',
-    '長脖子是長頸鹿著名的特徵。',
-  ],
-  v087: [
-    'The final exam will cover every lecture from September.',
-    '期末考會涵蓋九月以來的每一堂課。',
-  ],
-  v088: [
-    'Tonight’s lecture will focus on river pollution.',
-    '今晚講座的重點是河流汙染。',
-  ],
-  v089: [
-    'Social media can have a strong impact on teenage sleep.',
-    '社群媒體對青少年睡眠可能有強烈影響。',
-  ],
-  v090: [
-    'A fall from the bike path can injure a rider’s wrist.',
-    '從自行車道摔下來可能損傷騎士的手腕。',
-  ],
-  v091: [
-    'She joined a research institute that studies climate change.',
-    '她加入了一所研究氣候變遷的研究所。',
-  ],
-  v092: [
-    'Families invest in education because it can raise future income.',
-    '家庭投資教育，因為它能提高未來收入。',
-  ],
-  v093: [
-    'Each item on the packing list must be checked twice.',
-    '打包清單上的每一件物品都必須核對兩次。',
-  ],
-  v094: [
-    'His article appeared in a well-known science journal.',
-    '他的文章刊登在一本知名科學雜誌上。',
-  ],
-  v095: [
-    'You must maintain a B average to keep the scholarship.',
-    '要保住獎學金，你必須維持平均 B。',
-  ],
-  v096: [
-    'A resting heart rate of 70 is considered normal for many adults.',
-    '靜止心率 70 對許多成人來說被視為普通、正常的。',
-  ],
-  v097: [
-    'Students can obtain a bus pass at the campus information desk.',
-    '學生可以在校園服務台獲得公車證。',
-  ],
-  v098: [
-    'All first-year students must participate in the safety workshop.',
-    '所有一年級生都必須參加安全工作坊。',
-  ],
-  v099: [
-    'Some people perceive silence as rudeness, while others see it as respect.',
-    '有些人把沉默感知為無禮，有些人則視為尊重。',
-  ],
-  v100: [
-    'The coach stayed positive even after the team lost two games.',
-    '即使連輸兩場，教練仍保持積極。',
-  ],
-  v101: [
-    'Wind farms have the potential to supply a town’s electricity.',
-    '風力發電場有潛力供應一座小鎮的電力。',
-  ],
-  v102: [
-    'Please bring your previous lab report when you redo the experiment.',
-    '重做實驗時請帶上以前的實驗報告。',
-  ],
-  v103: [
-    'The primary reason for the delay was a shortage of parts.',
-    '延誤的基本原因是零件短缺。',
-  ],
-  v104: [
-    'Students may purchase used textbooks at the campus bookstore.',
-    '學生可以在校園書店購買二手教科書。',
-  ],
-  v105: [
-    'Mountain temperatures range from freezing nights to warm afternoons.',
-    '山區氣溫範圍從夜晚冰點到午後溫暖。',
-  ],
-  v106: [
-    'This desert region receives almost no rain in summer.',
-    '這個沙漠地區夏天幾乎不下雨。',
-  ],
-  v107: [
-    'New rules regulate how much water farmers may take from the river.',
-    '新規定調節農民可從河裡取用的水量。',
-  ],
-  v108: [
-    'Only include sources that are relevant to your research question.',
-    '只列入與研究問題相關的資料來源。',
-  ],
-  v109: [
-    'Many seabirds reside on the cliffs during the nesting season.',
-    '許多海鳥在築巢季節居住在懸崖上。',
-  ],
-  v110: [
-    'Clean water is a limited resource in dry years.',
-    '乾旱年裡，乾淨的水是有限的資源。',
-  ],
-  v111: [
-    'The park will restrict camping to designated sites only.',
-    '公園將把露營限制在指定地點。',
-  ],
-  v112: [
-    'Keep your laptop in a secure locker during the gym class.',
-    '上體育課時把筆電放在安全的置物櫃裡。',
-  ],
-  v113: [
-    'Patients often seek a second opinion before surgery.',
-    '病人開刀前常常尋找第二意見。',
-  ],
-  v114: [
-    'Select the graph that best matches the data table.',
-    '選擇最符合資料表的那張圖。',
-  ],
-  v115: [
-    'The new dorm will be built on the site of the old parking lot.',
-    '新宿舍將蓋在舊停車場的地點上。',
-  ],
-  v116: [
-    'A good study strategy is to review notes the same day as class.',
-    '好的讀書策略是當天就複習課堂筆記。',
-  ],
-  v117: [
-    'The city ran a survey about adding more bicycle lanes.',
-    '市政府針對增設自行車道做了一份民調。',
-  ],
-  v118: [
-    'Highlight key terms when you read a dense academic text.',
-    '閱讀艱深的學術文字時，請把關鍵詞畫起來。',
-  ],
-  v119: [
-    'Tea ceremonies remain an important tradition in the region.',
-    '茶道在這個地區仍是重要的傳統。',
-  ],
-  v120: [
-    'You can transfer unused meal credits to next semester.',
-    '未用完的餐點點數可以轉移到下學期。',
-  ],
-  v121: [
-    'If the bus is late, walking is a reasonable alternative.',
-    '如果公車誤點，走路是合理的選擇。',
-  ],
-  v122: [
-    'Under the circumstance of a snowstorm, classes may move online.',
-    '在暴風雪的情況下，課程可能改為線上。',
-  ],
-  v123: [
-    'The professor’s only comment on my draft was “add more evidence.”',
-    '教授對我草稿的唯一評論是「多加證據」。',
-  ],
-  v124: [
-    'The airline will compensate passengers for the canceled flight.',
-    '航空公司將補償因航班取消而受影響的乘客。',
-  ],
-  v125: [
-    'Steel is a key component of modern bridges.',
-    '鋼鐵是現代橋梁的關鍵成分。',
-  ],
-  v126: [
-    'You need parental consent to join the overnight field trip.',
-    '參加過夜校外教學需要家長同意。',
-  ],
-  v127: [
-    'There has been a considerable increase in electric-bus use.',
-    '電動公車的使用有了大量增加。',
-  ],
-  v128: [
-    'The machine makes a constant humming sound even at night.',
-    '這台機器即使在晚上也發出持續的嗡嗡聲。',
-  ],
-  v129: [
-    'Budget limits constrain how many books the library can buy.',
-    '預算限制約束了圖書館能買多少書。',
-  ],
-  v130: [
-    'Alumni contribute money to fund new scholarships.',
-    '校友捐款貢獻於新獎學金。',
-  ],
-  v131: [
-    'Department chairs will convene on Monday to set the exam calendar.',
-    '系主任週一將召開會議訂定考試行事曆。',
-  ],
-  v132: [
-    'A project manager must coordinate designers, builders, and clients.',
-    '專案經理必須協調設計師、施工者與客戶。',
-  ],
-  v133: [
-    'Trust is at the core of a good research partnership.',
-    '信任是良好研究夥伴關係的核心。',
-  ],
-  v134: [
-    'She left a corporate job to teach high-school science.',
-    '她離開公司職位，去教高中科學。',
-  ],
-  v135: [
-    'The peaks on the graph correspond to days with heavy rain.',
-    '圖上的高峰對應大雨的日子。',
-  ],
-  v136: [
-    'Clear criteria make grading essays less subjective.',
-    '清楚的標準能讓作文評分較不主觀。',
-  ],
-  v137: [
-    'From the wet streets, we can deduce that it rained last night.',
-    '從濕漉漉的街道，我們可以推論昨晚下過雨。',
-  ],
-  v138: [
-    'The experiment will demonstrate how salt lowers the freezing point.',
-    '這個實驗將證明鹽如何降低冰點。',
-  ],
-  v139: [
-    'Keep every document related to your visa in one folder.',
-    '把所有與簽證有關的文件放在同一個資料夾。',
-  ],
-  v140: [
-    'A few large companies dominate the smartphone market.',
-    '少數幾家大公司支配智慧型手機市場。',
-  ],
-  v141: [
-    'The lecture placed emphasis on practice, not on memorizing rules.',
-    '這堂課把強調放在練習，而不是背規則。',
-  ],
-  v142: [
-    'Lock the lab door to ensure no one enters without training.',
-    '鎖上實驗室的門，以確保未經訓練者無法進入。',
-  ],
-  v143: [
-    'The study will exclude anyone younger than eighteen.',
-    '這項研究將排除未滿十八歲的人。',
-  ],
-  v144: [
-    'A public fund pays for repairs to the old concert hall.',
-    '一筆公共基金支付舊音樂廳的修繕費用。',
-  ],
-  v145: [
-    'Use this framework to organize your speaking response.',
-    '用這個框架來組織你的口說回答。',
-  ],
-  v146: [
-    'A simple drawing can illustrate how blood moves through the heart.',
-    '一張簡單的圖就能闡明血液如何通過心臟。',
-  ],
-  v147: [
-    'People immigrate for work, study, or family reasons.',
-    '人們因工作、讀書或家庭因素而移民。',
-  ],
-  v148: [
-    'His silence seemed to imply disagreement, though he never said no.',
-    '他的沉默似乎意味著不同意，雖然他從未說不。',
-  ],
-  v149: [
-    'The initial results look promising, but we need a larger sample.',
-    '最初的結果看起來有希望，但我們需要更大的樣本。',
-  ],
-  v150: [
-    'The giraffe’s neck is a classic instance of adaptation.',
-    '長頸鹿的脖子是適應的經典實例。',
-  ],
-  v151: [
-    'Bees and flowers interact in a way that helps both species.',
-    '蜜蜂與花朵相互影響，對雙方都有幫助。',
-  ],
-  v152: [
-    'You must justify every cut you make in the budget.',
-    '預算裡的每一筆刪減都必須提出理由來證明合理。',
-  ],
-  v153: [
-    'Each layer of rock records a different period of Earth’s history.',
-    '每一層岩石都記錄了地球歷史的不同時期。',
-  ],
-  v154: [
-    'Researchers found a link between sleep loss and weaker attention.',
-    '研究人員發現睡眠不足與注意力變差的關聯。',
-  ],
-  v155: [
-    'Use the map to locate the nearest emergency exit.',
-    '用地圖定位最近的緊急出口。',
-  ],
-  v156: [
-    'Stores maximize profits by placing snacks near the checkout.',
-    '商店把零食放在結帳處附近，以最大化利潤。',
-  ],
-  v157: [
-    'Spelling errors are a minor problem compared with unclear ideas.',
-    '與思路不清相比，拼寫錯誤只是次要問題。',
-  ],
-  v158: [
-    'One counterexample can negate a careless general claim.',
-    '一個反例就能否定草率的概括主張。',
-  ],
-  v159: [
-    'The unexpected outcome of the experiment surprised the whole lab.',
-    '實驗出人意料的結果讓整個實驗室都感到意外。',
-  ],
-  v160: [
-    'She found a research partner who shares her interest in glaciers.',
-    '她找到一位同樣對冰川感興趣的研究夥伴。',
-  ],
-  v161: [
-    'The course introduces the philosophy of science, not only lab skills.',
-    '這門課介紹科學哲學，而不只是實驗技巧。',
-  ],
-  v162: [
-    'Physical activity after lunch can make afternoon classes easier.',
-    '午餐後的身體活動能讓下午的課比較好上。',
-  ],
-  v163: [
-    'A large proportion of the budget goes to student housing.',
-    '預算中很大一部分用於學生宿舍。',
-  ],
-  v164: [
-    'The newspaper will publish the interview on Sunday.',
-    '報紙將在星期日發布這篇訪談。',
-  ],
-  v165: [
-    'Some metals react with water and should be stored carefully.',
-    '有些金屬會與水反應，必須小心存放。',
-  ],
-  v166: [
-    'You must register for the workshop by Wednesday.',
-    '你必須在星期三前登記工作坊。',
-  ],
-  v167: [
-    'Hikers should not rely on a single bottle of water in summer heat.',
-    '夏季炎熱時，健行者不該只依靠一瓶水。',
-  ],
-  v168: [
-    'Please remove your bags from the aisle before the lecture starts.',
-    '講座開始前請把袋子從走道上拿走。',
-  ],
-  v169: [
-    'The city launched a scheme to plant trees along every bus route.',
-    '市政府推出沿每條公車路線種樹的方案。',
-  ],
-  v170: [
-    'Press the buttons in the correct sequence or the lock will not open.',
-    '必須按正確順序按鈕，鎖才會打開。',
-  ],
-  v171: [
-    'The study reported results for both sex groups, female and male.',
-    '這項研究分別報告了兩個性別組別（女性與男性）的結果。',
-  ],
-  v172: [
-    'A sudden shift in wind direction made sailing dangerous.',
-    '風向突然轉移，讓航行變得危險。',
-  ],
-  v173: [
-    'Please specify whether you need a vegetarian meal.',
-    '請指定你是否需要素食餐。',
-  ],
-  v174: [
-    'Two hours is sufficient to finish the practice test.',
-    '兩小時足夠完成這份練習測驗。',
-  ],
-  v175: [
-    'Your first task is to summarize the listening lecture in three sentences.',
-    '你的第一項任務是用三句話摘要聽力講座。',
-  ],
-  v176: [
-    'The manual uses technical language that beginners may not know.',
-    '手冊使用初學者可能不懂的技術用語。',
-  ],
-  v177: [
-    'A simple breathing technique can reduce speaking anxiety.',
-    '一個簡單的呼吸技巧能降低口說焦慮。',
-  ],
-  v178: [
-    'New battery technology is making electric buses cheaper to run.',
-    '新的電池科技讓電動公車的營運更便宜。',
-  ],
-  v179: [
-    'A student ID is valid identification at the campus clinic.',
-    '學生證在校園診所是有效的身分證明。',
-  ],
-  v180: [
-    'Turn down the volume so people in the next room can study.',
-    '把音量轉小，好讓隔壁房間的人能讀書。',
-  ],
-  v181: [
-    'Alumni lose library access one year after graduation.',
-    '校友畢業一年後就失去圖書館使用權。',
-  ],
-  v182: [
-    'Your draft is adequate for peer review, but it still needs examples.',
-    '你的草稿足夠拿去同儕互評，但仍需要例子。',
-  ],
-  v183: [
-    'The club holds an annual concert to raise money for scholarships.',
-    '這個社團每年舉辦音樂會為獎學金募款。',
-  ],
-  v184: [
-    'It was apparent that the microphone was not working.',
-    '麥克風壞了是明顯的。',
-  ],
-  v185: [
-    'The map shows only approximate distances, not exact meters.',
-    '這張地圖只顯示近似距離，不是精確的公尺數。',
-  ],
-  v186: [
-    'A calm attitude during the interview can impress the committee.',
-    '面試時冷靜的態度能給委員會留下好印象。',
-  ],
-  v187: [
-    'Honesty is the attribute her letters of recommendation mention most.',
-    '誠實是推薦信最常提到的特質。',
-  ],
-  v188: [
-    'The dispute was a civil case, not a criminal one.',
-    '這場爭議是民事案件，不是刑事案件。',
-  ],
-  v189: [
-    'Each student received a unique code to enter the online quiz.',
-    '每位學生都拿到一組進入線上測驗的專屬代碼。',
-  ],
-  v190: [
-    'Drivers who commit a serious traffic offense may lose their license.',
-    '犯下嚴重交通違規的駕駛可能被吊銷執照。',
-  ],
-  v191: [
-    'Lab partners must communicate clearly during a timed experiment.',
-    '實驗限時進行時，組員必須清楚交流。',
-  ],
-  v192: [
-    'It is hard to concentrate when the construction noise is this loud.',
-    '施工噪音這麼大時，很難集中精神。',
-  ],
-  v193: [
-    'The university will confer degrees at Saturday’s ceremony.',
-    '大學將在星期六的典禮上授予學位。',
-  ],
-  v194: [
-    'Contrast the two theories in a short paragraph.',
-    '用一小段文字對比這兩種理論。',
-  ],
-  v195: [
-    'The water cycle moves moisture from ocean to cloud to rain.',
-    '水循環把水氣從海洋帶到雲，再變成雨。',
-  ],
-  v196: [
-    'The class held a debate on whether zoos help or harm animals.',
-    '課堂上就動物園對動物是幫助還是傷害進行辯論。',
-  ],
-  v197: [
-    'Despite the rain, the outdoor concert continued.',
-    '儘管下雨，戶外音樂會仍繼續舉行。',
-  ],
-  v198: [
-    'Height is only one dimension of the sculpture; color is another.',
-    '高度只是這座雕塑的一個方面，顏色是另一個。',
-  ],
-  v199: [
-    'Domestic flights are cheaper than international ones this month.',
-    '這個月國內航班比國際航班便宜。',
-  ],
-  v200: [
-    'New evidence began to emerge after the glacier melted.',
-    '冰川融化後，新的證據開始出現。',
-  ],
-  v201: [
-    'A small error in the formula produced a completely wrong graph.',
-    '公式裡一個小錯誤就畫出完全錯誤的圖。',
-  ],
-  v202: [
-    'The festival celebrates several ethnic traditions in one weekend.',
-    '這個節慶在同一個週末慶祝多種族群傳統。',
-  ],
-  v203: [
-    'Her goal is to finish the research paper before spring break.',
-    '她的目標是在春假前完成研究報告。',
-  ],
-  v204: [
-    'The foundation will grant $5,000 to the best environmental project.',
-    '基金會將授予最佳環保專案五千美元。',
-  ],
-  v205: [
-    'The road was closed; hence the bus took a longer route.',
-    '路被封了，因此公車改走較長的路線。',
-  ],
-  v206: [
-    'The hypothesis was that extra sleep would improve quiz scores.',
-    '這個假設是：多睡一點會提高小考分數。',
-  ],
-  v207: [
-    'The city will implement the recycling plan in March.',
-    '市政府將在三月實施回收計畫。',
-  ],
-  v208: [
-    'The report did not implicate the students in the lab accident.',
-    '報告並未把學生牽連進實驗室意外。',
-  ],
-  v209: [
-    'The new rule will impose a fine on littering in the park.',
-    '新規定將對公園亂丟垃圾強加罰款。',
-  ],
-  v210: [
-    'The course tries to integrate history with economics.',
-    '這門課試圖把歷史與經濟學整合在一起。',
-  ],
-  v211: [
-    'Only internal mail can be sent through that campus system.',
-    '那個校園系統只能寄內部郵件。',
-  ],
-  v212: [
-    'Detectives investigate the cause of the warehouse fire.',
-    '探員調查倉庫火災的原因。',
-  ],
-  v213: [
-    'Sweating is a cooling mechanism in hot weather.',
-    '出汗是炎熱天氣中的冷卻機制。',
-  ],
-  v214: [
-    'Protesters occupy the square until the mayor answers them.',
-    '抗議者佔據廣場，直到市長回應為止。',
-  ],
-  v215: [
-    'Taking the later train is your safest option tonight.',
-    '今晚搭較晚的那班火車是你最安全的選項。',
-  ],
-  v216: [
-    'The factory reduced waste without cutting its daily output.',
-    '工廠在不減少每日產出的情況下降低廢棄物。',
-  ],
-  v217: [
-    'The overall trend is that winters are getting shorter.',
-    '全面的趨勢是冬天愈來愈短。',
-  ],
-  v218: [
-    'The two roads run parallel to the river for several miles.',
-    '這兩條路與河流平行延伸數英里。',
-  ],
-  v219: [
-    'Set the temperature as a parameter in the climate model.',
-    '在氣候模型裡把溫度設為一個參數。',
-  ],
-  v220: [
-    'The project is still in the planning phase.',
-    '這個專案仍處於規劃階段。',
-  ],
-  v221: [
-    'Weather models can predict a hurricane’s path a few days ahead.',
-    '氣象模型能提前幾天預測颶風路徑。',
-  ],
-  v222: [
-    'The principal dancer missed the rehearsal because of illness.',
-    '主要舞者因病缺席排練。',
-  ],
-  v223: [
-    'Read the chapter prior to the lecture so you can ask better questions.',
-    '請在上課前先讀那一章，才能問出更好的問題。',
-  ],
-  v224: [
-    'A professional editor checked the paper before submission.',
-    '專業編輯在投稿前檢查了這篇論文。',
-  ],
-  v225: [
-    'Our group project is to design a cheaper water filter.',
-    '我們的小組專案是設計更便宜的濾水器。',
-  ],
-  v226: [
-    'Posters in the cafeteria promote healthy lunch choices.',
-    '餐廳海報推動健康的午餐選擇。',
-  ],
-  v227: [
-    'The new regime changed the way news was reported on television.',
-    '新政權改變了電視新聞的報導方式。',
-  ],
-  v228: [
-    'Mediators helped the two departments resolve the scheduling conflict.',
-    '調解人幫助兩個系所解決了排課衝突。',
-  ],
-  v229: [
-    'Some plants retain water in thick leaves during a drought.',
-    '有些植物在乾旱時把水保持在肥厚的葉子裡。',
-  ],
-  v230: [
-    'The museum is showing a series of photographs from the 1920s.',
-    '博物館正在展出一系列一九二〇年代的照片。',
-  ],
-  v231: [
-    'One statistic stood out: half the students skip breakfast.',
-    '有一項統計格外醒目：一半的學生不吃早餐。',
-  ],
-  v232: [
-    'Her status as a visiting scholar gives her library privileges.',
-    '她作為訪問學者的身分讓她享有圖書館權限。',
-  ],
-  v233: [
-    'Exam week increases stress, so the gym stays open later.',
-    '考試週會增加壓力，所以健身房開更晚。',
-  ],
-  v234: [
-    'In the subsequent chapter, the author explains the experiment.',
-    '在隨後的一章，作者說明了實驗。',
-  ],
-  v235: [
-    'The sum of the three angles in a triangle is 180 degrees.',
-    '三角形三個角的和是一百八十度。',
-  ],
-  v236: [
-    'Write a one-paragraph summary of the listening lecture.',
-    '用一段話寫出聽力講座的概括。',
-  ],
-  v237: [
-    'Few students undertake a double major in physics and music.',
-    '很少學生承擔物理與音樂的雙主修。',
-  ],
-  v238: [
-    'She trained at a military academy before studying engineering.',
-    '她在讀工程之前先在一所軍事學院受訓。',
-  ],
-  v239: [
-    'You may need to adjust the microscope to see the cells clearly.',
-    '你可能需要調整顯微鏡才能清楚看到細胞。',
-  ],
-  v240: [
-    'A small change in diet can alter energy levels during the day.',
-    '飲食上的小改變就能改變白天的精力。',
-  ],
-  v241: [
-    'The committee will amend the club rules at Thursday’s meeting.',
-    '委員會將在週四會議修正社團規則。',
-  ],
-  v242: [
-    'Many drivers are not aware of how tired they are at night.',
-    '許多駕駛沒有意識到自己晚上有多疲倦。',
-  ],
-  v243: [
-    'The hall’s seating capacity is only 200 people.',
-    '禮堂的座位數容量只有兩百人。',
-  ],
-  v244: [
-    'Finding cheap housing near campus is a real challenge.',
-    '在校園附近找到便宜住宿是真正的挑戰。',
-  ],
-  v245: [
-    'Read the final clause of the contract before you sign.',
-    '簽名前請讀合約的最後一條條款。',
-  ],
-  v246: [
-    'Water is a compound made of hydrogen and oxygen.',
-    '水是由氫和氧組成的化合物。',
-  ],
-  v247: [
-    'A conflict between two clubs delayed the booking of the hall.',
-    '兩個社團的衝突延誤了禮堂預約。',
-  ],
-  v248: [
-    'Please consult a librarian if you cannot find the journal.',
-    '若找不到那本期刊，請諮詢圖書館員。',
-  ],
-  v249: [
-    'Avoid contact with the chemical unless you wear gloves.',
-    '除非戴手套，否則避免接觸那種化學物質。',
-  ],
-  v250: [
-    'Bird numbers decline when wetlands are drained.',
-    '濕地被排乾時，鳥類數量會衰退。',
-  ],
-  v251: [
-    'The survey used discrete categories rather than a sliding scale.',
-    '這份調查使用離散類別，而不是連續量表。',
-  ],
-  v252: [
-    'Save each draft of your essay so you can compare versions.',
-    '作文的每一份草稿都要存檔，才能比較版本。',
-  ],
-  v253: [
-    'Subtitles enable students to follow fast English lectures.',
-    '字幕使學生能夠跟上語速快的英語講座。',
-  ],
-  v254: [
-    'Solar panels convert sunlight into electrical energy.',
-    '太陽能板把陽光轉成電能。',
-  ],
-  v255: [
-    'Guards enforce the rule that helmets must be worn in the lab.',
-    '管理員執行實驗室必須戴頭盔的規定。',
-  ],
-  v256: [
-    'A university is a legal entity that can own property.',
-    '大學是可以擁有財產的法律實體。',
-  ],
-  v257: [
-    'One kilometer is equivalent to about 0.62 miles.',
-    '一公里約等於 0.62 英里。',
-  ],
-  v258: [
-    'Languages evolve as speakers borrow words from neighbors.',
-    '語言會隨著使用者向鄰近族群借詞而發展。',
-  ],
-  v259: [
-    'The airport will expand the terminal to handle more passengers.',
-    '機場將擴張航廈以容納更多旅客。',
-  ],
-  v260: [
-    'Do not expose the film to sunlight before it is developed.',
-    '底片顯影前不要暴露在陽光下。',
-  ],
-  v261: [
-    'An external hard drive can back up all of your project files.',
-    '外接硬碟可以備份你全部的專案檔。',
-  ],
-  v262: [
-    'Clear signs facilitate wayfinding for first-time visitors.',
-    '清楚的標示能促進初次來訪者找到路。',
-  ],
-  v263: [
-    'Clean water is a fundamental human need.',
-    '乾淨的水是基本的人類需求。',
-  ],
-  v264: [
-    'Dams generate electricity as water turns the turbines.',
-    '水推動渦輪時，水壩就產生電力。',
-  ],
-  v265: [
-    'Each generation of phones gets thinner and faster.',
-    '每一代手機都變得更薄、更快。',
-  ],
-  v266: [
-    'The satellite image shows smoke spreading from the forest fire.',
-    '衛星影像顯示森林火災的煙霧在擴散。',
-  ],
-  v267: [
-    'The newspaper has a liberal editorial page and a conservative one.',
-    '這份報紙有自由派社論版，也有保守派社論版。',
-  ],
-  v268: [
-    'You need a driving licence to rent a car for the field trip.',
-    '租車參加校外教學需要駕照。',
-  ],
-  v269: [
-    'The puzzle can be solved with simple logic, not guesswork.',
-    '這個謎題可以用簡單邏輯解開，不必猜。',
-  ],
-  v270: [
-    'The store operates on a thin profit margin in winter.',
-    '這家店冬天的利潤很薄。',
-  ],
-  v271: [
-    'She is applying to medical school after two years of research.',
-    '做了兩年研究後，她正在申請醫學院。',
-  ],
-  v272: [
-    'Long exams test mental stamina as well as knowledge.',
-    '長時間考試考驗精神耐力，而不只是知識。',
-  ],
-  v273: [
-    'Please modify the title so it matches the essay’s actual topic.',
-    '請調整標題，讓它符合文章真正的主題。',
-  ],
-  v274: [
-    'Nurses monitor the patient’s temperature every four hours.',
-    '護理師每四小時監測病人的體溫。',
-  ],
-  v275: [
-    'A subway network connects the airport to downtown.',
-    '地鐵網路把機場連到市中心。',
-  ],
-  v276: [
-    'The notion that the Earth is flat has been rejected by science.',
-    '地球是平的這個概念已被科學否定。',
-  ],
-  v277: [
-    'Keep the tone objective; do not write “I hate this theory.”',
-    '語氣要客觀，不要寫「我討厭這個理論」。',
-  ],
-  v278: [
-    'New students need time to orient themselves on a large campus.',
-    '新生需要時間在廣大校園裡為自己定向。',
-  ],
-  v279: [
-    'From a farmer’s perspective, the drought began much earlier.',
-    '從農人的看法來看，乾旱開始得更早。',
-  ],
-  v280: [
-    'Give a precise measurement, not “about this long.”',
-    '請給出精確的測量，不要只說「大概這麼長」。',
-  ],
-  v281: [
-    'The prime suspect in the theft was a former employee.',
-    '竊案的主要嫌疑人是一名前員工。',
-  ],
-  v282: [
-    'She majored in psychology to study how memory works.',
-    '她主修心理學，研究記憶如何運作。',
-  ],
-  v283: [
-    'He left a high-paying job to pursue a degree in music.',
-    '他辭去高薪工作去追求音樂學位。',
-  ],
-  v284: [
-    'The ratio of students to teachers in the seminar is 8 to 1.',
-    '研討課的師生比率是八比一。',
-  ],
-  v285: [
-    'The journal may reject papers that lack original data.',
-    '缺少原創資料的論文可能被期刊拒絕。',
-  ],
-  v286: [
-    'Ticket sales provide most of the theater’s revenue.',
-    '售票收入提供了劇院大部分的營收。',
-  ],
-  v287: [
-    'Prices remained stable after the new tax was introduced.',
-    '新稅推出後，物價保持穩定。',
-  ],
-  v288: [
-    'The architect’s style mixes glass walls with wooden beams.',
-    '這位建築師的風格把玻璃牆與木梁混在一起。',
-  ],
-  v289: [
-    'You may substitute almond milk if you are allergic to dairy.',
-    '若對乳製品過敏，可以用杏仁奶代替。',
-  ],
-  v290: [
-    'A rainforest can sustain thousands of insect species.',
-    '熱帶雨林能維持數千種昆蟲。',
-  ],
-  v291: [
-    'The olive branch is a symbol of peace in many cultures.',
-    '橄欖枝在許多文化中是和平的象徵。',
-  ],
-  v292: [
-    'The campaign’s target is to plant one million trees.',
-    '這項活動的目標是種一百萬棵樹。',
-  ],
-  v293: [
-    'Goods in transit were delayed by the port strike.',
-    '運送中的貨物因港口罷工而延誤。',
-  ],
-  v294: [
-    'There is a trend toward later marriage in large cities.',
-    '大城市有晚婚的趨勢。',
-  ],
-  v295: [
-    'Download the latest version of the app before class.',
-    '上課前請下載應用程式的最新版本。',
-  ],
-  v296: [
-    'The new welfare program helps families pay for childcare.',
-    '新的福利計畫幫助家庭支付托育費用。',
-  ],
-  v297: [
-    'Cats hunt at night, whereas most songbirds are active by day.',
-    '貓在夜間打獵，然而多數鳴禽白天活動。',
-  ],
-  v298: [
-    'Justice is an abstract idea, but court cases are very concrete.',
-    '正義是抽象的概念，但法庭案件非常具體。',
-  ],
-  v299: [
-    'An accurate map is essential for hiking in fog.',
-    '在霧中健行，準確的地圖必不可少。',
-  ],
-  v300: [
-    'The mayor had to acknowledge the mistake in the budget report.',
-    '市長必須承認預算報告中的錯誤。',
-  ],
-  v301: [
-    'The aggregate score from three quizzes will determine the grade.',
-    '三次小考的總分將決定成績。',
-  ],
-  v302: [
-    'The dean will allocate extra tutors to the largest lecture class.',
-    '院長會把額外的助教分配給最大的大堂課。',
-  ],
-  v303: [
-    'Each student was assigned a different century to research.',
-    '每位學生被分配到不同的世紀去做研究。',
-  ],
-  v304: [
-    'Attach the receipt to your reimbursement form.',
-    '把收據附在報銷表上。',
-  ],
-  v305: [
-    'The author of the novel visited campus for a public reading.',
-    '這本小說的作者來校園做公開朗讀。',
-  ],
-  v306: [
-    'Shared meals can strengthen the bond between roommates.',
-    '一起吃飯能加強室友之間的紐帶。',
-  ],
-  v307: [
-    'Keep your oral introduction brief—no more than thirty seconds.',
-    '口說引言要簡短，不要超過三十秒。',
-  ],
-  v308: [
-    'She is capable of running the lab when the professor is away.',
-    '教授不在時，她有能力掌管實驗室。',
-  ],
-  v309: [
-    'Always cite the original study, not a blog that mentions it.',
-    '一定要引用原始研究，不要引用提到它的部落格。',
-  ],
-  v310: [
-    'Two departments will cooperate on the new climate course.',
-    '兩個系所將合作開設新的氣候課程。',
-  ],
-  v311: [
-    'Trained listeners can discriminate between similar vowel sounds.',
-    '受過訓練的聽者能辨析相似的母音。',
-  ],
-  v312: [
-    'The museum will display the fossil for only two weeks.',
-    '博物館只會展示這件化石兩週。',
-  ],
-  v313: [
-    'Rainforests are famous for their diversity of plants.',
-    '熱帶雨林以植物多樣性聞名。',
-  ],
-  v314: [
-    'Cybersecurity is now a major domain of computer science.',
-    '網路安全現在是電腦科學的重要領域。',
-  ],
-  v315: [
-    'Please edit the paragraph to remove repeated words.',
-    '請編輯這一段，刪掉重複的詞。',
-  ],
-  v316: [
-    'Street trees enhance air quality in dense neighborhoods.',
-    '行道樹能提高密集住宅區的空氣品質。',
-  ],
-  v317: [
-    'The old farm became a housing estate after the city expanded.',
-    '城市擴張後，那座舊農場變成住宅區。',
-  ],
-  v318: [
-    'Do not exceed the word limit on the writing task.',
-    '寫作題不要超過字數限制。',
-  ],
-  v319: [
-    'An expert on volcanoes answered questions after the film.',
-    '一位火山專家在電影結束後回答問題。',
-  ],
-  v320: [
-    'The syllabus is explicit about late-work penalties.',
-    '教學大綱對遲交罰則寫得很明確。',
-  ],
-  v321: [
-    'A federal grant paid for the new campus telescope.',
-    '一筆聯邦補助支付了校園新望遠鏡的費用。',
-  ],
-  v322: [
-    'The lab fee covers gloves, goggles, and chemical waste disposal.',
-    '實驗費包含手套、護目鏡和化學廢棄物處理。',
-  ],
-  v323: [
-    'A flexible deadline helped students who were sick that week.',
-    '彈性截止日期幫助了那週生病的學生。',
-  ],
-  v324: [
-    'The experiment failed; furthermore, the equipment was damaged.',
-    '實驗失敗了；另外，設備也損壞了。',
-  ],
-  v325: [
-    'The survey asked about gender, age, and hometown.',
-    '問卷詢問了性別、年齡與家鄉。',
-  ],
-  v326: [
-    'He was ignorant of the rule against eating in the archives.',
-    '他對檔案室禁止飲食的規定一無所知。',
-  ],
-  v327: [
-    'A small prize can be an incentive to finish the reading on time.',
-    '一個小獎品就能成為準時讀完指定教材的激勵。',
-  ],
-  v328: [
-    'The incidence of flu usually rises in January.',
-    '流感發生率通常在一月上升。',
-  ],
-  v329: [
-    'The new textbook will incorporate recent climate data.',
-    '新教科書將包含最近的氣候資料。',
-  ],
-  v330: [
-    'The stock index fell after the unexpected tax news.',
-    '意外的稅務消息傳出後，股市指數下跌。',
-  ],
-  v331: [
-    'Low temperatures inhibit the growth of many insects.',
-    '低溫會抑制許多昆蟲的生長。',
-  ],
-  v332: [
-    'Students initiated a campaign to keep the library open later.',
-    '學生發起讓圖書館開更晚的活動。',
-  ],
-  v333: [
-    'Check that every input in the spreadsheet uses the same units.',
-    '確認試算表的每一項輸入都使用相同單位。',
-  ],
-  v334: [
-    'Coaches instruct players to drink water before they feel thirsty.',
-    '教練指示選手在感到口渴之前就喝水。',
-  ],
-  v335: [
-    'The puzzle measures spatial intelligence more than vocabulary.',
-    '這個謎題測量的是空間智力，多於詞彙量。',
-  ],
-  v336: [
-    'There is a ten-minute interval between the two lectures.',
-    '兩場講座之間有十分鐘間隔。',
-  ],
-  v337: [
-    'Tonight’s guest lecture is about deep-sea exploration.',
-    '今晚的專題演講是關於深海探測。',
-  ],
-  v338: [
-    'Whales migrate thousands of miles to reach warmer waters.',
-    '鯨魚遷移數千英里到達較暖的海域。',
-  ],
-  v339: [
-    'The minimum age for the internship is eighteen.',
-    '這份實習的最低年齡是十八歲。',
-  ],
-  v340: [
-    'The health ministry issued a warning about contaminated water.',
-    '衛生部對受汙染的水發出警告。',
-  ],
-  v341: [
-    'Curiosity, not grades, was her main motive for taking astronomy.',
-    '好奇心，而不是成績，才是她修天文學的主要動機。',
-  ],
-  v342: [
-    'A good moderator stays neutral during a heated debate.',
-    '好的主持人在激烈辯論中保持中立。',
-  ],
-  v343: [
-    'The trail was steep; nevertheless, the group reached the peak.',
-    '步道很陡；儘管如此，隊伍還是抵達了山頂。',
-  ],
-  v344: [
-    'She spent a semester overseas at a partner university.',
-    '她在海外的合作大學待了一學期。',
-  ],
-  v345: [
-    'A short warning will precede the fire-drill alarm.',
-    '火警演習鈴聲之前會有簡短預告。',
-  ],
-  v346: [
-    'Do not presume the elevator works during a power cut.',
-    '停電時不要假定電梯還能用。',
-  ],
-  v347: [
-    'A rational plan is to review a little every day, not all at once.',
-    '合理的計畫是每天複習一點，而不是一次全部看完。',
-  ],
-  v348: [
-    'It took the forest twenty years to recover after the fire.',
-    '火災後，森林花了二十年才恢復。',
-  ],
-  v349: [
-    'The X-ray will reveal whether the bone is broken.',
-    'X 光會揭示骨頭是否骨折。',
-  ],
-  v350: [
-    'This topic is beyond the scope of a 300-word essay.',
-    '這個題目超出三百字短文的範圍。',
-  ],
-  v351: [
-    'A fuel subsidy kept bus fares low for students.',
-    '燃料補貼讓學生的公車票價維持低廉。',
-  ],
-  v352: [
-    'Historians digitized the old tape of the 1968 speech.',
-    '歷史學家把一九六八年演講的舊錄音帶數位化。',
-  ],
-  v353: [
-    'Hunters could trace the animal by footprints in the snow.',
-    '獵人能藉雪地上的腳印追蹤那隻動物。',
-  ],
-  v354: [
-    'Heat and pressure transform mud into hard rock.',
-    '熱與壓力把泥土轉換成堅硬的岩石。',
-  ],
-  v355: [
-    'Trucks transport fresh milk from farms to the city overnight.',
-    '卡車連夜把鮮奶從農場運輸到城市。',
-  ],
-  v356: [
-    'Fear of failure can underlie a student’s refusal to speak.',
-    '害怕失敗可能是學生不肯開口的底層原因。',
-  ],
-  v357: [
-    'The clinic will utilize leftover vaccine doses the same day.',
-    '診所會在當天利用剩餘的疫苗劑量。',
-  ],
-  v358: [
-    'Desert plants adapt to long periods without rain.',
-    '沙漠植物能適應長期無雨。',
-  ],
-  v359: [
-    'The film is intended for adult viewers, not children.',
-    '這部片是給成人觀眾看的，不是給小孩。',
-  ],
-  v360: [
-    'Doctors advocate washing hands to slow the spread of flu.',
-    '醫生提倡洗手以減緩流感傳播。',
-  ],
-  v361: [
-    'Foreign aid helped rebuild schools after the earthquake.',
-    '外國援助在地震後幫助重建學校。',
-  ],
-  v362: [
-    'Switch the television to the weather channel before you leave.',
-    '出門前把電視轉到氣象頻道。',
-  ],
-  v363: [
-    'A chemical spill closed the river to swimming for a week.',
-    '化學物質外洩讓那條河暫停游泳一週。',
-  ],
-  v364: [
-    'The novel is now a classic assigned in many literature courses.',
-    '這本小說現已成為許多文學課指定的經典。',
-  ],
-  v365: [
-    'The report offers a comprehensive review of air-quality studies.',
-    '這份報告對空氣品質研究做了綜合回顧。',
-  ],
-  v366: [
-    'The committee comprises six faculty members and two students.',
-    '委員會包括六位教師與兩位學生。',
-  ],
-  v367: [
-    'Please confirm your attendance by clicking the link.',
-    '請點選連結確認你會出席。',
-  ],
-  v368: [
-    'His calm face was contrary to how nervous he felt.',
-    '他平靜的表情與內心的緊張相反。',
-  ],
-  v369: [
-    'The factory will convert leftover steam into electricity.',
-    '工廠會把多餘蒸氣轉變為電力。',
-  ],
-  v370: [
-    'The young couple rented a studio near the train station.',
-    '那對年輕夫妻在火車站附近租了一間套房。',
-  ],
-  v371: [
-    'In the past decade, more students have chosen online courses.',
-    '過去十年，更多學生選擇線上課程。',
-  ],
-  v372: [
-    'Set a definite time to meet, or people will arrive at random.',
-    '訂一個確定的時間見面，否則大家會隨便到。',
-  ],
-  v373: [
-    'She did not deny that the first draft was weak.',
-    '她並不否定初稿寫得很弱。',
-  ],
-  v374: [
-    'Can you differentiate a moth from a butterfly at a glance?',
-    '你能一眼區分飛蛾和蝴蝶嗎？',
-  ],
-  v375: [
-    'Labs must dispose of broken glass in a special container.',
-    '實驗室必須把碎玻璃處置在專用容器裡。',
-  ],
-  v376: [
-    'The city’s population is dynamic, with people moving in and out.',
-    '這座城市的人口是動態的，不斷有人遷入遷出。',
-  ],
-  v377: [
-    'Filters eliminate most dust before the air enters the engine.',
-    '濾網在空氣進入引擎前排除大部分灰塵。',
-  ],
-  v378: [
-    'The claim needs empirical support, not just a clever argument.',
-    '這個主張需要經驗證據支持，不能只靠巧妙論證。',
-  ],
-  v379: [
-    'The rescue team will equip climbers with radios and extra ropes.',
-    '救援隊會為攀登者裝備無線電和備用繩索。',
-  ],
-  v380: [
-    'Scientists extract DNA from a single hair in the lab.',
-    '科學家在實驗室裡從一根頭髮提煉 DNA。',
-  ],
-  v381: [
-    'Upload the permission file as a PDF, not a photo.',
-    '請把許可文件上傳成 PDF，不要傳照片。',
-  ],
-  v382: [
-    'Fossil fuels are a finite resource, unlike sunlight.',
-    '化石燃料是有限的資源，陽光則不是。',
-  ],
-  v383: [
-    'Trust is the foundation of any long research collaboration.',
-    '信任是任何長期研究合作的基礎。',
-  ],
-  v384: [
-    'Plastic waste has been found in every ocean on the globe.',
-    '地球上每一片海洋都發現過塑膠廢棄物。',
-  ],
-  v385: [
-    'She skipped a grade after scoring highly in mathematics.',
-    '數學考很高分後，她跳了一個年級。',
-  ],
-  v386: [
-    'The ticket does not guarantee a seat if you arrive late.',
-    '若你遲到，門票並不保證有座位。',
-  ],
-  v387: [
-    'A strict hierarchy made junior staff afraid to report errors.',
-    '嚴格的等級制度讓基層員工不敢回報錯誤。',
-  ],
-  v388: [
-    'The twins are identical, but their voices are easy to tell apart.',
-    '這對雙胞胎長得完全相同，但聲音很好分辨。',
-  ],
-  v389: [
-    'The party’s ideology favors smaller government and lower taxes.',
-    '該黨的思想傾向較小的政府與較低的稅。',
-  ],
-  v390: [
-    'From empty desks, we can infer that class was canceled.',
-    '從空蕩蕩的桌子，我們可以推論這堂課取消了。',
-  ],
-  v391: [
-    'Start-ups innovate by turning leftover food into animal feed.',
-    '新創公司把剩食變成飼料，以此創新。',
-  ],
-  v392: [
-    'Insert a page break before the bibliography.',
-    '在參考書目之前插入分頁。',
-  ],
-  v393: [
-    'Teachers may intervene if an argument in class turns personal.',
-    '若課堂爭論變成人身攻擊，老師可能介入。',
-  ],
-  v394: [
-    'The clinic will isolate patients with highly contagious flu.',
-    '診所會把傳染性極高的流感病人隔離。',
-  ],
-  v395: [
-    'Social media can spread a rumor faster than a newspaper can print it.',
-    '社群媒體傳播謠言的速度比報紙印刷還快。',
-  ],
-  v396: [
-    'Switch the camera to night mode before you photograph the stars.',
-    '拍星星前把相機切換到夜間模式。',
-  ],
-  v397: [
-    'The lecture introduced a new paradigm for explaining animal migration.',
-    '這堂課介紹了解釋動物遷徙的新典範。',
-  ],
-  v398: [
-    'The northern lights are a natural phenomenon best seen in winter.',
-    '極光是最好在冬天觀看的自然現象。',
-  ],
-  v399: [
-    'Sleep should be a higher priority than extra social media time.',
-    '睡眠應是比滑社群更高的優先事項。',
-  ],
-  v400: [
-    'Campus rules prohibit bicycles inside the library.',
-    '校園規定禁止把自行車帶進圖書館。',
-  ],
-  v401: [
-    'Her first publication was a short paper on river pollution.',
-    '她的第一份出版品是一篇關於河流汙染的短論文。',
-  ],
-  v402: [
-    'Do not quote a source you have not actually read.',
-    '不要引用你其實沒讀過的資料。',
-  ],
-  v403: [
-    'The lab will release the results after they are checked twice.',
-    '實驗室會在雙重核對後發布結果。',
-  ],
-  v404: [
-    'Put the car in reverse when you leave the narrow parking space.',
-    '離開狹窄車位時請把車子打到倒車檔。',
-  ],
-  v405: [
-    'Flight schools simulate engine failure so pilots can practice safely.',
-    '飛行學校會模擬引擎故障，讓飛行員安全練習。',
-  ],
-  v406: [
-    'She was the sole student who finished the extra problem.',
-    '她是唯一做完那道加分題的學生。',
-  ],
-  v407: [
-    'The second recording is somewhat clearer than the first.',
-    '第二段錄音比第一段清楚一些。',
-  ],
-  v408: [
-    'Submit the essay as a PDF before midnight.',
-    '請在午夜前把作文提交成 PDF。',
-  ],
-  v409: [
-    'The dean named a successor before retiring in June.',
-    '院長在六月退休前指定了接班人。',
-  ],
-  v410: [
-    'Her thesis examines how city parks reduce summer heat.',
-    '她的論文探討城市公園如何降低夏季熱度。',
-  ],
-  v411: [
-    'Choose a narrow topic, or the ten-minute talk will feel rushed.',
-    '題目要窄，否則十分鐘報告會顯得很趕。',
-  ],
-  v412: [
-    'Radio towers transmit signals across the valley.',
-    '無線電塔把訊號傳送過山谷。',
-  ],
-  v413: [
-    'The ultimate goal of the program is fluent academic speaking.',
-    '這個課程的最終目標是流利的學術口說。',
-  ],
-  v414: [
-    'Each snowflake has a unique pattern.',
-    '每一片雪花都有獨特的圖案。',
-  ],
-  v415: [
-    'The comet will be visible without a telescope on Tuesday night.',
-    '星期二晚上不用望遠鏡也能看見那顆彗星。',
-  ],
-  v416: [
-    'The beach cleanup is voluntary, but many students still join.',
-    '淨灘是自願的，但仍有許多學生參加。',
-  ],
-  v417: [
-    'Do not abandon a draft just because the first paragraph is weak.',
-    '不要只因為第一段寫得差就放棄整篇草稿。',
-  ],
-  v418: [
-    'A teaching assistant will accompany the group on the museum visit.',
-    '助教會陪伴這組學生參觀博物館。',
-  ],
-  v419: [
-    'Dust can accumulate on solar panels and reduce their output.',
-    '灰塵會在太陽能板上累積，降低發電量。',
-  ],
-  v420: [
-    'The ending of the story is ambiguous on purpose.',
-    '故事結局是故意寫得模糊的。',
-  ],
-  v421: [
-    'The questionnaire appears in the appendix at the end of the paper.',
-    '問卷出現在論文末尾的附錄。',
-  ],
-  v422: [
-    'Visitors appreciate the quiet of the botanical garden at dawn.',
-    '訪客欣賞植物園黎明時的安靜。',
-  ],
-  v423: [
-    'Choosing a winner by coin toss felt arbitrary to the players.',
-    '用丟硬幣決定勝者，對選手來說太隨意了。',
-  ],
-  v424: [
-    'The lights turn off automatically if no one is in the room.',
-    '若房間裡沒人，燈會自動關掉。',
-  ],
-  v425: [
-    'The sample had a bias toward city residents and few rural voices.',
-    '樣本有偏向都市居民的偏見，鄉村聲音很少。',
-  ],
-  v426: [
-    'The chart on page 12 compares rainfall in four cities.',
-    '第十二頁的圖表比較四座城市的降雨。',
-  ],
-  v427: [
-    'Can you clarify whether the homework is due Monday or Tuesday?',
-    '作業是週一還是週二交？請闡明一下。',
-  ],
-  v428: [
-    'Coffee became a major export commodity in the nineteenth century.',
-    '十九世紀時，咖啡成為重要的出口商品。',
-  ],
-  v429: [
-    'A map can complement a written description of the hiking route.',
-    '地圖可以補充對健行路線的文字描述。',
-  ],
-  v430: [
-    'Essays must conform to the department’s citation style.',
-    '作文必須符合系上的引用格式。',
-  ],
-  v431: [
-    'The museum’s contemporary wing shows art made after 2000.',
-    '博物館的當代館展出二〇〇〇年之後的作品。',
-  ],
-  v432: [
-    'New measurements contradict last year’s temperature report.',
-    '新的測量結果與去年的氣溫報告互相矛盾。',
-  ],
-  v433: [
-    'Wearing goggles is crucial when you heat the chemicals.',
-    '加熱化學藥品時，戴護目鏡至關重要。',
-  ],
-  v434: [
-    'Travelers must exchange currency before they leave the airport.',
-    '旅客必須在離開機場前兌換貨幣。',
-  ],
-  v435: [
-    'A red star on the map denotes a hospital.',
-    '地圖上的紅星表示醫院。',
-  ],
-  v436: [
-    'Sensors detect smoke long before people can smell it.',
-    '感測器在人聞到之前就能探測到煙。',
-  ],
-  v437: [
-    'The river began to deviate from its old channel after the flood.',
-    '洪水過後，河流開始偏離舊河道。',
-  ],
-  v438: [
-    'Online stores may displace small bookshops in the town center.',
-    '網路商店可能取代鎮中心的小書店。',
-  ],
-  v439: [
-    'The theater department will stage a drama about climate refugees.',
-    '戲劇系將上演一齣關於氣候難民的戲。',
-  ],
-  v440: [
-    'The eventual winner of the contest had failed the first round.',
-    '比賽的最終優勝者第一輪其實被淘汰過。',
-  ],
-  v441: [
-    'The science fair will exhibit student robots in the main hall.',
-    '科展將在大廳展覽學生做的機器人。',
-  ],
-  v442: [
-    'Miners used to exploit the hillside until the soil washed away.',
-    '礦工曾開發山坡，直到土壤被沖走。',
-  ],
-  v443: [
-    'Fruit prices fluctuate with the weather during harvest.',
-    '水果價格會隨收成期的天氣波動。',
-  ],
-  v444: [
-    'Follow the safety guideline posted on the laboratory door.',
-    '請遵守實驗室門上張貼的安全指引。',
-  ],
-  v445: [
-    'The speaker used a short video to highlight the water shortage.',
-    '講者用一段短片強調缺水問題。',
-  ],
-  v446: [
-    'There was an implicit warning in the dean’s polite email.',
-    '院長那封客氣的郵件裡有隱含的警告。',
-  ],
-  v447: [
-    'Bright lights at night can induce headaches in some people.',
-    '夜間強光可能誘發某些人的頭痛。',
-  ],
-  v448: [
-    'If the dam is not repaired, flooding is inevitable this spring.',
-    '若水壩不修，今年春天淹水將不可避免。',
-  ],
-  v449: [
-    'Aging infrastructure makes winter power cuts more likely.',
-    '老化的基礎設施讓冬天更容易停電。',
-  ],
-  v450: [
-    'Health officers inspect restaurant kitchens twice a year.',
-    '衛生官員每年檢查餐廳廚房兩次。',
-  ],
-  v451: [
-    'An intense storm knocked down trees along the bike path.',
-    '一場激烈的暴風雨吹倒了自行車道旁的樹。',
-  ],
-  v452: [
-    'Advertisers try to manipulate what you notice first on a page.',
-    '廣告商試圖操縱你在頁面上最先注意到的東西。',
-  ],
-  v453: [
-    'Short sentences can minimize confusion in a lab report.',
-    '短句子能把實驗報告裡的困惑降到最低。',
-  ],
-  v454: [
-    'The country closed its last nuclear power plant in 2022.',
-    '該國在二〇二二年關閉了最後一座核電廠。',
-  ],
-  v455: [
-    'Tree planting can offset some of the carbon from bus travel.',
-    '種樹可以抵銷搭公車產生的部分碳排放。',
-  ],
-  v456: [
-    'Rewrite the weakest paragraph before you submit the essay.',
-    '交作文前先改寫最弱的那一段。',
-  ],
-  v457: [
-    'Bring your ID plus a printed ticket to the concert door.',
-    '進音樂會時請帶身分證加上列印的票。',
-  ],
-  v458: [
-    'A nurse practitioner can treat common illnesses at the clinic.',
-    '診所的專科護理師可以治療常見疾病。',
-  ],
-  v459: [
-    'Wheat is the predominant crop in that dry region.',
-    '小麥是那個乾燥地區占主導地位的作物。',
-  ],
-  v460: [
-    'Graduates in nursing have a strong job prospect this year.',
-    '護理系畢業生今年的就業前景很好。',
-  ],
-  v461: [
-    'A radical redesign of the bus routes angered some neighborhoods.',
-    '公車路線的激進重新設計讓一些社區不滿。',
-  ],
-  v462: [
-    'Participants were placed in random groups for the experiment.',
-    '實驗參與者被隨機分組。',
-  ],
-  v463: [
-    'Practice tests reinforce what you learned in the lecture.',
-    '模擬測驗能加強課堂上學到的內容。',
-  ],
-  v464: [
-    'Volunteers restore a wetland that was drained fifty years ago.',
-    '志工恢復五十年前被排乾的濕地。',
-  ],
-  v465: [
-    'Revise the introduction after you finish the body paragraphs.',
-    '寫完正文各段後再修訂引言。',
-  ],
-  v466: [
-    'Check the exam schedule before you book a weekend trip.',
-    '週末出遊前先看考試行程。',
-  ],
-  v467: [
-    'Shoulders feel tense after hours of typing.',
-    '打字數小時後，肩膀會感到緊張僵硬。',
-  ],
-  v468: [
-    'The university may terminate a lease if rent is unpaid.',
-    '若租金未付，大學可能終止租約。',
-  ],
-  v469: [
-    'Memory is the theme that connects all five short stories.',
-    '記憶是串連這五篇短篇小說的主題。',
-  ],
-  v470: [
-    'The river was diverted, thereby protecting the downtown shops.',
-    '河道被改道，從而保護了市中心的商店。',
-  ],
-  v471: [
-    'The marching band wore a red uniform at the football game.',
-    '行進樂隊在足球賽穿紅色制服。',
-  ],
-  v472: [
-    'An electric vehicle produces no exhaust on city streets.',
-    '電動車輛在市區街道上不會排放廢氣。',
-  ],
-  v473: [
-    'You can submit the form via the department website.',
-    '你可以透過系上網頁提交表格。',
-  ],
-  v474: [
-    'The class held a virtual meeting when the campus closed for snow.',
-    '校園因雪關閉時，課堂改開虛擬會議。',
-  ],
-  v475: [
-    'A visual diagram helped students follow the water cycle.',
-    '一張視覺圖幫助學生跟上水循環。',
-  ],
-  v476: [
-    'Smartphones are now in widespread use even in rural clinics.',
-    '即使在鄉村診所，智慧型手機的使用也已很廣泛。',
-  ],
-  v477: [
-    'The new dorm can accommodate 400 students.',
-    '新宿舍可以容納四百名學生。',
-  ],
-  v478: [
-    'The teacher used a sports analogy to explain supply and demand.',
-    '老師用運動類比來解釋供需。',
-  ],
-  v479: [
-    'Weather services anticipate a hotter summer than last year.',
-    '氣象單位預料今年夏天會比去年更熱。',
-  ],
-  v480: [
-    'I can assure you that the exam will not include unofficial topics.',
-    '我可以向你保證，考試不會出未宣布的範圍。',
-  ],
-  v481: [
-    'Few climbers attain the summit in such strong wind.',
-    '風這麼大時，很少登山者能達到山頂。',
-  ],
-  v482: [
-    'She spoke on behalf of students who work night jobs.',
-    '她代表晚上打工的學生發言。',
-  ],
-  v483: [
-    'The factory will cease production during the safety inspection.',
-    '安全檢查期間工廠將停止生產。',
-  ],
-  v484: [
-    'A coherent essay connects each paragraph to the thesis.',
-    '連貫的文章會讓每一段都連回中心論點。',
-  ],
-  v485: [
-    'The festival will coincide with the city’s anniversary weekend.',
-    '這個節慶會與城市周年週末重疊。',
-  ],
-  v486: [
-    'Construction will commence as soon as the permits arrive.',
-    '許可一到，工程就會開始。',
-  ],
-  v487: [
-    'This charger is not compatible with older phones.',
-    '這個充電器與舊款手機不相容。',
-  ],
-  v488: [
-    'Two concerts were concurrent, so the hall next door was also full.',
-    '兩場音樂會同時進行，所以隔壁禮堂也滿了。',
-  ],
-  v489: [
-    'Please confine food to the student lounge, not the computer lab.',
-    '請把食物局限在學生休息室，不要帶進電腦教室。',
-  ],
-  v490: [
-    'The new stadium caused controversy about noise at night.',
-    '新體育場因夜間噪音引起爭議。',
-  ],
-  v491: [
-    'Visitors may converse quietly in the museum lobby.',
-    '訪客可以在博物館大廳輕聲交談。',
-  ],
-  v492: [
-    'A simple device can turn salt water into drinking water.',
-    '一個簡單的裝置能把海水變成飲用水。',
-  ],
-  v493: [
-    'She decided to devote weekends to volunteer tutoring.',
-    '她決定把週末奉獻給志工家教。',
-  ],
-  v494: [
-    'Fish populations diminish when rivers run too warm.',
-    '河水過熱時，魚類數量會減少。',
-  ],
-  v495: [
-    'A cracked lens can distort the photograph of the moon.',
-    '破裂的鏡頭會扭曲月亮的照片。',
-  ],
-  v496: [
-    'The duration of the speaking task is forty-five seconds.',
-    '口說題的作答期間是四十五秒。',
-  ],
-  v497: [
-    'Wind and rain erode the cliff a little more each year.',
-    '風和雨每年都再侵蝕懸崖一點。',
-  ],
-  v498: [
-    'The research ethic requires honest reporting of failed trials.',
-    '研究倫理要求如實報告失敗的試驗。',
-  ],
-  v499: [
-    'Save the file in PDF format before you upload it.',
-    '上傳前請把檔案存成 PDF 格式。',
-  ],
-  v500: [
-    'The university was founded in 1889 as a small teachers’ college.',
-    '這所大學於一八八九年成立，當時是一所小型師範學院。',
-  ],
-  v501: [
-    'Risk is inherent in any experiment that uses live animals.',
-    '任何使用活體動物的實驗都有固有風險。',
-  ],
-  v502: [
-    'The interview gave insight into how the composer writes songs.',
-    '訪談讓人洞察這位作曲家如何寫歌。',
-  ],
-  v503: [
-    'Academic integrity forbids copying another student’s code.',
-    '學術正直禁止抄襲其他學生的程式。',
-  ],
-  v504: [
-    'Copper has intrinsic value as a conductor of electricity.',
-    '銅作為導電體有其固有價值。',
-  ],
-  v505: [
-    'The mayor can invoke emergency powers during a flood.',
-    '洪水期間市長可以動用緊急權力。',
-  ],
-  v506: [
-    'The city will levy a small tax on plastic bags.',
-    '市政府將對塑膠袋徵收小額稅。',
-  ],
-  v507: [
-    'The first experiment failed; likewise, the second produced no signal.',
-    '第一次實驗失敗了；第二次同樣沒有訊號。',
-  ],
-  v508: [
-    'The trail was icy; nonetheless, the class completed the hike.',
-    '步道結冰了；儘管如此，全班還是完成健行。',
-  ],
-  v509: [
-    'It seemed odd that the library lights were on at 3 a.m.',
-    '圖書館凌晨三點還亮著燈，看起來很奇怪。',
-  ],
-  v510: [
-    'There is an ongoing debate about later start times for high school.',
-    '高中是否該更晚上課，辯論仍在進行。',
-  ],
-  v511: [
-    'A panel of three professors will judge the speaking contest.',
-    '由三位教授組成的小組將評審口說比賽。',
-  ],
-  v512: [
-    'Some weeds persist even after months of dry weather.',
-    '即使乾旱數月，有些雜草仍堅持存活。',
-  ],
-  v513: [
-    'Rising rents pose a problem for graduate students.',
-    '租金上漲對研究生構成問題。',
-  ],
-  v514: [
-    'His reluctance to speak disappeared after the first successful answer.',
-    '第一次答對之後，他不願開口的情況就消失了。',
-  ],
-  v515: [
-    'The instructions are straightforward: circle one answer only.',
-    '說明很直截了當：只能圈一個答案。',
-  ],
-  v516: [
-    'Patients undergo a short test before the scan begins.',
-    '掃描開始前，病人會經歷一項短測驗。',
-  ],
-  v517: [
-    'They built a canal whereby boats could skip the dangerous rapids.',
-    '他們開了一條運河，船隻由此可避開危險急流。',
-  ],
-  v518: [
-    'The chemistry building is adjacent to the library.',
-    '化學館與圖書館相鄰。',
-  ],
-  v519: [
-    'The plan succeeded, albeit two weeks later than expected.',
-    '計畫成功了，儘管比預期晚了兩週。',
-  ],
-  v520: [
-    'Students assemble in the courtyard if the fire alarm sounds.',
-    '火警鈴響時，學生在庭院集合。',
-  ],
-  v521: [
-    'Heavy snow caused the old roof to collapse.',
-    '大雪導致舊屋頂坍塌。',
-  ],
-  v522: [
-    'Ask a colleague to read your abstract before you send it.',
-    '寄出前請同事讀一下你的摘要。',
-  ],
-  v523: [
-    'Researchers compile temperature records from hundreds of stations.',
-    '研究人員彙整數百個測站的氣溫紀錄。',
-  ],
-  v524: [
-    'Few people could conceive of phones replacing paper maps.',
-    '很少人能構想手機會取代紙本地圖。',
-  ],
-  v525: [
-    'The ad tried to convince drivers to share rides to campus.',
-    '廣告試圖說服駕駛共乘到校園。',
-  ],
-  v526: [
-    'Gray weather can depress mood during exam week.',
-    '考試週的陰天可能讓心情低落。',
-  ],
-  v527: [
-    'Hikers may encounter ice on the trail even in April.',
-    '即使在四月，健行者也可能在步道上遇到冰。',
-  ],
-  v528: [
-    'Details of the forthcoming concert will be posted on Friday.',
-    '即將舉行的音樂會細節會在星期五公布。',
-  ],
-  v529: [
-    'Tired students incline toward the easiest elective, not the most useful one.',
-    '疲倦的學生傾向選最簡單的選修，而不是最有用的。',
-  ],
-  v530: [
-    'Although the lecture was long, few students left early.',
-    '雖然講座很長，很少學生提早離開。',
-  ],
-  v531: [
-    'The method is slow; however, it produces more accurate results.',
-    '這個方法很慢；然而，結果更準確。',
-  ],
-  v532: [
-    'The bridge was icy; therefore buses were delayed.',
-    '橋上結冰，所以公車誤點。',
-  ],
-  v533: [
-    'Classes moved online because the heating system failed.',
-    '因為暖氣故障，課程改為線上。',
-  ],
-  v534: [
-    'While the professor spoke, students copied the diagram.',
-    '教授講課時，學生把圖抄下來。',
-  ],
-  v535: [
-    'Take notes by hand instead of typing if you remember more that way.',
-    '若手寫記得比較多，就用手寫筆記，不要打字。',
-  ],
-  v536: [
-    'Besides the textbook, you should read one extra article.',
-    '除了教科書，你還應該多讀一篇文章。',
-  ],
-  v537: [
-    'The room is cold; moreover, the projector is broken.',
-    '房間很冷；而且投影機也壞了。',
-  ],
-  v538: [
-    'The lecture continues; meanwhile, volunteers set up the next room.',
-    '講座繼續進行；同時志工在布置下一間教室。',
-  ],
-  v539: [
-    'Bring a printed copy; otherwise you cannot enter the exam hall.',
-    '請帶紙本；否則不能進入考場。',
-  ],
-  v540: [
-    'You will not pass unless you submit the lab notebook.',
-    '除非交實驗筆記本，否則你不會及格。',
-  ],
-  v541: [
-    'Write whether you agree or disagree, and support your choice.',
-    '寫出你同意或不同意，並支持你的選擇。',
-  ],
-  v542: [
-    'Two examples are not enough to support such a broad claim.',
-    '兩個例子不足以支持這麼寬的主張。',
-  ],
-  v543: [
-    'Several students asked for an extra review session.',
-    '有幾位學生要求加開複習課。',
-  ],
-  v544: [
-    'The museum owns various instruments from the eighteenth century.',
-    '博物館收藏了十八世紀各種樂器。',
-  ],
-  v545: [
-    'Numerous studies link short sleep with weaker attention.',
-    '許多研究把睡眠不足與注意力變差連在一起。',
-  ],
-  v546: [
-    'Crows are common on campus in the late afternoon.',
-    '傍晚時烏鴉在校園裡很常見。',
-  ],
-  v547: [
-    'It is important to cite every idea that is not your own.',
-    '引用所有非自己的想法是重要的。',
-  ],
-  v548: [
-    'The two dialects use different word order in questions.',
-    '這兩種方言在問句裡使用不同的詞序。',
-  ],
-  v549: [
-    'It is possible to finish the reading in one evening if you start early.',
-    '若提早開始，一個晚上讀完指定教材是可能的。',
-  ],
-  v550: [
-    'A calculator is necessary for the statistics quiz.',
-    '統計小考必須帶計算機。',
-  ],
-  v551: [
-    'The last listening lecture is difficult because the speakers overlap.',
-    '最後一題聽力很難，因為兩位講者聲音重疊。',
-  ],
-  v552: [
-    'A large poster is easier to read from the back of the hall.',
-    '大海報在禮堂後排比較容易看清楚。',
-  ],
-  v553: [
-    'A small error in units can ruin an entire lab calculation.',
-    '單位上的小錯誤就能毀掉整份實驗計算。',
-  ],
-  v554: [
-    'High humidity makes the computer lab feel warmer than it is.',
-    '高濕度讓電腦教室感覺比實際更熱。',
-  ],
-  v555: [
-    'Low tide reveals rocks that are hidden in the morning.',
-    '低潮時會露出早上被淹沒的岩石。',
-  ],
-  v556: [
-    'Early trains are cheaper but much more crowded.',
-    '早班火車比較便宜，但更擁擠。',
-  ],
-  v557: [
-    'Late assignments lose ten percent of the grade.',
-    '遲交作業會扣百分之十的分數。',
-  ],
-  v558: [
-    'She often reviews vocabulary while waiting for the bus.',
-    '她常在等公車時複習單字。',
-  ],
-  v559: [
-    'Always lock the microscope cabinet before you leave.',
-    '離開前一定要鎖好顯微鏡櫃。',
-  ],
-  v560: [
-    'Never pour water into concentrated acid in the chemistry lab.',
-    '化學實驗室裡絕不要把水倒進濃酸。',
-  ],
-  v561: [
-    'Office hours are usually quieter on Friday afternoons.',
-    '面談時間在週五下午通常比較安靜。',
-  ],
-  v562: [
-    'The bus is probably late because of the football traffic.',
-    '公車大概是因為足球賽車潮才誤點。',
-  ],
-  v563: [
-    'Perhaps the missing notebook is still in yesterday’s classroom.',
-    '也許不見的筆記本還在昨天的教室裡。',
-  ],
-  v564: [
-    'A drier climate is pushing pine forests farther north.',
-    '更乾燥的氣候正把松林往更北推。',
-  ],
-  v565: [
-    'Check the weather before you cycle to the morning lecture.',
-    '騎車去早上的課之前先看天氣。',
-  ],
-  v566: [
-    'Water boils at a lower temperature high in the mountains.',
-    '在高山上，水的沸騰溫度較低。',
-  ],
-  v567: [
-    'Several bird species nest on the library roof each spring.',
-    '每年春天都有好幾種鳥在圖書館屋頂築巢。',
-  ],
-  v568: [
-    'The documentary follows an animal that lives only in wetlands.',
-    '紀錄片追蹤一種只住在濕地的動物。',
-  ],
-  v569: [
-    'A desert plant stores water in thick, waxy leaves.',
-    '沙漠植物把水存在肥厚、帶蠟質的葉子裡。',
-  ],
-  v570: [
-    'After the fire, the forest took decades to grow back.',
-    '火災後，森林花了數十年才重新長回來。',
-  ],
-  v571: [
-    'Plastic pieces have been found even in the deepest ocean trenches.',
-    '即使在最深的海溝也發現過塑膠碎片。',
-  ],
-  v572: [
-    'The river floods the fields almost every spring.',
-    '這條河幾乎每年春天都淹沒農田。',
-  ],
-  v573: [
-    'Snow on the mountain supplies drinking water all summer.',
-    '山上的雪整個夏天都供應飲用水。',
-  ],
-  v574: [
-    'A blackout showed how much the town depends on electricity.',
-    '一次停電顯示這座小鎮多依賴電力。',
-  ],
-  v575: [
-    'Buses that run on cleaner fuel produce less smoke.',
-    '使用較乾淨燃料的公車排出的煙比較少。',
-  ],
-  v576: [
-    'A thin film of oil on the pond blocked oxygen from the water.',
-    '池塘上薄薄一層油擋住了水中的氧氣。',
-  ],
-  v577: [
-    'Natural gas heating is common in colder cities.',
-    '較冷的城市常用天然氣暖氣。',
-  ],
-  v578: [
-    'Trees store carbon in wood and roots for many years.',
-    '樹木把碳長年存在木材和根裡。',
-  ],
-  v579: [
-    'Fish need dissolved oxygen in the water to survive.',
-    '魚需要水中溶解的氧才能存活。',
-  ],
-  v580: [
-    'Do not waste water while you brush your teeth in the dorm.',
-    '在宿舍刷牙時不要浪費水。',
-  ],
-  v581: [
-    'Cold air from the mountains made the stadium uncomfortable.',
-    '從山上下來的冷空氣讓體育場很不舒服。',
-  ],
-  v582: [
-    'Farmers test the soil before they choose which crop to plant.',
-    '農民在決定種哪種作物前會先檢測土壤。',
-  ],
-  v583: [
-    'Irrigation changed agriculture in the dry valley.',
-    '灌溉改變了乾旱山谷的農業。',
-  ],
-  v584: [
-    'A farmer explained how frost can ruin a peach harvest overnight.',
-    '一位農民說明霜如何在一夜之間毀掉桃子收成。',
-  ],
-  v585: [
-    'Corn is the main crop on that side of the river.',
-    '玉米是河對岸的主要作物。',
-  ],
-  v586: [
-    'A late frost destroyed much of the harvest.',
-    '晚霜毀掉了大部分收成。',
-  ],
-  v587: [
-    'The car industry employs thousands of people in the region.',
-    '汽車產業在這個地區雇用數千人。',
-  ],
-  v588: [
-    'The old factory is now a museum of industrial design.',
-    '那座舊工廠現在是工業設計博物館。',
-  ],
-  v589: [
-    'A simple machine can lift a heavy stone with less effort.',
-    '簡單的機械能用較小力氣舉起重石。',
-  ],
-  v590: [
-    'Save your essay on the computer and on a USB drive.',
-    '作文請存在電腦上，也存在 USB 裡。',
-  ],
-  v591: [
-    'The internet made it easier to find last year’s lecture slides.',
-    '網際網路讓人更容易找到去年的講義投影片。',
-  ],
-  v592: [
-    'Science depends on testing ideas, not just believing them.',
-    '科學依賴檢驗想法，而不只是相信想法。',
-  ],
-  v593: [
-    'A scientist from the climate lab will visit the class on Monday.',
-    '氣候實驗室的一位科學家週一來班上。',
-  ],
-  v594: [
-    'The experiment failed because the sample was contaminated.',
-    '實驗失敗是因為樣本被汙染。',
-  ],
-  v595: [
-    'Keep food and drinks outside the laboratory.',
-    '食物和飲料請放在實驗室外面。',
-  ],
-  v596: [
-    'She transferred to a university that has a strong engineering program.',
-    '她轉到一所有強大工程學程的大學。',
-  ],
-  v597: [
-    'Community college courses can be cheaper in the first two years.',
-    '社區大學前兩年的課程可能比較便宜。',
-  ],
-  v598: [
-    'Each student received a number instead of a name on the exam.',
-    '考試上每位學生用編號代替姓名。',
-  ],
-  v599: [
-    'The teacher stayed after class to explain the homework.',
-    '老師下課後留下來說明作業。',
-  ],
-  v600: [
-    'The professor records office hours on the course website.',
-    '教授把面談時間寫在課程網站上。',
-  ],
-  v601: [
-    'The classroom was so full that some students sat on the steps.',
-    '課堂擠到有些學生坐在階梯上。',
-  ],
-  v602: [
-    'Finish the homework before you open any social media apps.',
-    '打開社群應用程式之前先把家庭作業做完。',
-  ],
-  v603: [
-    'The midterm exam will include one listening lecture.',
-    '期中考試會包含一題聽力講座。',
-  ],
-  v604: [
-    'Bicycles are faster than cars on campus at noon.',
-    '中午時在校園裡騎自行車比開車快。',
-  ],
-  v605: [
-    'The library stays open until midnight during exam week.',
-    '考試週圖書館開到午夜。',
-  ],
-  v606: [
-    'Sell your old textbook after the final if the edition will change.',
-    '若版本會改，期末考後就把舊教科書賣掉。',
-  ],
-  v607: [
-    'The assigned article is only six pages, but the vocabulary is dense.',
-    '指定文章只有六頁，但詞彙很密。',
-  ],
-  v608: [
-    'A local newspaper reported the protest on the front page.',
-    '一份地方報紙把抗議放在頭版。',
-  ],
-  v609: [
-    'She found the internship ad in a campus magazine.',
-    '她在校園雜誌裡找到實習廣告。',
-  ],
-  v610: [
-    'The visiting writer will read poems in the student center.',
-    '客座作家將在學生活動中心朗讀詩。',
-  ],
-  v611: [
-    'A careful reader notices when a statistic is missing a source.',
-    '細心的讀者會注意到統計數字缺少出處。',
-  ],
-  v612: [
-    'The speaker asked the audience not to photograph the slides.',
-    '講者請觀眾不要拍投影片。',
-  ],
-  v613: [
-    'Her graduation speech lasted exactly eight minutes.',
-    '她的畢業演講剛好八分鐘。',
-  ],
-  v614: [
-    'A second language can make study abroad far less stressful.',
-    '第二語言能讓出國讀書輕鬆許多。',
-  ],
-  v615: [
-    'The lecture on city history began with a 1910 street photograph.',
-    '城市歷史課用一張一九一〇年的街景照片開頭。',
-  ],
-  v616: [
-    'Social media has changed how society shares breaking news.',
-    '社群媒體改變了社會分享突發新聞的方式。',
-  ],
-  v617: [
-    'The local government closed the beach after the sewage leak.',
-    '污水外洩後，地方政府關閉了海灘。',
-  ],
-  v618: [
-    'A new law requires helmets for all electric scooter riders.',
-    '新法律要求所有電動滑板車騎士戴安全帽。',
-  ],
-  v619: [
-    'The case will go to court if the two sides cannot agree.',
-    '若雙方無法達成協議，案件將上法庭。',
-  ],
-  v620: [
-    'Campus police recorded a drop in bicycle crime after extra lights were added.',
-    '加裝燈光後，校園自行車犯罪下降。',
-  ],
-  v621: [
-    'Call the police if you see someone trapped in the flooded underpass.',
-    '若看到有人困在淹水的地下道，請打電話給警察。',
-  ],
-  v622: [
-    'Student election posters covered every wall in the cafeteria.',
-    '學生選舉海報貼滿餐廳每一面牆。',
-  ],
-  v623: [
-    'Citizens vote for the mayor every four years.',
-    '市民每四年投票選市長。',
-  ],
-  v624: [
-    'The university president will speak at the opening ceremony.',
-    '大學校長將在開學典禮致詞。',
-  ],
-  v625: [
-    'A citizen can request public records about the new highway.',
-    '國民可以申請新高速公路的公開紀錄。',
-  ],
-  v626: [
-    'The city raised the tax on empty houses to encourage rentals.',
-    '市政府提高空屋稅，以鼓勵出租。',
-  ],
-  v627: [
-    'Fair trade aims to pay farmers a more stable price.',
-    '公平貿易目的是讓農民獲得較穩定的價格。',
-  ],
-  v628: [
-    'A farmers’ market opened in the parking lot on Saturdays.',
-    '週六在停車場開了農夫市集。',
-  ],
-  v629: [
-    'The price of strawberries falls right after the harvest.',
-    '草莓的價格在收成後立刻下降。',
-  ],
-  v630: [
-    'The cost of living near campus rose faster than student wages.',
-    '校園附近的生活成本漲得比學生薪資快。',
-  ],
-  v631: [
-    'The café closed because it could not make a profit in summer.',
-    '那間咖啡廳因夏天無法獲利而關掉。',
-  ],
-  v632: [
-    'A software company hired ten interns from the engineering school.',
-    '一間軟體公司從工學院雇用了十名實習生。',
-  ],
-  v633: [
-    'She wants to start a small business selling repaired bicycles.',
-    '她想開一間修理並販賣腳踏車的小生意。',
-  ],
-  v634: [
-    'Factory workers asked for quieter machines and longer breaks.',
-    '工廠勞工要求更安靜的機器和更長的休息時間。',
-  ],
-  v635: [
-    'A part-time job in the library pays less but has quiet hours for study.',
-    '圖書館的兼職薪水較低，但有安靜時段可以念書。',
-  ],
-  v636: [
-    'Teaching can be a satisfying career if you like explaining ideas.',
-    '若你喜歡解釋概念，教書可以是令人滿足的職業。',
-  ],
-  v637: [
-    'Her first salary as a lab technician barely covered rent.',
-    '她當實驗技術員的第一份薪水幾乎只夠付房租。',
-  ],
-  v638: [
-    'Unemployment rose in the town after the factory closed.',
-    '工廠關閉後，鎮上的失業上升。',
-  ],
-  v639: [
-    'The city’s population doubled in thirty years.',
-    '這座城市的人口在三十年內翻倍。',
-  ],
-  v640: [
-    'The city planted trees to cool streets in July.',
-    '這座城市種樹，好讓七月的街道涼爽一些。',
-  ],
-  v641: [
-    'Urban parks give children a place to play without crossing highways.',
-    '城市公園讓小孩不必穿越高速公路也能玩耍。',
-  ],
-  v642: [
-    'Rural clinics sometimes share one doctor among three villages.',
-    '鄉村診所有時三個村子共用一位醫生。',
-  ],
-  v643: [
-    'Morning traffic makes the trip from the dorm to class twice as long.',
-    '早晨交通讓從宿舍到教室的時間變兩倍。',
-  ],
-  v644: [
-    'Public transportation is cheaper than parking downtown every day.',
-    '每天搭大眾運輸比在市中心停車便宜。',
-  ],
-  v645: [
-    'The airplane was delayed because of ice on the wings.',
-    '飛機因機翼結冰而延誤。',
-  ],
-  v646: [
-    'Take the train if you want to read during the commute.',
-    '若想在通勤時讀書，就搭火車。',
-  ],
-  v647: [
-    'The campus hospital treats sports injuries on weekends.',
-    '校園醫院週末也治療運動傷害。',
-  ],
-  v648: [
-    'A doctor explained why the vaccine needs two doses.',
-    '醫生解釋為什麼疫苗需要兩劑。',
-  ],
-  v649: [
-    'Each patient received a number instead of waiting in a public line.',
-    '每位病人領號碼，不必在公開隊伍裡等。',
-  ],
-  v650: [
-    'Handwashing reduces the spread of disease in dorms.',
-    '洗手能減少宿舍裡疾病的傳播。',
-  ],
-  v651: [
-    'Do not share leftover medicine with a roommate.',
-    '不要把剩下的藥物分給室友。',
-  ],
-  v652: [
-    'Early treatment of the infection prevented a hospital stay.',
-    '及早治療感染避免了住院。',
-  ],
-  v653: [
-    'Sleep is as important to health as diet and exercise.',
-    '睡眠對健康的重要性不亞於飲食和運動。',
-  ],
-  v654: [
-    'The dining hall added more plant-based food this semester.',
-    '餐廳這學期增加了更多植物性食物。',
-  ],
-  v655: [
-    'A high-sugar diet can make afternoon lectures harder to follow.',
-    '高糖飲食會讓下午的課更難跟上。',
-  ],
-  v656: [
-    'The nutrition lecture compared labels on two breakfast cereals.',
-    '營養課比較了兩種早餐麥片的標示。',
-  ],
-  v657: [
-    'Twenty minutes of exercise can improve focus before a quiz.',
-    '小考前運動二十分鐘能改善專注力。',
-  ],
-  v658: [
-    'The university opened a new sport center next to the dorms.',
-    '大學在宿舍旁開了一座新的運動中心。',
-  ],
-  v659: [
-    'Live music in the park attracted both students and neighbors.',
-    '公園的現場音樂吸引了學生和附近居民。',
-  ],
-  v660: [
-    'The first-year seminar includes one visit to an art museum.',
-    '一年級研討課包含一次參觀美術館。',
-  ],
-  v661: [
-    'The documentary film is forty minutes long, plus a discussion.',
-    '紀錄片長四十分鐘，之後還有討論。',
-  ],
-  v662: [
-    'The science museum lets visitors touch a real meteorite.',
-    '科學博物館讓訪客觸摸真正的隕石。',
-  ],
-  v663: [
-    'Too much tourism can damage the coral that visitors come to see.',
-    '過多旅遊可能破壞遊客專程來看的珊瑚。',
-  ],
-  v664: [
-    'Cheap overnight buses make travel between cities easier.',
-    '便宜的夜車讓城市之間的旅行更容易。',
-  ],
-  v665: [
-    'The conference hotel is a twenty-minute walk from campus.',
-    '研討會飯店走路到校園只要二十分鐘。',
-  ],
-  v666: [
-    'A small restaurant near the station stays open after the last train.',
-    '車站附近一間小餐廳在末班車後仍營業。',
-  ],
-  v667: [
-    'Air pollution from the highway is worse on still, hot days.',
-    '無風的熱天，公路造成的空氣汙染更嚴重。',
-  ],
-  v668: [
-    'The dining hall tries to waste less food by offering smaller portions.',
-    '餐廳改提供較小份量，以減少食物浪費。',
-  ],
-  v669: [
-    'Dorms recycle paper, bottles, and metal cans in separate bins.',
-    '宿舍用不同垃圾桶回收紙類、瓶子和金屬罐。',
-  ],
-  v670: [
-    'Water conservation posters remind people to take shorter showers.',
-    '節水海報提醒大家淋浴短一點。',
-  ],
-  v671: [
-    'The new road was delayed to protect wildlife on the hillside.',
-    '為了保護山坡上的野生動物，新道路工程延後了。',
-  ],
-  v672: [
-    'Wetlands are a habitat for frogs, herons, and many insects.',
-    '濕地是青蛙、蒼鷺和許多昆蟲的棲息地。',
-  ],
-  v673: [
-    'An earthquake drill will take place during third period.',
-    '第三節課會進行地震演習。',
-  ],
-  v674: [
-    'Ash from the volcano delayed flights for three days.',
-    '火山灰讓航班延誤了三天。',
-  ],
-  v675: [
-    'After the flood, volunteers cleaned mud from the first-floor classrooms.',
-    '洪水過後，志工清理一樓教室的泥。',
-  ],
-  v676: [
-    'A winter storm knocked out power across the northern campus.',
-    '一場冬季风暴讓北校區全面停電。',
-  ],
-  v677: [
-    'The hurricane warning closed the coastal highway before noon.',
-    '颶風警報讓沿海公路在中午前關閉。',
-  ],
-  v678: [
-    'During the drought, the university banned watering the lawns.',
-    '乾旱期間，大學禁止澆草坪。',
-  ],
-  v679: [
-    'Birds return to the lake each season to nest.',
-    '鳥兒每個季節都回到湖邊築巢。',
-  ],
-  v680: [
-    'The building is more than a century old and still in use.',
-    '這棟建築有超過一個世紀的歷史，至今仍在使用。',
-  ],
-  v681: [
-    'An ancient wall still stands on the hill above the town.',
-    '古城牆仍矗立在小鎮上方的山丘上。',
-  ],
-  v682: [
-    'Modern telescopes can photograph planets in our solar system.',
-    '現代望遠鏡能拍攝太陽系裡的行星。',
-  ],
-  v683: [
-    'The invention of cheaper batteries changed city bus fleets.',
-    '更便宜電池的發明改變了市區公車車隊。',
-  ],
-  v684: [
-    'The discovery of penicillin transformed the treatment of infections.',
-    '盤尼西林的發現徹底改變了感染的治療。',
-  ],
-  v685: [
-    'Ocean exploration still covers only a tiny part of the seafloor.',
-    '海洋探測至今只涵蓋海床的一小部分。',
-  ],
-  v686: [
-    'Leave some space at the end of your notes for extra examples.',
-    '筆記最後留一點空間，好加額外的例子。',
-  ],
-  v687: [
-    'Mars is the planet most often discussed in the astronomy club.',
-    '火星是天文社最常討論的行星。',
-  ],
-  v688: [
-    'A bright star near the moon is actually the planet Venus.',
-    '月亮附近那顆亮星其實是金星。',
-  ],
-  v689: [
-    'Weather satellites send images of storms every few minutes.',
-    '氣象衛星每隔幾分鐘就傳送暴風雨影像。',
-  ],
-  v690: [
-    'Without gravity, water would not stay in a drinking glass.',
-    '若沒有重力，水就無法留在杯子裡。',
-  ],
-  v691: [
-    'Bird beaks are a famous example of evolution by natural selection.',
-    '鳥喙是天擇演化的著名例子。',
-  ],
-  v692: [
-    'A single gene can influence whether a pea plant is tall or short.',
-    '單一基因就能影響豌豆植株是高是矮。',
-  ],
-  v693: [
-    'Under the microscope, you can see the cell wall of an onion.',
-    '在顯微鏡下可以看到洋蔥的細胞壁。',
-  ],
-  v694: [
-    'Sleep helps the brain store new vocabulary.',
-    '睡眠幫助大腦儲存新單字。',
-  ],
-  v695: [
-    'Running stairs raises the heart rate within a minute.',
-    '爬樓梯不到一分鐘就會提高心率。',
-  ],
-  v696: [
-    'The lab will type the blood sample before the transfusion.',
-    '輸血前實驗室會先驗血型。',
-  ],
-  v697: [
-    'A broken bone in the wrist can take weeks to heal.',
-    '手腕骨折可能要數週才會好。',
-  ],
-  v698: [
-    'Cycling builds muscle in the legs without stressing the knees much.',
-    '騎車能鍛鍊腿部肌肉，又不太傷害膝蓋。',
-  ],
-  v699: [
-    'Sunscreen protects skin during long field trips in summer.',
-    '夏天長時間校外教學時，防曬乳能保護皮膚。',
-  ],
-  v700: [
-    'A computer virus can spread through a shared USB drive.',
-    '電腦病毒能透過共用的 USB 隨身碟傳播。',
-  ],
-  v701: [
-    'Some bacteria in yogurt are helpful, not harmful.',
-    '優格裡的某些細菌是有益的，不是有害的。',
-  ],
-  v702: [
-    'The campus clinic offers a free flu vaccine in October.',
-    '校園診所十月提供免費流感疫苗。',
-  ],
-  v703: [
-    'Living near campus is an advantage when lectures start at 8 a.m.',
-    '若課程早上八點開始，住在校園附近是優勢。',
-  ],
-  v704: [
-    'One disadvantage of night classes is less time with family.',
-    '晚上上課的一個劣勢是陪伴家人的時間變少。',
-  ],
-  v705: [
-    'Give one reason why the author mentions the 1920s.',
-    '說明作者提到一九二〇年代的一個原因。',
-  ],
-  v706: [
-    'The giraffe’s neck is an example of adaptation.',
-    '長頸鹿的脖子是適應的一個例子。',
-  ],
-  v707: [
-    'State your opinion in the first sentence of the speaking task.',
-    '口說第一句就表明你的觀點。',
-  ],
-  v708: [
-    'I agree with the idea that libraries should stay open later.',
-    '我同意圖書館應該開更晚這個想法。',
-  ],
-  v709: [
-    'Some students disagree that grades should include attendance.',
-    '有些學生不同意把出席算進成績。',
-  ],
-  v710: [
-    'Compare the two graphs before you choose an answer.',
-    '選答案前先比較這兩張圖。',
-  ],
-  v711: [
-    'Icy roads were the cause of several bus delays.',
-    '結冰路面是好幾班公車誤點的原因。',
-  ],
-  v712: [
-    'One effect of later school start times is more sleep for teenagers.',
-    '學校更晚上課的一個影響是青少年睡得比較夠。',
-  ],
-  v713: [
-    'Adding a second bus line was a practical solution to crowding.',
-    '加開第二條公車路線是解決擁擠的務實方案。',
-  ],
-  v714: [
-    'Noise in the dorm is a common problem during midterms.',
-    '宿舍噪音是期中考期間的常見問題。',
-  ],
-  v715: [
-    'The result of the vote was posted on the department door.',
-    '投票結果張貼在系辦公室門上。',
-  ],
-  v716: [
-    'The conclusion should not introduce a brand-new argument.',
-    '結論不該再提出全新論點。',
-  ],
-  v717: [
-    'A short introduction should tell the reader the essay’s purpose.',
-    '簡短的引言應告訴讀者文章目的。',
-  ],
-  v718: [
-    'The integrated essay asks you to combine reading and listening.',
-    '綜合寫作要求你結合閱讀與聽力。',
-  ],
-  v719: [
-    'Rewrite the longest sentence so it is easier to read aloud.',
-    '改寫最長的那一句，讓它比較好朗讀。',
-  ],
-  v720: [
-    'The lecture added a detail that was not in the reading.',
-    '講座補充了閱讀裡沒有的細節。',
-  ],
-  v721: [
-    'Use a statistic to support your main point.',
-    '用一項統計數字來支持你的主旨。',
-  ],
-  v722: [
-    'The reading provides evidence that the lake is getting saltier.',
-    '閱讀提供湖水愈來愈鹹的證據。',
-  ],
-  v723: [
-    'The professor’s argument is that parks cool cities more than fountains do.',
-    '教授的論點是公園比噴水池更能讓城市降溫。',
-  ],
-  v724: [
-    'The author claims that short naps improve memory.',
-    '作者宣稱小睡能改善記憶。',
-  ],
-  v725: [
-    'Which statement best matches the speaker’s attitude?',
-    '哪一個陳述最符合講者的態度？',
-  ],
-  v726: [
-    'If a question is unclear, ask it during office hours, not during the test.',
-    '若問題不清楚，請在輔導時間問，不要在考試中問。',
-  ],
-  v727: [
-    'Write the answer in complete sentences, not in single words.',
-    '請用完整句子寫答案，不要只寫單詞。',
-  ],
-  v728: [
-    'You have a choice between the morning lab and the evening lab.',
-    '你可以在早上或晚上的實驗課之間做選擇。',
-  ],
-  v729: [
-    'Read the instruction twice before you start the listening set.',
-    '開始聽力題組前把操作說明讀兩遍。',
-  ],
-  v730: [
-    'The map shows the direction of the river’s flow.',
-    '地圖顯示河流流動的方向。',
-  ],
-  v731: [
-    'A laboratory coat is a requirement in every chemistry session.',
-    '每一堂化學課都要求穿實驗衣。',
-  ],
-  v732: [
-    'The deadline for housing applications is March 15.',
-    '宿舍申請的最後期限是三月十五日。',
-  ],
-  v733: [
-    'The group assignment is due the week after spring break.',
-    '小組任務在春假後那一週到期。',
-  ],
-  v734: [
-    'Keep the presentation under eight minutes, including questions.',
-    '報告含提問請控制在八分鐘內。',
-  ],
-  v735: [
-    'A short discussion followed the film about urban farming.',
-    '都市農耕影片結束後有一小段討論。',
-  ],
-  v736: [
-    'The listening item is a conversation between a student and a librarian.',
-    '這題聽力是學生與圖書館員的對話。',
-  ],
-  v737: [
-    'The announcement about the bus strike was posted at 6 a.m.',
-    '公車罷工的公告在清晨六點張貼。',
-  ],
-  v738: [
-    'Make a reservation for a group study room on the library website.',
-    '請在圖書館網站預訂團體研習室。',
-  ],
-  v739: [
-    'She booked an appointment with her advisor for Thursday.',
-    '她預約了週四與指導老師面談。',
-  ],
-  v740: [
-    'Careful observation showed that the birds left at the same minute each evening.',
-    '仔細觀察發現鳥兒每天晚上都在同一分鐘離開。',
-  ],
-  v741: [
-    'Take the measurement twice to check that the scale is working.',
-    '測量兩次，確認磅秤沒壞。',
-  ],
-  v742: [
-    'The classification of the insect depends on its wing shape.',
-    '這種昆蟲的分類取決於翅膀形狀。',
-  ],
-  v743: [
-    'Temperature is the variable we change in this experiment.',
-    '溫度是這個實驗中我們改變的變數。',
-  ],
-  v744: [
-    'A sample of fifty students is too small for a campus-wide claim.',
-    '五十名學生的樣本太小，不能代表全校。',
-  ],
-  v745: [
-    'The average commute to campus is twenty-two minutes.',
-    '到校園的平均通勤時間是二十二分鐘。',
-  ],
-  v746: [
-    'What percentage of the budget is spent on student housing?',
-    '預算中有百分之多少花在學生宿舍？',
-  ],
-  v747: [
-    'Buses to the airport increase in frequency after 5 p.m.',
-    '下午五點後，往機場的公車班次更頻繁。',
-  ],
-  v748: [
-    'The map shows the distribution of bike-share stations downtown.',
-    '地圖顯示市中心共享單車站點的分布。',
-  ],
-  v749: [
-    'A side-by-side comparison makes the two theories easier to judge.',
-    '並排比較讓這兩種理論更容易判斷。',
-  ],
-  v750: [
-    'The description of the painting mentions color but not size.',
-    '這段對畫作的描述提到顏色，卻沒提尺寸。',
-  ],
-  v751: [
-    'Give an explanation for why the experiment was repeated.',
-    '解釋為什麼實驗要重複做。',
-  ],
-  v752: [
-    'Write a one-sentence definition of “urban heat island.”',
-    '用一句話寫出「都市熱島」的定義。',
-  ],
-  v753: [
-    'The textbook illustration shows how a glacier carves a valley.',
-    '教科書插圖顯示冰川如何雕刻山谷。',
-  ],
-  v754: [
-    'The advertisement uses persuasion rather than facts.',
-    '這則廣告靠勸說，而不是靠事實。',
-  ],
-  v755: [
-    'The first paragraph is narration; the second is analysis.',
-    '第一段是敘述，第二段才是分析。',
-  ],
-  v756: [
-    'Put the events in chronology from the earliest to the latest.',
-    '把事件依時間先後排列，從最早到最晚。',
-  ],
-  v757: [
-    'The question asks for an inference, not a sentence copied from the text.',
-    '這題要的是推理，不是從文章抄一句。',
-  ],
-  v758: [
-    'One implication of the study is that parks should be larger.',
-    '這項研究的一個含義是公園應該更大。',
-  ],
-  v759: [
-    'The author’s assumption is that all readers have taken biology.',
-    '作者的假設是所有讀者都修過生物。',
-  ],
-  v760: [
-    'The committee’s recommendation is to delay the construction.',
-    '委員會的建議是延後工程。',
-  ],
-  v761: [
-    'A tutor’s suggestion was to read the questions before the passage.',
-    '家教的建議是先看題再看文章。',
-  ],
-  v762: [
-    'Time is a limitation of the speaking task, so keep examples short.',
-    '時間是口說題的限制，所以例子要短。',
-  ],
-  v763: [
-    'The study’s weakness is that all participants were from one city.',
-    '這項研究的弱點是所有參與者都來自同一座城市。',
-  ],
-  v764: [
-    'Clear organization is a strength of her writing.',
-    '清楚的組織是她寫作的長處。',
-  ],
-  v765: [
-    'A tiny sample size threatens the validity of the conclusion.',
-    '樣本太小會威脅結論的有效性。',
-  ],
-  v766: [
-    'Repeating the test on another day checks reliability.',
-    '改天再測一次可以檢查可靠性。',
-  ],
-  v767: [
-    'Double-checking names improves the accuracy of the guest list.',
-    '再核對一次名字能提高賓客名單的準確性。',
-  ],
-  v768: [
-    'A digital scale offers more precision than a kitchen cup.',
-    '電子秤比量杯更精確。',
-  ],
-  v769: [
-    'Peer review can increase the objectivity of grading.',
-    '同儕互評能增加評分的客觀性。',
-  ],
-  v770: [
-    '“I liked the lecture” is subjectivity, not evidence.',
-    '「我喜歡這堂課」是主觀感受，不是證據。',
-  ],
-  v771: [
-    'A correlation between ice cream sales and drowning is not causation.',
-    '冰淇淋銷量與溺水的相關性並不是因果。',
-  ],
-  v772: [
-    'To show causation, researchers must rule out other explanations.',
-    '要證明因果關係，研究人員必須排除其他解釋。',
-  ],
-  v773: [
-    'There is a tendency for people to sit in the same seat each week.',
-    '人們有每週坐同一個位子的趨勢。',
-  ],
-  v774: [
-    'The wallpaper pattern repeats every twenty centimeters.',
-    '壁紙圖案每二十公分重複一次。',
-  ],
-  v775: [
-    'There is an exception to the rule for students with injuries.',
-    '受傷的學生是這條規則的例外。',
-  ],
-  v776: [
-    'Dry soil is a poor condition for planting tomatoes.',
-    '乾燥土壤不適合種番茄。',
-  ],
-  v777: [
-    'Originality is one criterion for the writing prize.',
-    '原創性是寫作獎的評分標準之一。',
-  ],
-  v778: [
-    'The lab requires a standard of 95 percent attendance.',
-    '實驗室要求百分之九十五的出席標準。',
-  ],
-  v779: [
-    'Last year’s scores are the benchmark for this year’s class.',
-    '去年的分數是今年班級的基準。',
-  ],
-  v780: [
-    'Measure your fitness against a baseline test in September.',
-    '用九月的基線測驗來對照你的體能。',
-  ],
-  v781: [
-    'Start the speaking response with a one-sentence overview.',
-    '口說開頭用一句話做概述。',
-  ],
-  v782: [
-    'Write an outline before you draft the independent essay.',
-    '寫獨立寫作前先列大綱。',
-  ],
-  v783: [
-    'The body of the essay should contain two or three reasons.',
-    '文章主體應包含兩到三個理由。',
-  ],
-  v784: [
-    'Every citation must match an entry in the reference list.',
-    '每一筆引文都必須對應參考書目裡的一項。',
-  ],
-  v785: [
-    'A quotation longer than one sentence needs extra formatting.',
-    '超過一句的引述需要額外的格式。',
-  ],
-  v786: [
-    'Paraphrase the lecture; do not copy the speaker’s sentences.',
-    '請改寫講座內容，不要抄講者的原句。',
-  ],
-  v787: [
-    'The integrated task is a synthesis of reading and listening.',
-    '綜合題是閱讀與聽力的綜合。',
-  ],
-  v788: [
-    'The last paragraph is an evaluation of the author’s evidence.',
-    '最後一段是對作者證據的評估。',
-  ],
-  v789: [
-    'Your analysis should explain how the example supports the claim.',
-    '你的分析應說明這個例子如何支持主張。',
-  ],
-  v790: [
-    'Read the syllabus on day one so you know every deadline.',
-    '第一天就讀教學大綱，才知道每個截止日期。',
-  ],
-  v791: [
-    'Attendance at the Friday seminar is required for the credit.',
-    '要拿學分，週五研討會必須出席。',
-  ],
-  v792: [
-    'The writing workshop will edit one paragraph from each student.',
-    '寫作工作坊會修改每位學生的一段文字。',
-  ],
-  v793: [
-    'She presented her poster at an undergraduate research conference.',
-    '她在大學部研究會議上展示海報。',
-  ],
-  v794: [
-    'The biology symposium includes short talks by visiting scholars.',
-    '生物學座談會包含訪問學者的短講。',
-  ],
-  v795: [
-    'A dissertation is much longer than a typical course paper.',
-    '學位論文比一般課程報告長得多。',
-  ],
-  v796: [
-    'Most undergraduate students take four or five courses a term.',
-    '多數大學部學生一學期修四到五門課。',
-  ],
-  v797: [
-    'She applied to a postgraduate program in environmental policy.',
-    '她申請了環境政策的研究生課程。',
-  ],
-  v798: [
-    'Talk to faculty in office hours before you choose a major.',
-    '選主修前先在輔導時間和教師談談。',
-  ],
-  v799: [
-    'Email your advisor if you want to drop a course after week two.',
-    '若第二週後想退選，請寫信給指導老師。',
-  ],
-  v800: [
-    'A mentor in the lab showed her how to keep a research notebook.',
-    '實驗室的導師教她如何寫研究筆記。',
-  ],
+  v001: ['lecture', 'Now, when biologists analyze ice cores, they can reconstruct climates from thousands of years ago.', '講座：生物學家分析冰芯時，就能重建數千年前的氣候。'],
+  v002: ['campus', 'Could I try a different approach on this paper, or does the professor want the outline format?', '校園：這篇報告我能不能換一種方法，還是教授一定要大綱格式？'],
+  v003: ['reading', 'Nighttime temperatures stay higher in a paved urban area than in nearby fields.', '閱讀：鋪面都市區域的夜間氣溫，比附近農田更高。'],
+  v004: ['lecture', 'I want you to notice how scientists assess risk: they look at both probability and harm.', '講座：請注意科學家如何評估風險：他們同時看機率與傷害。'],
+  v005: ['campus', 'Do not assume the lecture is recorded—Professor Chen said she never posts audio.', '校園：別以為講座會錄音，陳教授說她從不放音檔。'],
+  v006: ['reading', 'The museum invited an authority on Egyptian sculpture to examine the statue’s age.', '閱讀：博物館請一位埃及雕塑權威鑑定雕像年代。'],
+  v007: ['lecture', 'Group study rooms are available, but only after an online reservation is confirmed.', '講座：團體室可以使用，但必須先完成線上預約。'],
+  v008: ['campus', 'One benefit of the new hours is that I can sleep instead of waiting for a 2 a.m. closing.', '校園：新開放時間的一個好處是，我不用等到凌晨兩點關門才能睡。'],
+  v009: ['reading', 'The concept of supply and demand appears throughout explanations of market prices.', '閱讀：供需這個概念貫穿市場價格的解釋。'],
+  v010: ['lecture', 'A water molecule consists of two hydrogen atoms and one oxygen atom—keep that picture in mind.', '講座：一個水分子由兩個氫原子和一個氧原子組成，請記住這個圖像。'],
+  v011: ['campus', 'Women now constitute almost half of our engineering graduating class.', '校園：女生現在已占我們工學院畢業班將近一半。'],
+  v012: ['reading', 'Without historical context, several jokes in the poem remain difficult to interpret.', '閱讀：缺少歷史情境，詩中幾個玩笑就很難理解。'],
+  v013: ['lecture', 'The athlete signed a two-year contract, which is typical for university teams.', '講座：那位選手簽了兩年合約，這在大學球隊很常見。'],
+  v014: ['campus', 'For the studio project, we have to create a model from recycled cardboard only.', '校園：工作室作業規定只能用回收紙板來做模型。'],
+  v015: ['reading', 'The chart presents data from 3,000 households in five cities.', '閱讀：圖表呈現五座城市、三千戶家庭的數據。'],
+  v016: ['lecture', 'On the quiz, you will need to define “urban heat island” in a single sentence.', '講座：小考時要用一句話定義「都市熱島」。'],
+  v017: ['campus', 'My linguistics TA said many science words derive from Latin or Greek roots.', '校園：語言學助教說，很多科學詞是從拉丁或希臘字根來的。'],
+  v018: ['reading', 'Volunteers distribute water at the finish line so runners do not overheat.', '閱讀：志工在終點發放飲水，避免跑者過熱。'],
+  v019: ['lecture', 'Tourism is a major part of the island’s economy, which makes storms especially costly.', '講座：觀光是島嶼經濟的重要部分，所以暴風雨特別傷。'],
+  v020: ['campus', 'The environmental club is collecting plastic to show how it harms the ocean environment.', '校園：環保社在收集塑膠，說明它如何傷害海洋環境。'],
+  v021: ['reading', 'The city plans to establish a public hospital within walking distance of campus.', '閱讀：市政府計畫在步行可到校園的範圍建立公立醫院。'],
+  v022: ['lecture', 'Engineers estimate that this bridge design should last about eighty years.', '講座：工程師估計這種橋的設計大約能用八十年。'],
+  v023: ['campus', 'It is evident from the waiting list that housing will fill up before August.', '校園：從候補名單就明顯看出，八月前宿舍就會滿。'],
+  v024: ['reading', 'After a record harvest, the country decided to export surplus rice.', '閱讀：創紀錄收成後，該國決定出口多餘稻米。'],
+  v025: ['lecture', 'Cost is only one factor in choosing a dorm; noise and distance also matter.', '講座：選宿舍時費用只是因素之一，噪音和距離也很重要。'],
+  v026: ['campus', 'I might intern in finance this summer if the accounting department writes a letter.', '校園：若會計系願意寫推薦信，我夏天可能去金融實習。'],
+  v027: ['reading', 'The chemical formula for table salt, NaCl, is required knowledge in the first lab.', '閱讀：食鹽的化學式 NaCl 是第一次實驗的必備知識。'],
+  v028: ['lecture', 'One function of roots is to anchor the plant so wind cannot pull it out.', '講座：根的一項功能是把植物固定住，免得被風拔起。'],
+  v029: ['campus', 'How do rangers identify those birds if they all look brown from far away?', '校園：那些鳥遠看都是褐色，巡守員要怎麼辨認？'],
+  v030: ['reading', 'A higher minimum wage can raise household income in the short term.', '閱讀：提高最低工資短期內能提升家庭收入。'],
+  v031: ['lecture', 'Those dark clouds indicate a storm cell moving toward campus this afternoon.', '講座：那些烏雲表示有風暴細胞正往校園移動。'],
+  v032: ['campus', 'Each individual in the sleep study has to wear a wrist monitor overnight.', '校園：睡眠研究裡每一個人都要整晚戴腕帶監測器。'],
+  v033: ['reading', 'Readers must interpret tone as well as factual claims in the editorial.', '閱讀：讀社論時必須解釋語氣，而不只看事實主張。'],
+  v034: ['lecture', 'Building the stadium will involve closing two campus roads for a semester.', '講座：蓋體育場會涉及封閉兩條校園道路一整學期。'],
+  v035: ['campus', 'Housing cost is becoming a serious issue for first-year students off campus.', '校園：校外住宿費對一年級生來說愈來愈是問題。'],
+  v036: ['reading', 'Farm labor is typically harder to hire during a short harvest window.', '閱讀：短暫的收成期通常更難雇到農業勞動力。'],
+  v037: ['lecture', 'Copying an entire textbook is not legal, even if you own a paper copy.', '講座：即使你有紙本，複製整本教科書仍不合法。'],
+  v038: ['campus', 'Did Congress already legislate the new privacy rules, or is that still a draft?', '校園：國會是已經為隱私立了新法，還是還在草案？'],
+  v039: ['reading', 'Traffic congestion is a major reason households leave the downtown core.', '閱讀：交通擁塞是家庭搬離市中心的主要原因。'],
+  v040: ['lecture', 'The lab method is simple: heat the liquid slowly, never at a rolling boil.', '講座：實驗方法很簡單：慢慢加熱，千萬不要煮沸。'],
+  v041: ['campus', 'Earthquakes rarely occur here, but we still have a drill every October.', '校園：這裡很少發生地震，但十月還是會演習。'],
+  v042: ['reading', 'Only 12 percent of respondents in the survey had visited the campus museum.', '閱讀：民調中只有百分之十二的受訪者去過校園博物館。'],
+  v043: ['lecture', 'The Romantic period in literature stretches across much of the nineteenth century.', '講座：文學上的浪漫時期橫跨十九世紀大部分時間。'],
+  v044: ['campus', 'The new smoking policy bans it anywhere on campus, including the parking garage.', '校園：新的吸菸政策禁止校園任何地方吸菸，連停車場也不行。'],
+  v045: ['reading', 'Fairness is treated as a basic principle in the university honor code.', '閱讀：大學榮譽守則把公平視為基本原則。'],
+  v046: ['lecture', 'After the alarm test, you may proceed to class—do not wait for a second signal.', '講座：警報測試結束後就可以去上課，不用等第二次訊號。'],
+  v047: ['campus', 'Photosynthesis is the process plants use to make sugar from sunlight, right?', '校園：光合作用就是植物用陽光製造糖的過程，對嗎？'],
+  v048: ['reading', 'Most internships require students to work a minimum of ten hours each week.', '閱讀：多數實習要求學生每週至少工作十小時。'],
+  v049: ['lecture', 'Her coral-reef research will be published next spring in a marine journal.', '講座：她的珊瑚礁研究明年春天會刊登在海洋期刊。'],
+  v050: ['campus', 'Please respond to the field-trip email before Friday if you can go.', '校園：若能去校外教學，請在星期五前回信。'],
+  v051: ['reading', 'Bees play an essential role in pollinating fruit trees in commercial orchards.', '閱讀：蜜蜂在商業果園為果樹授粉上扮演關鍵角色。'],
+  v052: ['lecture', 'Read the final section tonight; tomorrow’s quiz starts from that part.', '講座：今晚把最後一節讀完，明天小考從那裡開始。'],
+  v053: ['campus', 'Jobs in the health sector are posting faster than jobs in the campus factory tour list.', '校園：健康產業的職缺張貼速度，比校園工廠參訪名單還快。'],
+  v054: ['reading', 'A significant drop in air pollution followed the closing of the old plant.', '閱讀：舊工廠關閉後，空氣汙染出現明顯下降。'],
+  v055: ['lecture', 'The two dialects sound similar, but their question-word order is not the same.', '講座：兩種方言聽起來相似，但問句詞序並不相同。'],
+  v056: ['campus', 'Is the Nile still considered the main source of water for farms in that unit?', '校園：那一單元還把尼羅河當成農田的主要水源嗎？'],
+  v057: ['reading', 'Applications must include a specific date rather than a vague month.', '閱讀：申請必須寫出具體日期，不能只寫某個月。'],
+  v058: ['lecture', 'The structure of a TOEFL essay still wants an introduction and a clear close.', '講座：托福作文的結構仍需要引言和清楚的結尾。'],
+  v059: ['campus', 'Darwin’s theory of natural selection is what the biology midterm will test.', '校園：生物期中會考達爾文的天擇理論。'],
+  v060: ['reading', 'Ticket prices vary by weekday, with Friday evenings costing the most.', '閱讀：票價依星期而異，週五晚上最貴。'],
+  v061: ['lecture', 'She reviewed every night to achieve a score high enough for the scholarship.', '講座：她每晚複習，才達到獎學金要求的分數。'],
+  v062: ['campus', 'Kids acquire a first language at home; we are just adding academic English.', '校園：小孩在家就獲得第一語言，我們只是再加上學術英語。'],
+  v063: ['reading', 'The dean must administrate three departments from a single small office.', '閱讀：院長必須用一間小辦公室管理三個系所。'],
+  v064: ['lecture', 'Late nights affect next-day memory, which is why I keep repeating this warning.', '講座：熬夜會影響隔天記憶，所以我才一再提醒。'],
+  v065: ['campus', 'Is a hoodie appropriate for the internship interview, or should I wear a shirt?', '校園：連帽上衣適合實習面試嗎，還是該穿襯衫？'],
+  v066: ['reading', 'Cost is one aspect of the housing shortage; zoning rules are another.', '閱讀：成本是住房短缺的一個方面，分區規定是另一個。'],
+  v067: ['lecture', 'Tutors assist with calculus homework during drop-in hours in the math lab.', '講座：數學實驗室的隨到時段，家教會協助微積分作業。'],
+  v068: ['campus', 'Which category should I put hummingbirds in—bird, or do they want “pollinator”?', '校園：蜂鳥該歸哪一類——鳥，還是他們要寫「授粉者」？'],
+  v069: ['reading', 'Chapter four explains how glaciers carve U-shaped valleys.', '閱讀：第四章說明冰川如何雕刻 U 形谷。'],
+  v070: ['lecture', 'A campus dining commission will review the new cafeteria menu next week.', '講座：校園餐飲委員會下週會審查新的餐廳菜單。'],
+  v071: ['campus', 'The library started a reading community for students who arrived this semester.', '校園：圖書館為這學期才到的學生辦了閱讀社群。'],
+  v072: ['reading', 'The proof looks brief, yet the underlying idea is unusually complex.', '閱讀：證明看起來很短，底下的想法卻異常複雜。'],
+  v073: ['lecture', 'This software can compute a class average in less than a second.', '講座：這個軟體不到一秒就能算出全班平均。'],
+  v074: ['campus', 'From the plant lab, can we conclude that seedlings need a dark period too?', '校園：從植物實驗能不能得出結論：幼苗也需要一段黑暗？'],
+  v075: ['reading', 'The research team will conduct interviews with fifty city bus drivers.', '閱讀：研究團隊將對五十位市區公車司機進行訪談。'],
+  v076: ['lecture', 'Flooding was a consequent problem once the earthen dam began to leak.', '講座：土壩開始漏水後，淹水就成了隨之而來的問題。'],
+  v077: ['campus', 'Beavers construct dams from logs—should I draw that for the ecology poster?', '校園：河狸用木頭築壩，生態海報要不要畫這個？'],
+  v078: ['reading', 'Air conditioners consume a large share of electricity on hot afternoons.', '閱讀：炎熱午後，冷氣消耗很大比例的電力。'],
+  v079: ['lecture', 'Hotels at the conference will ask for a credit card even if the room is prepaid.', '講座：研討會飯店即使房費已預付，仍會要信用卡。'],
+  v080: ['campus', 'Food festivals are part of culture here, not just a way to sell snacks.', '校園：美食節在這裡是文化的一部分，不只是賣零食。'],
+  v081: ['reading', 'Architects design classrooms that stay cool with shade instead of extra machines.', '閱讀：建築師設計靠遮蔭而非加機器來保持涼爽的教室。'],
+  v082: ['lecture', 'Each fingerprint has a distinct ridge pattern—that is why it can identify a person.', '講座：每枚指紋都有獨特紋路，所以能辨識人。'],
+  v083: ['campus', 'Carbon is an element in all living things, including the lunch you just ate.', '校園：碳是所有生物都有的元素，包括你剛吃的午餐。'],
+  v084: ['reading', 'A high test score cannot equate to deep understanding of the lecture.', '閱讀：考試高分不能等同於真正聽懂講座。'],
+  v085: ['lecture', 'When we evaluate essays, organization counts as much as grammar.', '講座：我們評作文時，組織和文法一樣重要。'],
+  v086: ['campus', 'Is the long neck the feature they want us to label on the giraffe diagram?', '校園：長頸鹿圖上要標的特徵是長脖子嗎？'],
+  v087: ['reading', 'The final examination covers every lecture from the first week of September.', '閱讀：期末考涵蓋九月第一週起的每一堂課。'],
+  v088: ['lecture', 'Tonight I will focus on river pollution, not on ocean plastic.', '講座：今晚重點是河流汙染，不是海洋塑膠。'],
+  v089: ['campus', 'Does late-night scrolling really have that much impact on tomorrow’s class?', '校園：晚上滑手機真的會對明天上課影響那麼大嗎？'],
+  v090: ['reading', 'A fall on the bike path can injure a wrist even at low speed.', '閱讀：自行車道摔倒即使速度不快也可能傷到手腕。'],
+  v091: ['lecture', 'She joined a climate institute that studies ice loss in mountain ranges.', '講座：她加入一所研究山區冰層消退的氣候研究所。'],
+  v092: ['campus', 'Families invest in extra tutoring because they hope it raises future income.', '校園：家庭投資額外家教，是希望提高未來收入。'],
+  v093: ['reading', 'Each item on the packing list for the field trip must be checked twice.', '閱讀：校外教學打包清單上的每一項都必須核對兩次。'],
+  v094: ['lecture', 'His fossil paper appeared in a well-known science journal last month.', '講座：他的化石論文上個月登在一本知名科學期刊。'],
+  v095: ['campus', 'You have to maintain a B average or the scholarship office will send a warning.', '校園：你得維持平均 B，不然獎學金辦公室會發警告。'],
+  v096: ['reading', 'A resting heart rate near 70 is considered normal for many healthy adults.', '閱讀：靜止心率接近 70，對許多健康成人來說算正常。'],
+  v097: ['lecture', 'You can obtain a bus pass at the information desk with your student ID.', '講座：帶學生證到服務台就可以拿到公車證。'],
+  v098: ['campus', 'Do first-year students really have to participate in that safety workshop?', '校園：一年級真的一定要參加那個安全工作坊嗎？'],
+  v099: ['reading', 'Some listeners perceive long pauses as rudeness, while others hear respect.', '閱讀：有些聽者把長停頓當成無禮，有些則聽成尊重。'],
+  v100: ['lecture', 'The coach stayed positive after two losses, which changed how the team practiced.', '講座：連輸兩場後教練仍保持積極，也改變了球隊練習方式。'],
+  v101: ['campus', 'Wind turbines have the potential to cover the dorm’s nighttime electricity.', '校園：風力發電機有潛力供應宿舍夜間用電。'],
+  v102: ['reading', 'Bring the previous lab report when the experiment is repeated on Friday.', '閱讀：星期五重做實驗時請帶上次的實驗報告。'],
+  v103: ['lecture', 'The primary reason for the delay was a shortage of replacement parts.', '講座：延誤的主要原因是零件短缺。'],
+  v104: ['campus', 'Can I still purchase a used textbook after the add-drop period ends?', '校園：加退選結束後還能買到二手教科書嗎？'],
+  v105: ['reading', 'Mountain temperatures range from freezing nights to mild afternoons.', '閱讀：山區氣溫範圍從夜晚冰點到午後溫和。'],
+  v106: ['lecture', 'This desert region receives almost no rain from June through August.', '講座：這個沙漠地區六到八月幾乎不下雨。'],
+  v107: ['campus', 'New rules regulate how much water the farm club can take from the creek.', '校園：新規定限制農社能從溪裡取多少水。'],
+  v108: ['reading', 'Only sources relevant to the research question belong in the bibliography.', '閱讀：參考書目只應列入與研究問題相關的資料。'],
+  v109: ['lecture', 'Many seabirds reside on those cliffs only during the nesting months.', '講座：許多海鳥只在築巢那幾個月住在那些懸崖上。'],
+  v110: ['campus', 'Clean water is a limited resource in the dorms during a drought warning.', '校園：乾旱警報期間，宿舍的乾淨用水是有限資源。'],
+  v111: ['reading', 'The park will restrict overnight camping to two marked fields only.', '閱讀：公園將把過夜露營限制在兩塊標示場地。'],
+  v112: ['lecture', 'Leave laptops in a secure locker during gym class; backpacks are not enough.', '講座：上體育課時筆電要放進安全置物櫃，背包不夠安全。'],
+  v113: ['campus', 'Patients often seek a second opinion at the campus clinic before surgery.', '校園：開刀前病人常到校園診所尋求第二意見。'],
+  v114: ['reading', 'Select the graph that matches the table; two of the options reverse the axes.', '閱讀：選擇與表格相符的圖；其中兩個選項把軸反過來了。'],
+  v115: ['lecture', 'The new dorm will occupy the site of the old parking lot behind the gym.', '講座：新宿舍會蓋在體育館後方舊停車場的位置。'],
+  v116: ['campus', 'A good strategy is to review notes the same night, not the night before the test.', '校園：好策略是當天晚上就複習筆記，不要拖到考前一晚。'],
+  v117: ['reading', 'The city ran a survey on adding bicycle lanes along the campus loop.', '閱讀：市政府針對校園環路增設自行車道做了民調。'],
+  v118: ['lecture', 'When you read a dense academic text, mark terms the first time they appear.', '講座：讀艱深學術文章時，詞第一次出現就要標出來。'],
+  v119: ['campus', 'Tea ceremony is still a living tradition in the international student house.', '校園：茶道在國際學生宿舍仍是活著的傳統。'],
+  v120: ['reading', 'Unused meal credits may transfer to the next term if the request is filed early.', '閱讀：若提早申請，未用完的餐點點數可以轉到下學期。'],
+  v121: ['lecture', 'If the bus is late, walking is a reasonable alternative for anyone living nearby.', '講座：公車誤點時，住附近的人走路是合理替代方案。'],
+  v122: ['campus', 'Under this snowstorm circumstance, will tomorrow’s labs move online?', '校園：這種暴風雪情況下，明天實驗會改線上嗎？'],
+  v123: ['reading', 'The only comment on the draft asked the writer to add one more piece of evidence.', '閱讀：草稿上唯一的評語是請作者再加一項證據。'],
+  v124: ['lecture', 'Airlines compensate passengers when a cancellation is the company’s fault.', '講座：若取消是公司造成的，航空公司會補償乘客。'],
+  v125: ['campus', 'Steel is a key component of that pedestrian bridge by the river, isn’t it?', '校園：河邊那座行人橋的關鍵材料是鋼，對吧？'],
+  v126: ['reading', 'Overnight trips require written parental consent for students under eighteen.', '閱讀：未滿十八歲學生參加過夜行程需要書面家長同意。'],
+  v127: ['lecture', 'There has been a considerable increase in electric buses on the campus route.', '講座：校園路線的電動公車有了相當明顯的增加。'],
+  v128: ['campus', 'That machine makes a constant hum—can we move the study group to another room?', '校園：那台機器一直嗡嗡響，讀書會可以換房間嗎？'],
+  v129: ['reading', 'Budget limits constrain how many new journals the library can subscribe to.', '閱讀：預算限制了圖書館能新訂多少期刊。'],
+  v130: ['lecture', 'Alumni contribute funds that pay for first-generation student scholarships.', '講座：校友捐款用來支付第一代大學生獎學金。'],
+  v131: ['campus', 'Department chairs will convene Monday to freeze the exam calendar.', '校園：系主任週一會開會把考試行事曆定下來。'],
+  v132: ['reading', 'A project manager must coordinate designers, builders, and the client office.', '閱讀：專案經理必須協調設計師、施工單位與業主辦公室。'],
+  v133: ['lecture', 'Trust sits at the core of any long-term research partnership.', '講座：信任是任何長期研究夥伴關係的核心。'],
+  v134: ['campus', 'She left a corporate internship to TA the intro chemistry lab.', '校園：她離開企業實習，去當普化實驗助教。'],
+  v135: ['reading', 'Peaks on the graph correspond to days with unusually heavy rainfall.', '閱讀：圖上的高峰對應異常大雨的日子。'],
+  v136: ['lecture', 'Clear criteria make essay grading less of a guessing game.', '講座：清楚的評分標準讓作文分數比較不是猜的。'],
+  v137: ['campus', 'Wet sidewalks—can we deduce that it rained after midnight, or was it the sprinklers?', '校園：人行道是濕的，能推論午夜後下過雨，還是噴灌系統？'],
+  v138: ['reading', 'The experiment will demonstrate how salt lowers the freezing point of water.', '閱讀：這個實驗將證明鹽如何降低水的冰點。'],
+  v139: ['lecture', 'Keep every visa document in one folder; scattered papers get lost in dorm moves.', '講座：簽證文件放同一個夾子，宿舍搬家時散落的紙最容易丟。'],
+  v140: ['campus', 'A few brands dominate the phone repair market near campus.', '校園：校園附近修手機市場被少數幾個牌子主導。'],
+  v141: ['reading', 'The lecture placed emphasis on practice drills rather than memorizing lists.', '閱讀：講座把重點放在練習，而不是背清單。'],
+  v142: ['lecture', 'Lock the lab to ensure untrained visitors cannot walk in during an experiment.', '講座：鎖實驗室，確保實驗進行時未受訓者走不進來。'],
+  v143: ['campus', 'Will the sleep study exclude anyone who works a night shift?', '校園：睡眠研究會排除上夜班的人嗎？'],
+  v144: ['reading', 'A public fund covers repairs to the historic concert hall on campus.', '閱讀：一筆公共基金支付校園古蹟音樂廳的修繕。'],
+  v145: ['lecture', 'Use this speaking framework: claim, reason, and one concrete example.', '講座：口說用這個框架：主張、理由、再加一個具體例子。'],
+  v146: ['campus', 'Can a simple drawing illustrate blood flow, or do they want a printed diagram?', '校園：簡單手繪能說明血流嗎，還是一定要印刷圖？'],
+  v147: ['reading', 'People immigrate for study, work, or family reunification in different decades.', '閱讀：不同年代裡，人們因讀書、工作或家庭團聚而移民。'],
+  v148: ['lecture', 'His silence seemed to imply disagreement, though he never said the word no.', '講座：他的沉默像在暗示不同意，雖然他沒說「不」。'],
+  v149: ['campus', 'The initial results look good, but the professor wants a larger sample.', '校園：初步結果看起來不錯，但教授要更大的樣本。'],
+  v150: ['reading', 'The giraffe’s neck is a frequently cited instance of adaptation by selection.', '閱讀：長頸鹿的脖子常被引為天擇適應的實例。'],
+  v151: ['lecture', 'Bees and flowers interact so that both species gain something from the visit.', '講座：蜜蜂與花互動，讓兩個物種都從這次造訪得到好處。'],
+  v152: ['campus', 'I have to justify every cut in the club budget at Thursday’s meeting.', '校園：週四會議上，社團預算每一筆刪減我都得說明理由。'],
+  v153: ['reading', 'Each rock layer records a different interval of the region’s geologic past.', '閱讀：每一層岩石都記錄了該地區地質過去的不同時段。'],
+  v154: ['lecture', 'Several studies found a link between short sleep and weaker attention in class.', '講座：好幾項研究發現睡眠短與課堂注意力變差有關。'],
+  v155: ['campus', 'Where do I locate the nearest emergency exit from this lecture hall?', '校園：這個講堂最近的緊急出口在哪？'],
+  v156: ['reading', 'Stores maximize snack sales by placing them beside the checkout line.', '閱讀：商店把零食放在結帳隊伍旁，以把銷量拉到最高。'],
+  v157: ['lecture', 'Spelling is a minor issue next to a thesis that is not actually supported.', '講座：論點站不住時，拼寫只是次要問題。'],
+  v158: ['campus', 'Will one counterexample negate the claim, or do we need a full replication?', '校園：一個反例就能否定那個主張，還是要完整重做實驗？'],
+  v159: ['reading', 'The unexpected outcome forced the lab to rewrite its original hypothesis.', '閱讀：出乎意料的結果迫使實驗室改寫原先假設。'],
+  v160: ['lecture', 'She found a research partner who already knew the glacier data set.', '講座：她找到一位已經熟悉冰川資料集的研究夥伴。'],
+  v161: ['campus', 'Is philosophy of science required, or can I take another ethics course?', '校園：科學哲學是必修，還是可以改修別的倫理課？'],
+  v162: ['reading', 'Short physical activity after lunch can improve attention in afternoon classes.', '閱讀：午餐後短暫身體活動能改善下午課堂的專注。'],
+  v163: ['lecture', 'A large proportion of the student budget now goes to off-campus rent.', '講座：學生預算現在有很大比例花在校外租金。'],
+  v164: ['campus', 'Will the campus paper publish student letters about the dining hall?', '校園：校報會刊登學生對餐廳的投書嗎？'],
+  v165: ['reading', 'Some metals react with water and must be stored in oil in the teaching lab.', '閱讀：有些金屬會與水反應，教學實驗室必須用油保存。'],
+  v166: ['lecture', 'Register for the workshop by Wednesday or the waitlist closes.', '講座：星期三前登記工作坊，否則候補名單就關了。'],
+  v167: ['campus', 'We should not rely on one water bottle for that desert field trip.', '校園：沙漠校外教學不該只靠一瓶水。'],
+  v168: ['reading', 'Bags must be removed from the aisle before the guest lecture begins.', '閱讀：專題講座開始前，袋子必須從走道移開。'],
+  v169: ['lecture', 'The city launched a tree-planting scheme along every bus route to campus.', '講座：市政府推出沿每條通往校園的公車路線種樹的方案。'],
+  v170: ['campus', 'If I press the lock buttons out of sequence, will it freeze until morning?', '校園：密碼鎖順序按錯，會鎖到早上嗎？'],
+  v171: ['reading', 'The study reported results for each sex group rather than pooling all scores.', '閱讀：研究分別報告各性別組別，而不是把分數混在一起。'],
+  v172: ['lecture', 'A sudden shift in wind direction made the sailing lab too dangerous to continue.', '講座：風向突然轉變，航海實習太危險，只好中止。'],
+  v173: ['campus', 'Please specify a vegetarian meal on the conference form—there is a box for it.', '校園：研討會表格請註明素食，上面有欄位。'],
+  v174: ['reading', 'Two quiet hours are sufficient for most students to finish the practice test.', '閱讀：兩小時安靜時間對多數學生完成練習測驗是足夠的。'],
+  v175: ['lecture', 'Your first task is to summarize the listening lecture in three sentences only.', '講座：第一項任務是用三句話摘要聽力講座。'],
+  v176: ['campus', 'The manual’s technical terms are the reason I circled half the page.', '校園：手冊裡的技術詞就是我把半頁圈起來的原因。'],
+  v177: ['reading', 'A slow breathing technique can reduce speaking anxiety before the timer starts.', '閱讀：計時開始前，緩慢呼吸技巧能降低口說焦慮。'],
+  v178: ['lecture', 'New battery technology is why electric campus buses finally became cheaper.', '講座：新的電池技術讓校園電動公車終於變便宜。'],
+  v179: ['campus', 'Is a student ID valid identification at the downtown clinic, or do they want a passport?', '校園：學生證在市中心診所算有效證件，還是一定要護照？'],
+  v180: ['reading', 'Neighbors asked residents to turn down the volume after 10 p.m. during exams.', '閱讀：考試期間鄰居要求晚上十點後把音量關小。'],
+  v181: ['lecture', 'Alumni lose library access one year after graduation unless they buy a pass.', '講座：校友畢業一年後失去圖書館使用權，除非另外買證。'],
+  v182: ['campus', 'Is this draft adequate for peer review, or should I add the data table first?', '校園：這份草稿夠拿去互評了嗎，還是先把資料表加上？'],
+  v183: ['reading', 'The choir holds an annual concert whose ticket sales fund two scholarships.', '閱讀：合唱團每年舉辦音樂會，售票收入資助兩筆獎學金。'],
+  v184: ['lecture', 'It was apparent that the microphone had died in the first minute.', '講座：第一分鐘就明顯看出麥克風壞了。'],
+  v185: ['campus', 'The campus map shows only approximate walking times, not exact minutes.', '校園：校園地圖只給近似步行時間，不是精確分鐘。'],
+  v186: ['reading', 'A calm interview attitude can matter as much as the printed résumé.', '閱讀：面試時冷靜的態度可能和紙本履歷一樣重要。'],
+  v187: ['lecture', 'Honesty is the attribute recommendation letters mention more than test scores.', '講座：推薦信提到誠實這個特質，比考試分數還多。'],
+  v188: ['campus', 'Is the housing dispute a civil case, or did they actually call campus police?', '校園：宿舍糾紛是民事，還是真的叫了校園警察？'],
+  v189: ['reading', 'Each examinee received a unique code to open the online listening set.', '閱讀：每位應考者拿到一組開啟線上聽力的專屬代碼。'],
+  v190: ['lecture', 'Drivers who commit a serious offense on campus roads can lose parking rights.', '講座：在校園道路上犯下嚴重違規的駕駛會失去停車權。'],
+  v191: ['campus', 'Lab partners have to communicate if the timer is already running.', '校園：計時已經開始的話，組員一定要互相溝通。'],
+  v192: ['reading', 'Construction noise makes it difficult to concentrate in the east-wing classrooms.', '閱讀：施工噪音讓東側教室很難專心。'],
+  v193: ['lecture', 'The university will confer degrees on Saturday; arrive an hour early for lining up.', '講座：大學星期六授予學位，排隊請早一小時到。'],
+  v194: ['campus', 'Do we contrast the two theories in one paragraph, or in two separate ones?', '校園：兩種理論要對比寫在同一段，還是分開兩段？'],
+  v195: ['reading', 'The water cycle moves moisture from ocean surfaces into clouds and back as rain.', '閱讀：水循環把水氣從海面帶到雲，再以雨的形式回來。'],
+  v196: ['lecture', 'Friday we will debate whether zoos protect animals or mainly entertain visitors.', '講座：星期五要辯論動物園是保護動物，還是主要娛樂訪客。'],
+  v197: ['campus', 'Despite the rain, is the outdoor astronomy lab still meeting on the roof?', '校園：儘管下雨，戶外天文實習還在屋頂集合嗎？'],
+  v198: ['reading', 'Height is one dimension of the sculpture; the play of shadow is another.', '閱讀：高度是雕塑的一個面向，光影變化是另一個。'],
+  v199: ['lecture', 'Domestic flights are cheaper this month, which is why the field team flies Friday.', '講座：這個月國內機票較便宜，所以田野小組星期五出發。'],
+  v200: ['campus', 'New footprints started to emerge after the snow melted behind the biology building.', '校園：生物館後方的雪融化後，新的腳印才開始出現。'],
+  v201: ['reading', 'A small error in the conversion formula produced an impossible temperature on the graph.', '閱讀：換算公式的一個小錯誤，讓圖上出現不可能的溫度。'],
+  v202: ['lecture', 'The festival weekend brings together several ethnic food traditions on one lawn.', '講座：節慶週末把好幾種族群飲食傳統集中在同一片草地上。'],
+  v203: ['campus', 'My goal is to finish the research paper before I leave for spring break.', '校園：我的目標是春假出發前把研究報告寫完。'],
+  v204: ['reading', 'The foundation will grant five thousand dollars to the best water-filter design.', '閱讀：基金會將把五千美元授予最佳濾水器設計。'],
+  v205: ['lecture', 'The bridge was closed; hence the campus bus added twelve minutes to the route.', '講座：橋封了，因此校園公車路線多了十二分鐘。'],
+  v206: ['campus', 'Our hypothesis is that extra sleep will raise Friday quiz scores—want to join?', '校園：我們的假設是多睡一點能提高週五小考分數，要加入嗎？'],
+  v207: ['reading', 'The city will implement the recycling plan in March, starting with dormitories.', '閱讀：市政府三月實施回收計畫，先從宿舍開始。'],
+  v208: ['lecture', 'The safety report did not implicate students in the chemical spill; equipment failed.', '講座：安全報告沒有把學生牽連進化學外洩，是設備故障。'],
+  v209: ['campus', 'Will the new rule impose a fine if I lock my bike to the wrong railing?', '校園：若把車鎖在錯誤欄杆上，新規定會罰款嗎？'],
+  v210: ['reading', 'The honors seminar tries to integrate economic history with climate data.', '閱讀：榮譽研討課試圖把經濟史與氣候資料整合。'],
+  v211: ['lecture', 'Only internal campus mail can travel through that older delivery system.', '講座：那套較舊的傳遞系統只能送校園內部郵件。'],
+  v212: ['campus', 'Campus safety will investigate why the chemistry lab alarm went off at 2 a.m.', '校園：校安會調查化學實驗室凌晨兩點為何響鈴。'],
+  v213: ['reading', 'Sweating is a cooling mechanism that becomes less effective in very humid air.', '閱讀：出汗是冷卻機制，但在非常潮濕的空氣中效果變差。'],
+  v214: ['lecture', 'In the 1960s, students occupy squares in several cities until officials answered.', '講座：一九六〇年代，學生占據多座城市的廣場直到官員回應。'],
+  v215: ['campus', 'Taking the 10:40 train is my safest option if the review session runs long.', '校園：若複習課拖長，十點四十分那班火車是我最安全的選擇。'],
+  v216: ['reading', 'The plant reduced waste without reducing daily output of bottled water.', '閱讀：工廠在不減少每日瓶裝水產量的情況下降低廢棄物。'],
+  v217: ['lecture', 'The overall pattern in the data is that winters are ending earlier.', '講座：資料的整體模式是冬天結束得愈來愈早。'],
+  v218: ['campus', 'Do those two bike paths run parallel to the river all the way to the station?', '校園：那兩條自行車道是不是一直與河流平行到車站？'],
+  v219: ['reading', 'Temperature is entered as a parameter in the simplified climate model.', '閱讀：簡化氣候模型裡，溫度被輸入為一個參數。'],
+  v220: ['lecture', 'We are still in the planning phase; no concrete will be poured until July.', '講座：我們還在規劃階段，七月前不會澆混凝土。'],
+  v221: ['campus', 'Can the weather lab really predict a hurricane path three days ahead?', '校園：氣象實驗室真的能提前三天預測颶風路徑嗎？'],
+  v222: ['reading', 'The principal dancer missed rehearsal, so the understudy performed the opening.', '閱讀：主要舞者缺席排練，因此由候補跳開場。'],
+  v223: ['lecture', 'Read the chapter prior to class so your questions are about the hard parts.', '講座：課前先讀那一章，問題才能問在難的地方。'],
+  v224: ['campus', 'A professional editor at the writing center checked my citations in twenty minutes.', '校園：寫作中心的專業編輯二十分鐘就幫我檢查了引用。'],
+  v225: ['reading', 'The group project asks students to design a cheaper household water filter.', '閱讀：小組專案要求學生設計更便宜的家用濾水器。'],
+  v226: ['lecture', 'Cafeteria posters promote fruit at lunch because dessert sales were too high.', '講座：餐廳海報推午餐水果，因為甜點賣太好。'],
+  v227: ['campus', 'The history unit on a new regime is what I missed when I had the flu.', '校園：我感冒缺席的就是新政權那一單元。'],
+  v228: ['reading', 'Mediators helped two departments resolve a conflict over shared lab hours.', '閱讀：調解人幫助兩個系所解決共用實驗室時段的衝突。'],
+  v229: ['lecture', 'Thick-leaved plants retain water, which is why they survive desert field sites.', '講座：厚葉植物能留住水分，所以在沙漠樣區活得下去。'],
+  v230: ['campus', 'Is the museum’s 1920s photograph series still up during reading week?', '校園：博物館一九二〇年代照片系列閱讀週還在展嗎？'],
+  v231: ['reading', 'One statistic stood out: half of first-year students reported skipping breakfast.', '閱讀：有一項統計很醒目：一半的一年級生表示不吃早餐。'],
+  v232: ['lecture', 'Visiting-scholar status is what gives her after-hours library privileges.', '講座：訪問學者身分讓她有閉館後的圖書館權限。'],
+  v233: ['campus', 'Exam week stress is why the gym extended hours until midnight.', '校園：就是考試週壓力，健身房才開到午夜。'],
+  v234: ['reading', 'The subsequent chapter walks through the experiment that tested the claim.', '閱讀：隨後一章逐步說明檢驗該主張的實驗。'],
+  v235: ['lecture', 'The sum of the interior angles of a triangle is 180 degrees—no exceptions here.', '講座：三角形內角和是一百八十度，這裡沒有例外。'],
+  v236: ['campus', 'Do we write a one-paragraph summary of the listening, or bullet points?', '校園：聽力是寫一段摘要，還是可以用條列？'],
+  v237: ['reading', 'Few undergraduates undertake a double major that pairs physics with music.', '閱讀：很少大學生同時主修物理與音樂。'],
+  v238: ['lecture', 'She trained at a military academy before she ever sat in an engineering lecture.', '講座：她進工程課堂之前，先在軍事學院受訓。'],
+  v239: ['campus', 'Can you help me adjust the microscope? The cells are still a blur.', '校園：能幫我調一下顯微鏡嗎？細胞還是一片模糊。'],
+  v240: ['reading', 'A modest change in meal timing can alter afternoon energy in lecture halls.', '閱讀：用餐時間小小改變，就能改變下午聽講的精力。'],
+  v241: ['lecture', 'Thursday the club will amend its travel rules after last year’s bus problem.', '講座：週四社團會修正旅遊規則，因為去年公車出過狀況。'],
+  v242: ['campus', 'I was not aware the archives ban snacks—thanks for stopping me at the door.', '校園：我不知道檔案室禁零食，謝謝你在門口攔住我。'],
+  v243: ['reading', 'The hall’s seating capacity is two hundred, which is why tickets disappeared.', '閱讀：禮堂座位容量是兩百，所以票一下子沒了。'],
+  v244: ['lecture', 'Finding affordable rooms near campus remains a real challenge each August.', '講座：每年八月在校園附近找負擔得起的房間仍是挑戰。'],
+  v245: ['campus', 'Should I read the last clause of the internship contract before I sign tonight?', '校園：今晚簽約前該看實習合約最後一條嗎？'],
+  v246: ['reading', 'Water is a compound of hydrogen and oxygen, not an element on the periodic table.', '閱讀：水是氫與氧的化合物，不是週期表上的元素。'],
+  v247: ['lecture', 'A booking conflict between two clubs delayed our use of the main hall.', '講座：兩個社團的預約衝突，讓我們晚才能用大禮堂。'],
+  v248: ['campus', 'I need to consult a librarian; the journal issue is not on the open shelf.', '校園：我得請教圖書館員，那期期刊不在開架。'],
+  v249: ['reading', 'Gloves are required for any contact with the unlabeled chemical in cabinet B.', '閱讀：接觸 B 櫃未標示化學品時必須戴手套。'],
+  v250: ['lecture', 'Wetland bird counts decline after engineers drain the marsh for construction.', '講座：工程師為施工排乾沼澤後，濕地鳥類數量下降。'],
+  v251: ['campus', 'Did the survey use discrete categories, or could we slide along a scale?', '校園：問卷是用分開的類別，還是可以在量表上滑動？'],
+  v252: ['reading', 'Saving every draft of an essay lets writers compare how the argument changed.', '閱讀：每份作文草稿都存檔，作者才能比較論點如何改變。'],
+  v253: ['lecture', 'Subtitles enable students to follow a fast lecture when the topic is new.', '講座：主題陌生而語速快時，字幕能讓學生跟上。'],
+  v254: ['campus', 'Late nights drain my energy before the 8 a.m. lab—can we switch sections?', '校園：熬夜讓我早上八點實驗前沒有活力，能換時段嗎？'],
+  v255: ['reading', 'Safety staff enforce the helmet rule whenever the machine shop is open.', '閱讀：實習工廠開放時，安全人員會執行戴頭盔規定。'],
+  v256: ['lecture', 'A university is a legal entity, which is why it can own the forest preserve.', '講座：大學是法律實體，所以能擁有那片森林保留地。'],
+  v257: ['campus', 'Is one kilometer equivalent to 0.62 miles on the conversion sheet?', '校園：換算表上一公里是不是等於 0.62 英里？'],
+  v258: ['reading', 'Spoken languages evolve as communities borrow words across borders.', '閱讀：社群跨界借詞時，口語就會演變。'],
+  v259: ['lecture', 'The airport will expand the terminal so field-trip groups stop missing trains.', '講座：機場要擴建航廈，免得校外教學團趕不上接駁。'],
+  v260: ['campus', 'Do not expose the undeveloped film to hallway light—use the dark bag.', '校園：未顯影底片不要暴露在走廊燈光下，請用暗袋。'],
+  v261: ['reading', 'An external drive is the backup the syllabus requires before the field week.', '閱讀：教學大綱要求田野週前必須有外接硬碟備份。'],
+  v262: ['lecture', 'Clear floor arrows facilitate wayfinding when the lecture hall has two exits.', '講座：講堂有兩個出口時，地上箭頭能幫助找路。'],
+  v263: ['campus', 'Clean water is a fundamental need—why is the fountain still off?', '校園：乾淨的水是基本需求，為什麼飲水機還關著？'],
+  v264: ['reading', 'Dams generate electricity as falling water turns turbines in the powerhouse.', '閱讀：水往下衝推動廠房渦輪時，水壩就發電。'],
+  v265: ['lecture', 'Each generation of phones gets thinner, but battery life has not kept up.', '講座：每一代手機更薄，但電池續航沒跟上。'],
+  v266: ['campus', 'The satellite image of the fire is what Professor Liu put on the quiz.', '校園：劉教授小考放的就是那場火災的衛星影像。'],
+  v267: ['reading', 'The campus paper prints a liberal column beside a conservative reply each week.', '閱讀：校報每週把自由派專欄與保守派回應並排。'],
+  v268: ['lecture', 'You need a driving licence to rent the van for Saturday’s soil sampling.', '講座：星期六去採土樣，租廂型車需要駕照。'],
+  v269: ['campus', 'This logic puzzle is easier if you draw a table instead of guessing.', '校園：這道邏輯題畫表格比猜更容易。'],
+  v270: ['reading', 'The bookstore operates on a thin margin in January, when few texts are sold.', '閱讀：一月很少人買書，書店利潤很薄。'],
+  v271: ['lecture', 'She is applying to medical school after two years in the public-health lab.', '講座：她在公衛實驗室待了兩年後申請醫學院。'],
+  v272: ['campus', 'Three-hour exams test mental stamina; that is why they let us bring water.', '校園：三小時考試考驗精神耐力，所以才准帶水。'],
+  v273: ['reading', 'Writers should modify a title after the body of the essay is actually finished.', '閱讀：正文真正寫完後，作者才應修改標題。'],
+  v274: ['lecture', 'Nurses monitor temperature every four hours after the vaccine clinic.', '講座：疫苗門診後，護理師每四小時監測體溫。'],
+  v275: ['campus', 'Does the night subway network still stop at the campus gate after 1 a.m.?', '校園：凌晨一點後夜班地鐵網還停校園門口嗎？'],
+  v276: ['reading', 'The notion that the Earth is flat has no place in a geology lecture.', '閱讀：地平說這個概念不該出現在地質課。'],
+  v277: ['lecture', 'Keep the lab report objective; “I hated this method” is not a result.', '講座：實驗報告要客觀，「我討厭這個方法」不是結果。'],
+  v278: ['campus', 'New students need a day to orient themselves before the library tour.', '校園：新生需要一天先定向，再去圖書館導覽。'],
+  v279: ['reading', 'From a farmer’s perspective, the drought began two months before the news story.', '閱讀：從農人的角度看，乾旱比新聞報導早兩個月開始。'],
+  v280: ['lecture', 'Give a precise length in centimeters; “about this long” will not be scored.', '講座：長度要精確到公分，「大概這麼長」不會給分。'],
+  v281: ['campus', 'Was a former employee the prime suspect, or is that just hallway gossip?', '校園：前員工是主要嫌疑人，還是走廊謠言？'],
+  v282: ['reading', 'She chose psychology in order to study how sleep stores new vocabulary.', '閱讀：她選心理學，是為了研究睡眠如何儲存新詞彙。'],
+  v283: ['lecture', 'He left a paid internship to pursue a composition degree at this school.', '講座：他放棄有薪實習，來這所學校攻讀作曲學位。'],
+  v284: ['campus', 'Is the seminar ratio really eight students to one professor this term?', '校園：這學期研討課師生比真的是八比一嗎？'],
+  v285: ['reading', 'The journal may reject a paper that reports no original measurements.', '閱讀：沒有原創測量的論文可能被期刊拒絕。'],
+  v286: ['lecture', 'Ticket revenue is what keeps the student theater lights on in winter.', '講座：售票收入讓學生劇場冬天還能開燈。'],
+  v287: ['campus', 'Food prices stayed stable after the tax, which surprised the economics TA.', '校園：加稅後食物價格仍穩定，連經濟學助教都意外。'],
+  v288: ['reading', 'The architect’s style mixes glass walls with heavy wooden beams.', '閱讀：這位建築師的風格把玻璃牆與厚重木梁混在一起。'],
+  v289: ['lecture', 'You may substitute oat milk in the nutrition lab if dairy causes problems.', '講座：若乳製品造成不適，營養實驗可以用燕麥奶代替。'],
+  v290: ['campus', 'Can a restored wetland sustain dragonflies this soon after the project?', '校園：濕地剛復育，這麼快就能維持蜻蜓族群嗎？'],
+  v291: ['reading', 'An olive branch remains a widely recognized symbol of a pause in conflict.', '閱讀：橄欖枝仍是廣泛公認的停戰象徵。'],
+  v292: ['lecture', 'The campaign’s target is one million trees, counted by satellite after planting.', '講座：活動目標是一百萬棵樹，種完後用衛星清點。'],
+  v293: ['campus', 'The samples in transit missed the last truck—do we delay the Monday lab?', '校園：運送中的樣本沒趕上最後一班卡車，星期一實驗要延嗎？'],
+  v294: ['reading', 'Census numbers show a trend toward later first marriages in large cities.', '閱讀：普查數字顯示大城市有晚婚趨勢。'],
+  v295: ['lecture', 'Download the latest app version tonight; tomorrow’s quiz will not open on the old one.', '講座：今晚下載最新版應用，明天小考舊版打不開。'],
+  v296: ['campus', 'Does the new welfare desk in the student union help with childcare forms?', '校園：學生活動中心新的福利櫃台有幫填托育表格嗎？'],
+  v297: ['reading', 'Owls hunt after dark, whereas most campus songbirds feed in daylight.', '閱讀：貓頭鷹天黑後打獵，而校園多數鳴禽在白天覓食。'],
+  v298: ['lecture', 'Justice is an abstract idea; the court case we will read is painfully concrete.', '講座：正義是抽象概念；我們要讀的法庭案件卻非常具體。'],
+  v299: ['campus', 'I need an accurate trail map—the fog yesterday hid the last two markers.', '校園：我需要準確的步道地圖，昨天霧把最後兩個標誌蓋住了。'],
+  v300: ['reading', 'The dean had to acknowledge a misprint in the published exam timetable.', '閱讀：院長必須承認公布的考試時間表印錯了。'],
+  v301: ['lecture', 'The aggregate of three quizzes, not the midterm alone, determines the grade.', '講座：成績由三次小考總分決定，不是只看期中。'],
+  v302: ['campus', 'Will the dean allocate extra tutors to the huge intro psychology lecture?', '校園：院長會把額外助教分給超大班的普心課嗎？'],
+  v303: ['reading', 'Each student was assigned a different decade of the city’s industrial history.', '閱讀：每位學生被分配到該城工業史的不同十年。'],
+  v304: ['lecture', 'Attach the receipt to the reimbursement form or the office will send it back.', '講座：收據要附在報銷單上，否則辦公室會退件。'],
+  v305: ['campus', 'The novel’s author is reading in the student center—are we still going?', '校園：小說作者在學生活動中心朗讀，我們還去嗎？'],
+  v306: ['reading', 'Shared cooking can strengthen the bond among students in cooperative housing.', '閱讀：一起煮飯能加強合作宿舍學生之間的連結。'],
+  v307: ['lecture', 'Keep the oral introduction brief: thirty seconds, then your first reason.', '講座：口說引言要短：三十秒，然後講第一個理由。'],
+  v308: ['campus', 'Is she capable of running the lab Thursday, or should we postpone?', '校園：她星期四能撐實驗室嗎，還是該延期？'],
+  v309: ['reading', 'Writers must cite the original experiment rather than a summary blog post.', '閱讀：作者必須引用原始實驗，而不是摘要部落格。'],
+  v310: ['lecture', 'Two departments will cooperate on a climate module that counts for both majors.', '講座：兩個系所將合作一個兩邊主修都算學分的氣候單元。'],
+  v311: ['campus', 'Can trained listeners discriminate those two vowels, or do they still blend?', '校園：受過訓練的聽者能分辨那兩個母音，還是仍會混在一起？'],
+  v312: ['reading', 'The museum will display the fossil for two weeks before it returns to storage.', '閱讀：博物館會展示化石兩週，之後送回庫房。'],
+  v313: ['lecture', 'Rainforests are known for plant diversity, not for a single dominant tree.', '講座：熱帶雨林以植物多樣性聞名，不是單一優勢樹種。'],
+  v314: ['campus', 'Is cybersecurity now a separate domain, or still inside computer science?', '校園：網路安全現在是獨立領域，還是仍算資工？'],
+  v315: ['reading', 'Editors asked the author to edit one paragraph that repeated the same claim.', '閱讀：編輯請作者修改重複同一主張的那一段。'],
+  v316: ['lecture', 'Street trees enhance summer air quality along the campus commercial strip.', '講座：行道樹能提高校園商店街夏季空氣品質。'],
+  v317: ['campus', 'The old farm became a housing estate—does the history walk still go there?', '校園：舊農場變成住宅區了，歷史散步還去那裡嗎？'],
+  v318: ['reading', 'Independent writing must not exceed the stated word limit on the answer sheet.', '閱讀：獨立寫作不得超過答案卷標示的字數。'],
+  v319: ['lecture', 'A volcano expert answered questions after we watched the eruption film.', '講座：看完噴發影片後，一位火山專家回答問題。'],
+  v320: ['campus', 'The syllabus is explicit about late work—ten percent a day, no exceptions.', '校園：教學大綱對遲交寫得很明確：一天扣百分之十，沒例外。'],
+  v321: ['reading', 'A federal grant paid for the telescope now used in the night astronomy lab.', '閱讀：一筆聯邦補助支付了夜間天文實習現在用的望遠鏡。'],
+  v322: ['lecture', 'The lab fee covers gloves, goggles, and the cost of disposing of waste.', '講座：實驗費包含手套、護目鏡和廢棄物處理。'],
+  v323: ['campus', 'A flexible due date would help people who were out with the flu last week.', '校園：彈性截止日期能幫助上週因流感缺席的人。'],
+  v324: ['reading', 'The trial failed; furthermore, a sensor was cracked and had to be replaced.', '閱讀：試驗失敗了；此外，感測器裂了必須更換。'],
+  v325: ['lecture', 'The survey asked gender, age, and whether the student lives on campus.', '講座：問卷問了性別、年齡，以及是否住校。'],
+  v326: ['campus', 'I was ignorant of the no-food rule in the special collections room.', '校園：我不知道特藏室禁帶食物。'],
+  v327: ['reading', 'A small prize can be an incentive to finish the annotated bibliography on time.', '閱讀：一個小獎可以成為準時完成註解書目的激勵。'],
+  v328: ['lecture', 'Flu incidence usually rises in January, which is why the clinic opens extra hours.', '講座：流感發生率一月通常上升，所以診所加開時段。'],
+  v329: ['campus', 'Will the new textbook incorporate last year’s heat-wave data?', '校園：新教科書會納入去年熱浪資料嗎？'],
+  v330: ['reading', 'The regional price index fell after an unexpected tax announcement.', '閱讀：意外的稅務宣布後，區域物價指數下跌。'],
+  v331: ['lecture', 'Low night temperatures inhibit insect growth, which protects some crops.', '講座：夜間低溫抑制昆蟲生長，對某些作物是保護。'],
+  v332: ['campus', 'Students initiated a petition to keep the science library open until 2 a.m.', '校園：學生發起連署，希望科學圖書館開到凌晨兩點。'],
+  v333: ['reading', 'Every input in the spreadsheet must use the same unit of measurement.', '閱讀：試算表每一項輸入都必須使用相同測量單位。'],
+  v334: ['lecture', 'Coaches instruct players to drink before they feel thirsty in humid games.', '講座：潮濕比賽中，教練指示選手在感到口渴前就喝水。'],
+  v335: ['campus', 'Does this puzzle measure spatial intelligence, or is it just vocabulary?', '校園：這謎題測的是空間智力，還是只是詞彙？'],
+  v336: ['reading', 'A ten-minute interval between lectures is not enough to cross the whole campus.', '閱讀：兩堂課之間十分鐘間隔，不夠穿過整個校園。'],
+  v337: ['lecture', 'Tonight’s guest lecture is on deep-ocean mapping, not on coral bleaching.', '講座：今晚專題是深海測繪，不是珊瑚白化。'],
+  v338: ['campus', 'Do those whales migrate past this coast in March, or is that a different species?', '校園：那些鯨魚三月會遷過這片海岸，還是另一種？'],
+  v339: ['reading', 'The internship’s minimum age is eighteen, even for unpaid laboratory help.', '閱讀：即使是無薪實驗室幫手，實習最低年齡也是十八。'],
+  v340: ['lecture', 'The health ministry warned that a well near campus showed bacterial contamination.', '講座：衛生部警告校園附近一口井出現細菌汙染。'],
+  v341: ['campus', 'Curiosity was my motive for astronomy; the grade is secondary.', '校園：我修天文的動機是好奇，成績是其次。'],
+  v342: ['reading', 'A debate moderator is expected to remain neutral when the room grows loud.', '閱讀：場內變吵時，辯論主持人仍應保持中立。'],
+  v343: ['lecture', 'The trail was icy; nevertheless, the ecology class reached the observation point.', '講座：步道結冰；儘管如此，生態課還是走到觀測點。'],
+  v344: ['campus', 'Can I count a semester overseas toward my language requirement?', '校園：海外一學期能算進語言必修嗎？'],
+  v345: ['reading', 'A recorded warning will precede the fire-drill alarm by thirty seconds.', '閱讀：火警演習鈴聲前三十秒會有錄音預告。'],
+  v346: ['lecture', 'Do not presume the elevator works in a blackout; take the stairs from the start.', '講座：停電時不要假定電梯能用，一開始就走樓梯。'],
+  v347: ['campus', 'A rational plan is twenty new words a day, not two hundred the night before.', '校園：合理計畫是每天二十個新字，不是考前一晚兩百個。'],
+  v348: ['reading', 'The burned hillside took two decades to recover a closed forest canopy.', '閱讀：燒毀的山坡花了二十年才恢復鬱閉林冠。'],
+  v349: ['lecture', 'The scan will reveal whether the hairline crack in the bone has widened.', '講座：掃描會顯示骨上的細裂是否變寬。'],
+  v350: ['campus', 'Is glacier policy beyond the scope of a 300-word independent essay?', '校園：冰川政策超出三百字獨立寫作的範圍嗎？'],
+  v351: ['reading', 'A fuel subsidy kept student bus fares unchanged through the winter.', '閱讀：燃料補貼讓學生公車票價整個冬天沒漲。'],
+  v352: ['lecture', 'Historians digitized a tape of the 1968 campus speech before the coating failed.', '講座：歷史學家在塗層壞掉前，把一九六八年校園演講錄音帶數位化。'],
+  v353: ['campus', 'Can we trace the fox by those prints, or did the snow fill them in?', '校園：能靠那些腳印追蹤狐狸，還是雪已經填平了？'],
+  v354: ['reading', 'Heat and pressure transform buried mud into a harder sedimentary rock.', '閱讀：熱與壓力把埋藏的泥變成較硬的沉積岩。'],
+  v355: ['lecture', 'Trucks transport milk overnight so the dining hall receives it before breakfast.', '講座：卡車連夜運牛奶，餐廳早餐前就能收到。'],
+  v356: ['campus', 'Fear of mistakes can underlie why I freeze in the speaking room.', '校園：害怕犯錯可能是我在口說教室卡住的底層原因。'],
+  v357: ['reading', 'Clinics utilize leftover vaccine doses the same afternoon whenever possible.', '閱讀：診所只要可能，就會在當天下午用掉剩餘疫苗。'],
+  v358: ['lecture', 'Desert plants adapt to rainless months by storing water in thick tissue.', '講座：沙漠植物把水存在肥厚組織裡，以適應無雨的月份。'],
+  v359: ['campus', 'Is that film rated for adult audiences only, or can the club still screen it?', '校園：那部片只給成人看嗎，社團還能放映嗎？'],
+  v360: ['reading', 'Public-health offices advocate handwashing during the first weeks of term.', '閱讀：衛生單位在開學頭幾週提倡洗手。'],
+  v361: ['lecture', 'Foreign aid rebuilt two schools that the earthquake had cracked.', '講座：外國援助重建了地震震裂的兩所學校。'],
+  v362: ['campus', 'Switch the lounge television to the weather channel before we bike home.', '校園：騎車回家前把交誼廳電視轉到氣象頻道。'],
+  v363: ['reading', 'A chemical leak closed the river beach to swimming for seven days.', '閱讀：化學外洩讓河灘暫停游泳七天。'],
+  v364: ['lecture', 'That novel is now a classic, which is why so many literature courses assign it.', '講座：那本小說已是經典，所以很多文學課指定它。'],
+  v365: ['campus', 'Is this review comprehensive enough, or did I miss a whole set of studies?', '校園：這篇回顧夠全面嗎，還是我漏掉一整組研究？'],
+  v366: ['reading', 'The review board comprises six faculty members and two elected students.', '閱讀：審查委員會由六位教師與兩位選出的學生組成。'],
+  v367: ['lecture', 'Confirm attendance on the form tonight; empty seats will be given to the waitlist.', '講座：今晚在表格上確認出席，空位會給候補。'],
+  v368: ['campus', 'His calm voice was contrary to how nervous he looked before the speaking task.', '校園：他平靜的聲音與口說前緊張的表情相反。'],
+  v369: ['reading', 'The plant will convert leftover steam into electricity for the greenhouse.', '閱讀：工廠會把多餘蒸氣轉成溫室用的電。'],
+  v370: ['lecture', 'The young couple rented a studio near the station to cut the morning commute.', '講座：那對年輕夫妻在車站旁租套房，以縮短早上通勤。'],
+  v371: ['campus', 'In the past decade, have more people in our major chosen the online lecture?', '校園：過去十年，我們系選線上講座的人變多了嗎？'],
+  v372: ['reading', 'A definite meeting time prevents the group from arriving in scattered waves.', '閱讀：確定的開會時間避免組員分批抵達。'],
+  v373: ['lecture', 'She did not deny the first draft was weak; she simply asked for another week.', '講座：她不否認初稿很弱，只是再要一週時間。'],
+  v374: ['campus', 'Can you differentiate moths from butterflies on the night walk, or do we need lights?', '校園：夜探能分辨蛾和蝶嗎，還是一定要燈光？'],
+  v375: ['reading', 'Broken glass must be disposed of in the labeled bin, never in paper recycling.', '閱讀：碎玻璃必須丟進標示桶，絕不能進廢紙回收。'],
+  v376: ['lecture', 'Campus population is dynamic: some students leave in January, others arrive.', '講座：校園人口是動態的：一月有人離開，也有人抵達。'],
+  v377: ['campus', 'Do the new filters eliminate pollen, or only dust from the renovation?', '校園：新濾網能排除花粉，還是只能擋裝修灰塵？'],
+  v378: ['reading', 'The claim needs empirical support from a controlled trial, not a clever slogan.', '閱讀：該主張需要控制試驗的經驗支持，不能只靠巧妙口號。'],
+  v379: ['lecture', 'Rescuers will equip climbers with radios before the weather window closes.', '講座：救援隊會在天氣窗關閉前，為攀登者裝備無線電。'],
+  v380: ['campus', 'Can the forensics lab extract DNA from a hair that sat in an envelope all term?', '校園：鑑識實驗室能從放了一學期的信封頭髮提煉 DNA 嗎？'],
+  v381: ['reading', 'Permission letters must be uploaded as a PDF file, not as a phone photograph.', '閱讀：同意書必須上傳 PDF 檔，不能傳手機照片。'],
+  v382: ['lecture', 'Fossil fuels are finite, which is why the energy unit ends with solar and wind.', '講座：化石燃料有限，所以能源單元最後才講太陽能與風能。'],
+  v383: ['campus', 'Trust is the foundation of sharing unpublished data with another lab.', '校園：把未發表資料分享給別的實驗室，信任是基礎。'],
+  v384: ['reading', 'Plastic fragments have been recovered from every ocean basin on the globe.', '閱讀：地球每一個海盆都回收過塑膠碎片。'],
+  v385: ['lecture', 'She skipped a grade after the math placement exam placed her too low.', '講座：數學分班考把她放太低後，她跳了一級。'],
+  v386: ['campus', 'Does this ticket guarantee a seat if I arrive after the lecture starts?', '校園：講座開始後才到，這張票還保證有位子嗎？'],
+  v387: ['reading', 'A rigid hierarchy made junior staff slow to report equipment errors.', '閱讀：僵硬的層級讓基層員工不願早報設備錯誤。'],
+  v388: ['lecture', 'The twins are identical in face, but their recorded voices are easy to tell apart.', '講座：雙胞胎臉孔相同，但錄音裡的聲音很好分辨。'],
+  v389: ['campus', 'The guest speaker’s ideology favors smaller government—will that be on the quiz?', '校園：講者的思想傾向小政府，這會考嗎？'],
+  v390: ['reading', 'Empty chairs allowed observers to infer that the seminar had been canceled.', '閱讀：空椅子讓旁觀者推論研討課已取消。'],
+  v391: ['lecture', 'A start-up tried to innovate by turning cafeteria leftovers into animal feed.', '講座：一家新創想把餐廳剩食變成飼料來創新。'],
+  v392: ['campus', 'Where do I insert a page break so the references start on a new sheet?', '校園：參考書目要另起一頁，分頁要插在哪？'],
+  v393: ['reading', 'Instructors may intervene when a classroom argument becomes personal.', '閱讀：課堂爭論變成人身攻擊時，教師可以介入。'],
+  v394: ['lecture', 'The clinic will isolate flu patients so the waiting room stays safer.', '講座：診所會隔離流感病人，讓候診區安全一些。'],
+  v395: ['campus', 'Social media spread the bus-strike rumor before the official email arrived.', '校園：官方郵件還沒到，社群媒體就把公車罷工謠言傳開了。'],
+  v396: ['reading', 'Night mode on the camera reduces blur when students photograph the moon lab.', '閱讀：夜間模式能減少學生拍月亮實習時的模糊。'],
+  v397: ['lecture', 'This unit introduces a new paradigm for explaining why some birds migrate at night.', '講座：本單元介紹解釋部分鳥類夜間遷徙的新典範。'],
+  v398: ['campus', 'Are the northern lights a phenomenon we might see from the observatory roof?', '校園：極光這種現象，觀測站屋頂有可能看到嗎？'],
+  v399: ['reading', 'Sleep is treated as a higher priority than extra social-media time in the health unit.', '閱讀：健康單元把睡眠列為比額外滑手機更高的優先事項。'],
+  v400: ['lecture', 'Campus rules prohibit bicycles in the library stacks, even if they are folded.', '講座：校園規定禁止把自行車帶進圖書館書架區，即使是折疊車。'],
+  v401: ['campus', 'Was her first publication a short paper, or a conference poster?', '校園：她的第一份出版品是短論文，還是會議海報？'],
+  v402: ['reading', 'Writers should not quote a source they have not actually opened and read.', '閱讀：作者不應引用自己其實沒打開讀過的資料。'],
+  v403: ['lecture', 'The lab will release the numbers only after two people have checked the table.', '講座：兩人核對表格後，實驗室才會發布數字。'],
+  v404: ['campus', 'Put the van in reverse slowly—the loading dock is narrower than it looks.', '校園：廂型車倒車要慢，卸貨台比看起來窄。'],
+  v405: ['reading', 'Flight trainers simulate engine failure so students can practice without leaving the ground.', '閱讀：飛行訓練會模擬引擎故障，讓學生不必離地就能練習。'],
+  v406: ['lecture', 'She was the sole volunteer who stayed to reset the lab benches.', '講座：她是唯一留下整理實驗桌的志工。'],
+  v407: ['campus', 'The second recording is somewhat clearer—should we submit that one?', '校園：第二段錄音清楚一些，要交那一段嗎？'],
+  v408: ['reading', 'Independent essays must be submitted as PDF files before midnight campus time.', '閱讀：獨立寫作必須在校園時間午夜前以 PDF 提交。'],
+  v409: ['lecture', 'The dean named a successor in May so the summer programs would not stall.', '講座：院長五月就指定接班人，免得夏季課程停擺。'],
+  v410: ['campus', 'Her thesis is on park shade and summer heat—can I cite the draft?', '校園：她的論文在寫公園樹蔭與夏熱，我能引草稿嗎？'],
+  v411: ['reading', 'A narrow topic keeps a ten-minute talk from racing through too many claims.', '閱讀：題目夠窄，十分鐘報告才不會搶著講太多主張。'],
+  v412: ['lecture', 'Those towers transmit the campus radio signal across the river valley.', '講座：那些塔把校園廣播訊號傳到河谷對岸。'],
+  v413: ['campus', 'Is fluent speaking the ultimate goal of this course, or just a higher listening score?', '校園：這門課的最終目標是口說流利，還是只是聽力更高分？'],
+  v414: ['reading', 'No two snow crystals show a unique pattern that is truly identical under a lens.', '閱讀：在鏡頭下，沒有兩片雪晶的獨特圖案是完全一樣的。'],
+  v415: ['lecture', 'The comet should be visible without a telescope if the sky stays clear Tuesday.', '講座：若星期二仍晴，彗星不用望遠鏡也看得見。'],
+  v416: ['campus', 'The beach cleanup is voluntary, but they still give hours for the service transcript.', '校園：淨灘是自願的，但服務時數還是會進成績單附頁。'],
+  v417: ['reading', 'Writers should not abandon a draft merely because the opening sentence is weak.', '閱讀：作者不該只因為第一句弱就放棄整篇草稿。'],
+  v418: ['lecture', 'A teaching assistant will accompany the group through the museum’s closed wing.', '講座：助教會陪這組走過博物館未對公眾開放的側翼。'],
+  v419: ['campus', 'Dust can accumulate on the roof panels—who is on the cleaning rotation?', '校園：屋頂板會積灰，這週輪到誰清？'],
+  v420: ['reading', 'The story’s ending is deliberately ambiguous, which frustrates some exam takers.', '閱讀：故事結局故意模糊，讓部分應考者感到挫折。'],
+  v421: ['lecture', 'The survey instrument is printed in the appendix; you do not need to memorize it.', '講座：調查工具印在附錄，不必背下來。'],
+  v422: ['campus', 'Visitors appreciate how quiet the garden is at 7 a.m. before tours start.', '校園：訪客很喜歡早上七點導覽開始前花園的安靜。'],
+  v423: ['reading', 'Choosing a winner by coin toss felt arbitrary to the debate team.', '閱讀：用丟硬幣決定勝者，對辯論隊來說太隨意。'],
+  v424: ['lecture', 'Hall lights turn off automatically; clap once if you are still in the room.', '講座：走廊燈會自動關，若人還在就拍一下手。'],
+  v425: ['campus', 'Our sample has a bias toward dorm residents—almost no commuters answered.', '校園：樣本偏向住校生，通勤生幾乎沒填。'],
+  v426: ['reading', 'The rainfall chart on page 12 compares four cities across one wet season.', '閱讀：第十二頁雨量圖比較四座城市同一個雨季。'],
+  v427: ['lecture', 'Let me clarify the due date: the homework is Tuesday, not Monday.', '講座：我澄清截止日期：作業是星期二交，不是星期一。'],
+  v428: ['campus', 'Was coffee really a major export commodity in that history chapter?', '校園：歷史那章真的把咖啡當主要出口商品嗎？'],
+  v429: ['reading', 'A route map can complement a written description of the Saturday hike.', '閱讀：路線圖可以補充週六健行的文字說明。'],
+  v430: ['lecture', 'Citations must conform to the department style sheet posted on the course site.', '講座：引用必須符合課程網站上的系上格式表。'],
+  v431: ['campus', 'Is the contemporary wing open, or only the older painting galleries?', '校園：當代館有開嗎，還是只有較舊的繪畫館？'],
+  v432: ['reading', 'Fresh measurements contradict last year’s published temperature averages.', '閱讀：新的測量與去年公布的氣溫平均互相矛盾。'],
+  v433: ['lecture', 'Goggles are crucial the moment we start heating those two liquids.', '講座：一開始加熱那兩種液體，護目鏡就至關重要。'],
+  v434: ['campus', 'Do I exchange currency at the airport, or is the campus bank cheaper?', '校園：該在機場換匯，還是校園銀行比較便宜？'],
+  v435: ['reading', 'A red star on the evacuation map denotes the nearest staffed clinic.', '閱讀：疏散圖上的紅星表示最近有人值班的診所。'],
+  v436: ['lecture', 'Smoke sensors detect a fire before most people in the hall can smell it.', '講座：煙霧感測器在廳內多數人聞到之前就能探測到火。'],
+  v437: ['campus', 'Did the creek deviate after the flood, or is the map just old?', '校園：洪水後溪流偏離了，還是地圖舊了？'],
+  v438: ['reading', 'Online sellers may displace the last independent bookstore near campus.', '閱讀：網路賣家可能取代校園附近最後一家獨立書店。'],
+  v439: ['lecture', 'The theater department will stage a drama about families moving after floods.', '講座：戲劇系將上演洪水後搬家家庭的戲。'],
+  v440: ['campus', 'The eventual winner failed the first round—how is that possible?', '校園：最終優勝者第一輪被淘汰過，這怎麼可能？'],
+  v441: ['reading', 'The science fair will exhibit student robots in the main gym for two days.', '閱讀：科展會在主體育館展覽學生機器人兩天。'],
+  v442: ['lecture', 'Miners used to exploit the slope until rain washed the soil into the creek.', '講座：礦工曾開發山坡，直到雨水把土沖進溪裡。'],
+  v443: ['campus', 'Fruit prices fluctuate after a cold night—should we delay the market survey?', '校園：寒夜後水果價格會波動，市集調查該延嗎？'],
+  v444: ['reading', 'The safety guideline on the lab door lists what to do if a bottle cracks.', '閱讀：實驗室門上的安全指引列出瓶子破裂時的做法。'],
+  v445: ['lecture', 'I used a thirty-second clip to highlight the water shortage in that town.', '講座：我用三十秒短片強調那個小鎮的缺水。'],
+  v446: ['campus', 'Was there an implicit warning in that polite email from the dean?', '校園：院長那封客氣郵件裡有沒有隱含警告？'],
+  v447: ['reading', 'Bright hallway lights at night can induce headaches in some residents.', '閱讀：夜間走廊強光可能誘發部分住宿生頭痛。'],
+  v448: ['lecture', 'If the dam is not repaired, spring flooding is inevitable below campus.', '講座：水壩不修，校園下游春天淹水將不可避免。'],
+  v449: ['campus', 'Aging infrastructure is why the west-campus power flickered during the storm.', '校園：就是基礎設施老化，西校區暴風雨才會閃電。'],
+  v450: ['reading', 'Health officers inspect dining kitchens twice a year without advance notice.', '閱讀：衛生官員每年不預告檢查餐廳廚房兩次。'],
+  v451: ['lecture', 'An intense windstorm dropped two trees across the main bike path.', '講座：一場強風把兩棵樹砸在主要自行車道上。'],
+  v452: ['campus', 'Do ads manipulate what we notice first on the course registration page?', '校園：廣告會操縱我們在選課頁先注意到什麼嗎？'],
+  v453: ['reading', 'Short sentences minimize confusion when a lab report describes a procedure.', '閱讀：實驗報告寫步驟時，短句能把困惑降到最低。'],
+  v454: ['lecture', 'The country closed its last nuclear plant, so the energy mix shifted toward gas.', '講座：該國關閉最後一座核電廠，能源組合轉向天然氣。'],
+  v455: ['campus', 'Can tree planting offset the carbon from our overnight bus to the field site?', '校園：種樹能抵銷我們坐夜車去樣區的碳嗎？'],
+  v456: ['reading', 'Rewrite the weakest paragraph before the independent essay is submitted.', '閱讀：獨立寫作交出去前，先改最弱的那一段。'],
+  v457: ['lecture', 'Bring your ID plus the printed ticket; a phone photo will not be accepted.', '講座：請帶證件加上列印的票，手機照片不收。'],
+  v458: ['campus', 'Can a nurse practitioner at the clinic renew this prescription, or only a doctor?', '校園：診所專科護理師能續這個處方，還是只能醫生？'],
+  v459: ['reading', 'Wheat remains the predominant crop on the dry side of the river valley.', '閱讀：小麥仍是河谷乾燥一側占主導的作物。'],
+  v460: ['lecture', 'Nursing graduates have a strong job prospect this year in city hospitals.', '講座：護理系畢業生今年在市區醫院的就業前景很好。'],
+  v461: ['campus', 'A radical bus-route change angered the apartments south of campus.', '校園：公車路線的激進改動讓南校區公寓不滿。'],
+  v462: ['reading', 'Participants were assigned to random groups so friends could not sit together.', '閱讀：參與者被隨機分組，避免朋友坐在一起。'],
+  v463: ['lecture', 'Timed practice tests reinforce the lecture more than rereading slides.', '講座：計時模擬測驗比重看投影片更能加強講座內容。'],
+  v464: ['campus', 'Volunteers restore the marsh on Saturdays—do we get ecology hours for that?', '校園：志工週六復育沼澤，那能算生態時數嗎？'],
+  v465: ['reading', 'Revise the introduction last, after the body paragraphs are in final form.', '閱讀：等正文各段定稿後，最後再修訂引言。'],
+  v466: ['lecture', 'Check the exam schedule before you book a weekend trip in October.', '講座：十月週末出遊前先看考試行程。'],
+  v467: ['campus', 'My shoulders get tense after typing the lab notebook for three hours.', '校園：實驗筆記打三小時後肩膀會緊。'],
+  v468: ['reading', 'Unpaid rent can terminate a university housing lease after written notice.', '閱讀：書面通知後，未付租金可能終止大學宿舍租約。'],
+  v469: ['lecture', 'Memory is the theme that ties the five short stories in this week’s packet.', '講座：記憶是串起本週閱讀五篇短篇的主題。'],
+  v470: ['campus', 'They diverted the creek, thereby keeping floodwater out of the art building.', '校園：他們改了溪道，從而讓洪水進不了藝術館。'],
+  v471: ['reading', 'The marching band wore a red uniform at the home football game.', '閱讀：行進樂隊在主場足球賽穿紅色制服。'],
+  v472: ['lecture', 'An electric vehicle has no tailpipe exhaust, which matters on the campus loop.', '講座：電動車沒有排氣管廢氣，對校園環路很重要。'],
+  v473: ['campus', 'Can I submit the add form via the department site, or do they still want paper?', '校園：加選表能透過系上網頁交，還是仍要紙本？'],
+  v474: ['reading', 'Snow closures moved the seminar to a virtual meeting for two Thursdays.', '閱讀：因雪停課，研討課有兩個星期四改為線上會議。'],
+  v475: ['lecture', 'A visual diagram of the water cycle is on the back of your handout.', '講座：水循環的視覺圖在講義背面。'],
+  v476: ['campus', 'Smartphones are in widespread use even in the rural clinic we visited.', '校園：我們去的鄉村診所，智慧型手機使用也很普遍。'],
+  v477: ['reading', 'The new residence hall can accommodate four hundred students in double rooms.', '閱讀：新宿舍以雙人房可容納四百名學生。'],
+  v478: ['lecture', 'I used a sports analogy to explain supply and demand—did that help?', '講座：我用運動比喻解釋供需，有幫助嗎？'],
+  v479: ['campus', 'Weather services anticipate a hotter July than last year’s record.', '校園：氣象單位預料今年七月會比去年的紀錄更熱。'],
+  v480: ['reading', 'Advisers assure students that unofficial topics will not appear on the exam.', '閱讀：輔導老師向學生保證，未宣布範圍不會出現在考試。'],
+  v481: ['lecture', 'Few climbers attain the ridge in wind this strong, so we turn around at noon.', '講座：風這麼大很少人能到山脊，所以我們中午折返。'],
+  v482: ['campus', 'I am speaking on behalf of night-shift students who cannot attend at 8 a.m.', '校園：我代表上夜班、沒辦法早上八點到的學生發言。'],
+  v483: ['reading', 'The machine shop will cease operations during Friday’s safety inspection.', '閱讀：星期五安全檢查期間，實習工廠將停止運作。'],
+  v484: ['lecture', 'A coherent essay ties every paragraph back to the thesis in the first sentence.', '講座：連貫的文章讓每一段第一句都連回中心論點。'],
+  v485: ['campus', 'The food festival will coincide with alumni weekend—should we volunteer then?', '校園：美食節會跟校友週末重疊，我們那時去當志工嗎？'],
+  v486: ['reading', 'Construction will commence as soon as the last permit is posted on the fence.', '閱讀：最後一張許可貼上圍籬，工程就會開始。'],
+  v487: ['lecture', 'This charger is not compatible with the older tablets in the loaner closet.', '講座：這個充電器與出借櫃裡的舊平板不相容。'],
+  v488: ['campus', 'Two concerts were concurrent, so I could not usher at both halls.', '校園：兩場音樂會同時舉行，我沒辦法兩邊都當引導。'],
+  v489: ['reading', 'Food is confined to the lounge; the computer classroom stays crumb-free.', '閱讀：食物局限在交誼廳，電腦教室保持沒有碎屑。'],
+  v490: ['lecture', 'The stadium lights caused controversy because they stayed on past midnight.', '講座：體育場燈光引起爭議，因為過了午夜還亮著。'],
+  v491: ['campus', 'May we converse in the museum lobby, or is even whispering banned?', '校園：博物館大廳可以交談嗎，還是連耳語都不行？'],
+  v492: ['reading', 'A small device on the counter turns salty water into a drinking supply.', '閱讀：櫃臺上一個小裝置能把鹹水變成飲用水。'],
+  v493: ['lecture', 'She chose to devote Saturday mornings to tutoring at the middle school.', '講座：她決定把週六早上奉獻給國中課輔。'],
+  v494: ['campus', 'Fish counts diminish when the river warms—did the reading mention a number?', '校園：河水變暖時魚的數量會減少，閱讀有提到數字嗎？'],
+  v495: ['reading', 'A cracked lens can distort a photograph of the lunar eclipse lab.', '閱讀：鏡片裂了會扭曲月食實習拍的照片。'],
+  v496: ['lecture', 'The speaking task’s duration is forty-five seconds; do not plan a two-minute story.', '講座：口說作答時間是四十五秒，別計畫講兩分鐘的故事。'],
+  v497: ['campus', 'Wind and rain erode that cliff every winter—are we still allowed on the path?', '校園：風和雨每年冬天侵蝕那座崖，步道還能走嗎？'],
+  v498: ['reading', 'Research ethic requires reporting failed trials, not only the successful ones.', '閱讀：研究倫理要求連失敗試驗也要報告，不能只報成功的。'],
+  v499: ['lecture', 'Save the file in PDF format; a word-processor file will be rejected by the portal.', '講座：存成 PDF 格式，文書檔會被上傳系統退回。'],
+  v500: ['campus', 'Was the teachers’ college founded in 1889, or is that the year it became a university?', '校園：師範學院是一八八九年成立，還是那一年才改制成大學？'],
+  v501: ['reading', 'Risk is inherent in any teaching lab that uses live animals, however briefly.', '閱讀：只要教學實驗室使用活體動物，即使很短，風險也是固有的。'],
+  v502: ['lecture', 'The interview gave insight into how the composer revises a melody overnight.', '講座：訪談讓人了解作曲家如何在一夜之間修改旋律。'],
+  v503: ['campus', 'Academic integrity means I cannot copy even a function from another student’s code.', '校園：學術誠信代表我連一個函式都不能抄同學的程式。'],
+  v504: ['reading', 'Copper has intrinsic value as a conductor, which is why the lab still uses it.', '閱讀：銅作為導體有其固有價值，所以實驗室仍使用它。'],
+  v505: ['lecture', 'The mayor can invoke emergency powers if the river reaches the marked line.', '講座：河水漲到標線，市長就可以動用緊急權。'],
+  v506: ['campus', 'Will the city levy a tax on disposable cups in the student union cafés?', '校園：市政府會對學生活動中心咖啡廳的免洗杯徵稅嗎？'],
+  v507: ['reading', 'The first trial failed; likewise, the second produced no measurable signal.', '閱讀：第一次試驗失敗；第二次同樣沒有可測訊號。'],
+  v508: ['lecture', 'The path was icy; nonetheless, the class completed the bird count.', '講座：路結冰；儘管如此，全班還是完成了鳥類計數。'],
+  v509: ['campus', 'It seemed odd that the library lights were on at 3 a.m. during break.', '校園：假期凌晨三點圖書館還亮燈，感覺很怪。'],
+  v510: ['reading', 'An ongoing debate concerns whether high school should start after 8:30 a.m.', '閱讀：高中是否該八點半以後上課，辯論仍在進行。'],
+  v511: ['lecture', 'A panel of three professors will score the speaking contest on Saturday.', '講座：三位教授組成的小組星期六評口說比賽。'],
+  v512: ['campus', 'Some weeds persist in the drought garden—do we still call that a failure?', '校園：乾旱園裡有些雜草還活著，這仍算失敗嗎？'],
+  v513: ['reading', 'Rising rents pose a problem for graduate students who teach night labs.', '閱讀：租金上漲對晚上帶實驗的研究生構成問題。'],
+  v514: ['lecture', 'His reluctance to speak faded after the first complete answer on the recording.', '講座：錄音裡第一次完整答完後，他不願開口的情況就淡了。'],
+  v515: ['campus', 'The instruction is straightforward: circle one letter, not two.', '校園：說明很直接：只圈一個字母，不要兩個。'],
+  v516: ['reading', 'Patients undergo a short hearing check before the scan sequence begins.', '閱讀：掃描序列開始前，病人會先做短暫聽力檢查。'],
+  v517: ['lecture', 'They dug a canal whereby barges could skip the rapids below the mill.', '講座：他們挖運河，駁船由此可避開磨坊下方的急流。'],
+  v518: ['campus', 'Is the chemistry building adjacent to the library, or is that the physics tower?', '校園：化學館是緊鄰圖書館，還是那是物理塔？'],
+  v519: ['reading', 'The repair succeeded, albeit two weeks later than the original schedule.', '閱讀：修理成功了，儘管比原訂行程晚了兩週。'],
+  v520: ['lecture', 'If the alarm sounds, assemble in the courtyard, not in the parking garage.', '講座：警報響時在庭院集合，不要去停車場。'],
+  v521: ['campus', 'Heavy snow made an old greenhouse roof collapse—lab is moved to room 12.', '校園：大雪讓舊溫室屋頂坍了，實驗改到 12 室。'],
+  v522: ['reading', 'Ask a colleague to read the abstract before the conference deadline.', '閱讀：會議截止前請同事讀一下摘要。'],
+  v523: ['lecture', 'Researchers compile temperature records from stations the university still owns.', '講座：研究人員彙整大學仍擁有的測站氣溫紀錄。'],
+  v524: ['campus', 'Could anyone conceive of phones replacing paper maps when this building opened?', '校園：這棟樓啟用時，有人想過手機會取代紙本地圖嗎？'],
+  v525: ['reading', 'The poster tried to convince drivers to share rides on the morning campus loop.', '閱讀：海報試圖說服駕駛在早上校園環路共乘。'],
+  v526: ['lecture', 'Gray weeks can depress mood, which is why the counseling office extends hours.', '講座：連續陰天可能讓心情低落，所以輔導室加開。'],
+  v527: ['campus', 'We might encounter ice on the April trail—do we still need crampons from the gear room?', '校園：四月步道可能遇到冰，還要去器材室借冰爪嗎？'],
+  v528: ['reading', 'Details of the forthcoming concert will be posted after Thursday’s rehearsal.', '閱讀：即將舉行的音樂會細節會在週四排練後公布。'],
+  v529: ['lecture', 'Tired students incline toward the easiest elective, not the one that fills a gap.', '講座：疲倦的學生傾向選最簡單的選修，而不是補缺口的那門。'],
+  v530: ['campus', 'Although the lecture ran long, did anyone actually leave before the last graph?', '校園：雖然講座拖很長，真的有人在最後一張圖前離開嗎？'],
+  v531: ['reading', 'The method is slow; however, it produces fewer false temperature spikes.', '閱讀：方法很慢；然而，錯誤的氣溫尖峰比較少。'],
+  v532: ['lecture', 'The bridge iced over; therefore the 8 a.m. buses were stacked at the gate.', '講座：橋結冰了，因此八點的公車全卡在校門口。'],
+  v533: ['campus', 'Classes moved online because the heating failed in the north lecture block.', '校園：北側講堂暖氣壞了，所以課改線上。'],
+  v534: ['reading', 'While the professor spoke, students copied the diagram without adding notes.', '閱讀：教授講課時，學生只抄圖，沒加筆記。'],
+  v535: ['lecture', 'Take notes by hand instead of typing if you remember diagrams better that way.', '講座：若手寫比較記得圖，就用手寫，不要打字。'],
+  v536: ['campus', 'Besides the textbook, is that extra article actually required?', '校園：除了教科書，那篇額外文章真的是必讀嗎？'],
+  v537: ['reading', 'The room is cold; moreover, the projector lamp has already burned out.', '閱讀：房間很冷；而且投影機燈泡也燒了。'],
+  v538: ['lecture', 'I will keep talking; meanwhile, volunteers set chairs in the overflow room.', '講座：我繼續講；同時志工在溢出教室排椅子。'],
+  v539: ['campus', 'Bring a printout; otherwise the exam proctor will not let you in.', '校園：請帶列印本，否則監考不會讓你進。'],
+  v540: ['reading', 'Students will not receive credit unless the lab notebook is submitted stamped.', '閱讀：除非實驗筆記本蓋章後繳交，否則沒有學分。'],
+  v541: ['lecture', 'State whether you agree, then give one campus example that fits.', '講座：先說你同不同意，再給一個符合的校園例子。'],
+  v542: ['campus', 'Two examples are not enough for a claim that big—can I add a third?', '校園：這麼大的主張兩個例子不夠，能加第三個嗎？'],
+  v543: ['reading', 'Several students requested an extra review session before the listening quiz.', '閱讀：有幾位學生在聽力小考前要求加開複習。'],
+  v544: ['lecture', 'The collection includes various 18th-century instruments you can view but not touch.', '講座：館藏有各種十八世紀樂器，只能看不能碰。'],
+  v545: ['campus', 'Numerous studies link short sleep to weaker attention—is that the reading’s main point?', '校園：很多研究把睡眠短和注意力差連在一起，那是閱讀主旨嗎？'],
+  v546: ['reading', 'Crows are common on the lawn behind the library in late afternoon.', '閱讀：傍晚圖書館後方草地上烏鴉很常見。'],
+  v547: ['lecture', 'It is important to cite every idea that did not originate in your own notes.', '講座：凡不是從自己筆記來的想法，都要引用，這點很重要。'],
+  v548: ['campus', 'Are the two dialects different in word order, or only in vocabulary?', '校園：兩種方言是詞序不同，還是只有詞彙不同？'],
+  v549: ['reading', 'It is possible to finish the assigned reading in one evening if it is started early.', '閱讀：若提早開始，指定閱讀一個晚上讀完是可能的。'],
+  v550: ['lecture', 'A calculator is necessary; mental arithmetic will cost you time on the last items.', '講座：計算機是必要的，心算會讓你在最後幾題不夠時間。'],
+  v551: ['campus', 'The last listening is difficult because the two speakers overlap—any transcript later?', '校園：最後一題聽力很難，因為兩人聲音重疊，之後會有逐字稿嗎？'],
+  v552: ['reading', 'A large poster can be read from the back row of the lecture hall.', '閱讀：大海報在講堂後排也讀得見。'],
+  v553: ['lecture', 'A small unit error can ruin an entire titration calculation in the lab book.', '講座：單位上的小錯誤就能毀掉實驗簿裡整份滴定計算。'],
+  v554: ['campus', 'High humidity makes the computer lab feel warmer than the thermostat shows.', '校園：高濕度讓電腦教室感覺比空調顯示的更熱。'],
+  v555: ['reading', 'Low tide reveals rocks that morning swimmers never see from the beach path.', '閱讀：低潮會露出早上從海灘步道看不見的岩石。'],
+  v556: ['lecture', 'Early trains are cheaper, but they are packed with commuters from the next town.', '講座：早班火車較便宜，但擠滿鄰鎮通勤者。'],
+  v557: ['campus', 'Late work loses ten percent—does that start the minute after midnight?', '校園：遲交扣百分之十，是午夜過一分就開始算嗎？'],
+  v558: ['reading', 'She often reviews vocabulary on the bus rather than in a noisy lounge.', '閱讀：她常在公車上複習單字，而不是在吵雜交誼廳。'],
+  v559: ['lecture', 'Always lock the microscope cabinet; last term a lens disappeared over a weekend.', '講座：一定要鎖顯微鏡櫃，上學期有片鏡頭週末不見了。'],
+  v560: ['campus', 'Never pour water into concentrated acid—did the safety video show the splash?', '校園：絕不要把水倒進濃酸，安全影片有噴濺畫面嗎？'],
+  v561: ['reading', 'Faculty office hours are usually quieter on Friday afternoons after labs end.', '閱讀：實驗室結束後的星期五下午，教師面談時間通常較安靜。'],
+  v562: ['lecture', 'The bus is probably late because of football traffic on the campus loop.', '講座：公車大概是因為校園環路的足球賽車潮才誤點。'],
+  v563: ['campus', 'Perhaps the notebook is still in yesterday’s classroom—can you check with lost and found?', '校園：也許筆記本還在昨天教室，你能幫我問失物招領嗎？'],
+  v564: ['reading', 'A drier climate is pushing pine forests toward higher elevations in the range.', '閱讀：更乾燥的氣候正把松林推向山脈更高處。'],
+  v565: ['lecture', 'Check the weather before you cycle; black ice formed on the bridge at dawn.', '講座：騎車前看天氣，黎明時橋上結成了黑冰。'],
+  v566: ['campus', 'Water boils at a lower temperature in the mountain cabin—do we change the tea time?', '校園：山屋水的沸點較低，泡茶時間要改嗎？'],
+  v567: ['reading', 'Several bird species nest on the library roof each spring despite the construction.', '閱讀：儘管施工，每年春天仍有數種鳥在圖書館屋頂築巢。'],
+  v568: ['lecture', 'The film follows an animal that lives only in seasonal wetlands.', '講座：影片追蹤一種只住在季節性濕地的動物。'],
+  v569: ['campus', 'Does a desert plant store water in leaves, or in the root the diagram shows?', '校園：沙漠植物把水存在葉子，還是圖上畫的根？'],
+  v570: ['reading', 'After the fire, the forest required decades before a closed canopy returned.', '閱讀：火災後，森林需要數十年才恢復鬱閉林冠。'],
+  v571: ['lecture', 'Plastic pieces have been pulled from trenches in the deepest ocean basins.', '講座：最深的海盆海溝也撈出過塑膠碎片。'],
+  v572: ['campus', 'The river floods the practice fields almost every spring—will the match move?', '校園：這條河幾乎每年春天淹練習場，比賽會改嗎？'],
+  v573: ['reading', 'Snowpack on the mountain supplies drinking water to the campus through August.', '閱讀：山上的積雪供應校園飲用水直到八月。'],
+  v574: ['lecture', 'A blackout showed how much the evening lecture depends on electricity for slides.', '講座：一次停電顯示晚上講座有多依賴電來放投影片。'],
+  v575: ['campus', 'Buses on cleaner fuel produce less smoke at the campus gate—did you notice?', '校園：較乾淨燃料的公車在校門口煙比較少，你有注意到嗎？'],
+  v576: ['reading', 'A film of oil on the pond blocked oxygen from reaching fish near the surface.', '閱讀：池塘上一層油擋住氧氣到達靠近水面的魚。'],
+  v577: ['lecture', 'Natural gas heating is common in this city’s older dormitories.', '講座：這座城市較舊的宿舍常用天然氣暖氣。'],
+  v578: ['campus', 'Trees store carbon in wood—should that go in the climate-essay body paragraph?', '校園：樹木把碳存在木材裡，這該寫進氣候作文的主體段嗎？'],
+  v579: ['reading', 'Fish require dissolved oxygen; warm water holds less of it in summer labs.', '閱讀：魚需要溶解氧；夏季實驗的溫水含氧量較低。'],
+  v580: ['lecture', 'Do not waste water while brushing teeth; the drought rules apply in every dorm.', '講座：刷牙不要浪費水，乾旱規定適用每一棟宿舍。'],
+  v581: ['campus', 'Cold air off the mountain made the night game in the stadium miserable.', '校園：山上下來的冷空氣讓體育場夜賽很難受。'],
+  v582: ['reading', 'Farmers test soil chemistry before they choose a crop for the campus farm plot.', '閱讀：農民在校園農地選作物前會先測土壤化學。'],
+  v583: ['lecture', 'Irrigation changed agriculture in that dry valley, but it also lowered the water table.', '講座：灌溉改變了乾旱山谷的農業，卻也讓地下水位下降。'],
+  v584: ['campus', 'A visiting farmer explained how one frost can ruin a peach harvest overnight.', '校園：來訪農民說明一場霜如何一夜毀掉桃子收成。'],
+  v585: ['reading', 'Corn is the main crop on the east bank, while wheat dominates the west.', '閱讀：東岸主作物是玉米，西岸則以小麥為主。'],
+  v586: ['lecture', 'A late frost destroyed much of the harvest the ecology class had been counting.', '講座：晚霜毀掉生態課一直在計數的大部分收成。'],
+  v587: ['campus', 'Does the car industry still employ people from this town, or did the plant close?', '校園：汽車產業還雇這個鎮的人嗎，還是廠已經關了？'],
+  v588: ['reading', 'The old factory is now a museum of industrial design open to seminar groups.', '閱讀：舊工廠現在是工業設計博物館，研討課團體可以進。'],
+  v589: ['lecture', 'A simple machine lets you lift a stone with less effort—this is the lever week.', '講座：簡單機械能用較小力氣舉石頭，這週講槓桿。'],
+  v590: ['campus', 'Save the essay on the computer and on a drive; the lab computers wipe overnight.', '校園：作文存電腦也存硬碟，實驗室電腦隔夜會清空。'],
+  v591: ['reading', 'The internet made last year’s lecture slides easier to find than the printed pack.', '閱讀：網際網路讓去年講座投影片比紙本講義包更好找。'],
+  v592: ['lecture', 'Science depends on testing ideas; believing a neat story is not enough.', '講座：科學靠檢驗想法，相信一個漂亮故事是不夠的。'],
+  v593: ['campus', 'A scientist from the climate lab is visiting Monday—do we still have a quiz?', '校園：氣候實驗室的科學家週一來，我們還小考嗎？'],
+  v594: ['reading', 'The experiment failed because the sample had been contaminated in storage.', '閱讀：實驗失敗是因為樣本在儲藏時被汙染。'],
+  v595: ['lecture', 'Keep food outside the laboratory; crumbs attract pests that ruin cultures.', '講座：食物放實驗室外面，碎屑會引來破壞培養的害蟲。'],
+  v596: ['campus', 'She transferred to a university with a stronger engineering co-op program.', '校園：她轉到合作教育更強的那所大學讀工程。'],
+  v597: ['reading', 'Community college courses can reduce the cost of the first two undergraduate years.', '閱讀：社區大學課程能降低大學前兩年的費用。'],
+  v598: ['lecture', 'Each student received a number so the exam could be graded without names.', '講座：每位學生拿編號，考試才能不看名字評分。'],
+  v599: ['campus', 'The teacher stayed after class to explain the homework I missed last week.', '校園：老師下課後留下來說明我上週缺的作業。'],
+  v600: ['reading', 'The professor lists office hours on the course site and will not meet in the hallway.', '閱讀：教授把面談時間寫在課程網站，不會在走廊面談。'],
+  v601: ['lecture', 'The classroom filled so quickly that late students sat on the side steps.', '講座：教室一下子坐滿，遲到的學生坐在旁邊階梯。'],
+  v602: ['campus', 'Finish the homework before you open any apps—that is the deal I made with my roommate.', '校園：先做完作業再打開任何應用，這是我跟室友的約定。'],
+  v603: ['reading', 'The midterm exam includes one listening lecture and one campus conversation.', '閱讀：期中考試包含一題聽力講座和一題校園對話。'],
+  v604: ['lecture', 'Bicycles beat cars on campus at noon because the loop has no parking left.', '講座：中午校園裡騎車比開車快，因為環路已經沒車位。'],
+  v605: ['campus', 'The library stays open until midnight this week—can we grab a group room at 10?', '校園：這週圖書館開到午夜，十點還能訂團體室嗎？'],
+  v606: ['reading', 'Students often sell a used textbook after the final if a new edition is coming.', '閱讀：若新版要出，學生常在期末考後賣掉舊教科書。'],
+  v607: ['lecture', 'The assigned article is short, but the vocabulary is dense in the methods section.', '講座：指定文章很短，但方法那節詞彙很密。'],
+  v608: ['campus', 'A local newspaper put the tuition protest on the front page this morning.', '校園：地方報今天早上把學費抗議放在頭版。'],
+  v609: ['reading', 'She found the internship notice in a campus magazine left in the laundry room.', '閱讀：她在洗衣房一本校園雜誌裡找到實習通知。'],
+  v610: ['lecture', 'The visiting writer will read new poems in the student center at noon.', '講座：客座作家中午會在學生活動中心朗讀新詩。'],
+  v611: ['campus', 'A careful reader would notice that statistic has no source—should I email the TA?', '校園：細心讀者會發現那項統計沒出處，該寫信給助教嗎？'],
+  v612: ['reading', 'The speaker asked the audience not to photograph unpublished slides.', '閱讀：講者請觀眾不要拍攝尚未發表的投影片。'],
+  v613: ['lecture', 'Her graduation speech lasted eight minutes and still covered three campus stories.', '講座：她的畢業演講八分鐘，仍講了三則校園故事。'],
+  v614: ['campus', 'A second language made my study-abroad application much less stressful.', '校園：第二語言讓我的交換申請輕鬆很多。'],
+  v615: ['reading', 'The city-history lecture opened with a 1910 photograph of this same street.', '閱讀：城市歷史課用一張一九一〇年同一條街的照片開頭。'],
+  v616: ['lecture', 'Social media changed how society first hears about a campus closure.', '講座：社群媒體改變了社會第一時間得知校園關閉的方式。'],
+  v617: ['campus', 'The local government closed the river beach after the sewage warning.', '校園：污水警報後，地方政府關閉了河灘。'],
+  v618: ['reading', 'A new law requires helmets for electric scooters on campus roads.', '閱讀：新法律要求校園道路上的電動滑板車戴安全帽。'],
+  v619: ['lecture', 'If mediation fails, the housing dispute will go to court next month.', '講座：若調解失敗，宿舍糾紛下個月會上法庭。'],
+  v620: ['campus', 'Did bicycle crime actually drop after they added lights behind the gym?', '校園：體育館後方加燈後，自行車犯罪真的下降了嗎？'],
+  v621: ['reading', 'Call the police if someone is trapped in the flooded underpass near the station.', '閱讀：若有人困在車站附近淹水的地下道，請打電話給警察。'],
+  v622: ['lecture', 'Student election posters covered the cafeteria wall until staff took them down.', '講座：學生選舉海報貼滿餐廳牆，直到職員撕掉。'],
+  v623: ['campus', 'Citizens vote for mayor in November—does the political science club still canvass?', '校園：市民十一月投票選市長，政治社還去拉票嗎？'],
+  v624: ['reading', 'The university president will speak for ten minutes at the opening ceremony.', '閱讀：大學校長將在開學典禮致詞十分鐘。'],
+  v625: ['lecture', 'Any citizen can request the traffic counts for the new campus highway ramp.', '講座：任何市民都可以申請新校園交流道的車流量。'],
+  v626: ['campus', 'They raised the tax on empty houses—will that free more rooms near campus?', '校園：他們提高空屋稅，校園附近會多出房間嗎？'],
+  v627: ['reading', 'Fair trade programs try to pay farmers a more predictable price for coffee.', '閱讀：公平貿易計畫試圖讓農民獲得較可預期的咖啡價格。'],
+  v628: ['lecture', 'A farmers’ market occupies the north lot on Saturdays until noon.', '講座：週六中午前，農夫市集占用北側停車場。'],
+  v629: ['campus', 'The price of berries falls right after harvest—should we buy for the club breakfast?', '校園：漿果收成後價格立刻下降，社團早餐該進貨嗎？'],
+  v630: ['reading', 'The cost of living near campus rose faster than typical student job wages.', '閱讀：校園附近生活成本漲得比典型學生工讀薪資快。'],
+  v631: ['lecture', 'The café closed because it could not make a profit once summer session ended.', '講座：暑假一結束無法獲利，那間咖啡廳就關了。'],
+  v632: ['campus', 'A software company hired ten interns from our engineering school last May.', '校園：一家軟體公司去年五月從我們工學院雇了十名實習。'],
+  v633: ['reading', 'She plans to start a small business repairing bicycles behind the co-op.', '閱讀：她計畫在合作社後方開一間修理腳踏車的小生意。'],
+  v634: ['lecture', 'Factory workers asked for quieter machines after hearing tests in the occupational lab.', '講座：職業健康實驗室聽力檢測後，工廠工人要求更安靜的機器。'],
+  v635: ['campus', 'A library job pays less, but I can study in the quiet hours after closing.', '校園：圖書館工讀薪水較低，但閉館後的安靜時段我可以念書。'],
+  v636: ['reading', 'Teaching can be a lasting career for students who enjoy explaining a difficult graph.', '閱讀：喜歡解釋困難圖表的學生，教書可以是長久職業。'],
+  v637: ['lecture', 'Her first salary as a technician barely covered a shared room off campus.', '講座：她當技術員的第一份薪水幾乎只夠付校外合租。'],
+  v638: ['campus', 'Unemployment rose after the plant closed—will career services add extra appointments?', '校園：工廠關閉後失業上升，職涯中心會加開面談嗎？'],
+  v639: ['reading', 'The city’s population doubled in thirty years, straining campus housing.', '閱讀：這座城市人口三十年翻倍，校園住房因此吃緊。'],
+  v640: ['lecture', 'The city planted trees to cool streets that students walk in July.', '講座：市政府種樹，好讓學生七月走路的街道涼一點。'],
+  v641: ['campus', 'Urban parks mean kids do not have to cross the highway to play—nice for the education paper.', '校園：城市公園讓小孩不必穿越公路也能玩，教育報告很好寫。'],
+  v642: ['reading', 'Rural clinics sometimes share one doctor among three villages near the field station.', '閱讀：田野站附近的鄉村診所有時三村共用一位醫生。'],
+  v643: ['lecture', 'Morning traffic doubles the time from the far dorm to the 8 a.m. lecture.', '講座：早晨車潮讓遠宿舍到八點講座的時間變兩倍。'],
+  v644: ['campus', 'Is public transportation cheaper than paying for parking every day this term?', '校園：這學期每天停放，大眾運輸會比停車便宜嗎？'],
+  v645: ['reading', 'The airplane was delayed by ice on the wings, so the field team missed the connection.', '閱讀：飛機因機翼結冰延誤，田野小組沒趕上轉機。'],
+  v646: ['lecture', 'Take the train if you want to read; the campus loop bus is too crowded for notes.', '講座：想讀書就搭火車，校園環線公車擠到沒辦法寫筆記。'],
+  v647: ['campus', 'The campus hospital treats sports injuries on weekends—do I need an appointment?', '校園：校園醫院週末治運動傷害，要預約嗎？'],
+  v648: ['reading', 'A doctor explained why the vaccine requires two doses spaced four weeks apart.', '閱讀：醫生解釋疫苗為何需要間隔四週的兩劑。'],
+  v649: ['lecture', 'Each patient took a number so the clinic hallway would not fill with a standing line.', '講座：每位病人領號碼，診所走廊才不會站滿排隊的人。'],
+  v650: ['campus', 'Handwashing really reduces disease in the dorm, or is that just a poster slogan?', '校園：洗手真能減少宿舍疾病，還是只是海報口號？'],
+  v651: ['reading', 'Students must not share leftover medicine, even with a roommate who has similar symptoms.', '閱讀：即使室友症狀相似，學生也不可分享剩餘藥物。'],
+  v652: ['lecture', 'Early treatment of the infection kept the student out of the hospital overnight.', '講座：及早治療感染，讓學生不必過夜住院。'],
+  v653: ['campus', 'Is sleep as important to health as the diet lecture claimed last week?', '校園：睡眠對健康真的有上週飲食課說的那麼重要嗎？'],
+  v654: ['reading', 'The dining hall added more plant-based food after a student survey in April.', '閱讀：四月學生調查後，餐廳增加了更多植物性食物。'],
+  v655: ['lecture', 'A high-sugar diet makes the 2 p.m. lecture harder to follow; that is not a joke.', '講座：高糖飲食會讓下午兩點的課更難跟上，這不是笑話。'],
+  v656: ['campus', 'The nutrition lecture compared two cereal labels—did you photograph the slide?', '校園：營養課比較兩種麥片標示，你有拍那張投影片嗎？'],
+  v657: ['reading', 'Twenty minutes of exercise before a quiz can improve focus for some students.', '閱讀：小考前運動二十分鐘，對部分學生能改善專注。'],
+  v658: ['lecture', 'The new sport center next to the dorms opened in time for winter training.', '講座：宿舍旁的新運動中心赶上冬季訓練開放。'],
+  v659: ['campus', 'Live music in the park pulled both students and neighbors—will they do it again?', '校園：公園現場音樂把學生和鄰居都拉來了，還會再辦嗎？'],
+  v660: ['reading', 'The first-year seminar includes one required visit to an art museum downtown.', '閱讀：一年級研討課包含一次必去市中心美術館。'],
+  v661: ['lecture', 'The documentary film runs forty minutes, and then we will discuss the narrator’s bias.', '講座：紀錄片四十分鐘，接著我們討論旁白的偏見。'],
+  v662: ['campus', 'The science museum lets us touch a meteorite—do we still need the waiver?', '校園：科學博物館讓我們摸隕石，還要簽切結書嗎？'],
+  v663: ['reading', 'Heavy tourism can damage the coral that visitors travel specifically to see.', '閱讀：過量旅遊可能破壞遊客專程來看的珊瑚。'],
+  v664: ['lecture', 'Overnight buses make travel between the two campuses cheaper than a last-minute train.', '講座：夜車讓兩校區之間的旅行比臨時買火車票便宜。'],
+  v665: ['campus', 'The conference hotel is a twenty-minute walk—should we book the shuttle anyway?', '校園：研討會飯店走路二十分鐘，還是該訂接駁？'],
+  v666: ['reading', 'A restaurant near the station stays open after the last train for late seminar groups.', '閱讀：車站附近一間餐廳在末班車後仍開，方便晚歸的研討課團體。'],
+  v667: ['lecture', 'Highway pollution is worse on still, hot afternoons when the air does not mix.', '講座：無風熱午後空氣不混合，公路汙染更嚴重。'],
+  v668: ['campus', 'The dining hall tries to waste less food by offering a smaller default portion.', '校園：餐廳把預設份量變小，想減少食物浪費。'],
+  v669: ['reading', 'Residence halls recycle paper, bottles, and cans in three clearly labeled bins.', '閱讀：宿舍用三個標示清楚的桶回收紙、瓶和罐。'],
+  v670: ['lecture', 'Water conservation posters in the showers remind people that two minutes is enough.', '講座：淋浴間的節水海報提醒兩分鐘就夠。'],
+  v671: ['campus', 'They delayed the new road to protect wildlife on the hill—good for the ecology quiz?', '校園：為保護山上野生動物而延後新路，生態小考會出嗎？'],
+  v672: ['reading', 'Wetlands remain a habitat for frogs, herons, and the insects those birds eat.', '閱讀：濕地仍是青蛙、蒼鷺及其捕食昆蟲的棲息地。'],
+  v673: ['lecture', 'An earthquake drill will interrupt third period; stay under the desk until the all-clear.', '講座：地震演習會打斷第三節，解除警報前待在桌下。'],
+  v674: ['campus', 'Ash from the volcano delayed flights—is the field trip to the coast still on?', '校園：火山灰讓航班延誤，去海岸的校外教學還辦嗎？'],
+  v675: ['reading', 'After the flood, volunteers scraped mud from first-floor classroom floors.', '閱讀：洪水後，志工刮掉一樓教室地板上的泥。'],
+  v676: ['lecture', 'A winter storm knocked out power on the north campus for fourteen hours.', '講座：冬季风暴讓北校區停電十四小時。'],
+  v677: ['campus', 'The hurricane warning closed the coastal road—do we cancel the tide-pool lab?', '校園：颶風警報封了沿海路，潮池實驗要取消嗎？'],
+  v678: ['reading', 'During the drought, the university banned watering decorative lawns on campus.', '閱讀：乾旱期間，大學禁止澆校園裝飾性草坪。'],
+  v679: ['lecture', 'Migrating birds return to the lake each season, which is why we count nests in March.', '講座：候鳥每個季節回到湖邊，所以我們三月數巢。'],
+  v680: ['campus', 'This lecture hall is more than a century old—should that be in the architecture paper?', '校園：這個講堂超過一世紀了，建築報告該寫嗎？'],
+  v681: ['reading', 'An ancient wall still stands above the town and is visible from the bus to campus.', '閱讀：古城牆仍矗立在小鎮上方，從往校園的公車看得見。'],
+  v682: ['lecture', 'Modern telescopes can photograph planets in our solar system from the roof dome.', '講座：現代望遠鏡能從屋頂圓頂拍攝太陽系行星。'],
+  v683: ['campus', 'Cheaper batteries were the invention that finally made the campus shuttle electric.', '校園：更便宜的電池這項發明，終於讓校園接駁改電動。'],
+  v684: ['reading', 'The discovery of penicillin changed how campus clinics treat common infections.', '閱讀：盤尼西林的發現改變了校園診所治療常見感染的方式。'],
+  v685: ['lecture', 'Ocean exploration still maps only a thin slice of the seafloor, even with new sonar.', '講座：即使有新聲納，海洋探測仍只測繪海床薄薄一層。'],
+  v686: ['campus', 'Leave some space at the bottom of your notes for examples from the next lecture.', '校園：筆記下方留點空間，好接下堂課的例子。'],
+  v687: ['reading', 'Mars is the planet the astronomy club photographs most often from campus.', '閱讀：火星是天文社從校園最常拍攝的行星。'],
+  v688: ['lecture', 'That bright star beside the moon is Venus, not a distant sun.', '講座：月亮旁邊那顆亮星是金星，不是遙遠的恆星。'],
+  v689: ['campus', 'Weather satellites send storm images every few minutes—can we use one in the talk?', '校園：氣象衛星每隔幾分鐘就傳暴風雨影像，報告能用一張嗎？'],
+  v690: ['reading', 'Without gravity, liquid would not remain in a glass during a space-station demo.', '閱讀：沒有重力，太空站演示時液體就無法留在杯裡。'],
+  v691: ['lecture', 'Bird beaks are a textbook example of evolution by natural selection.', '講座：鳥喙是教科書裡天擇演化的例子。'],
+  v692: ['campus', 'Can a single gene make a pea plant tall, or do several genes act together?', '校園：單一基因就能讓豌豆變高，還是好幾個基因一起作用？'],
+  v693: ['reading', 'Under the teaching microscope, the onion cell wall is the first structure students find.', '閱讀：在教學顯微鏡下，學生最先找到的是洋蔥細胞壁。'],
+  v694: ['lecture', 'Sleep helps the brain store the vocabulary you reviewed just before bed.', '講座：睡眠幫助大腦儲存你睡前剛複習的單字。'],
+  v695: ['campus', 'Running the stadium stairs raises my heart rate before I even reach the lab.', '校園：跑體育場樓梯，還沒到實驗室心率就上去了。'],
+  v696: ['reading', 'The clinic will type the blood sample before any campus transfusion drill.', '閱讀：任何校園輸血演習前，診所都會先驗血型。'],
+  v697: ['lecture', 'A cracked bone in the wrist can keep a student out of the chemistry lab for weeks.', '講座：手腕骨裂可能讓學生好幾週不能進化學實驗室。'],
+  v698: ['campus', 'Cycling builds muscle without the knee pain I get from the indoor track.', '校園：騎車能練肌肉，又不會像室內跑道那樣膝蓋痛。'],
+  v699: ['reading', 'Sunscreen protects skin during summer field trips on unshaded lakeshores.', '閱讀：夏天在沒有遮蔭的湖岸校外教學，防曬能保護皮膚。'],
+  v700: ['lecture', 'A computer virus can travel on a shared USB drive left in the lab.', '講座：電腦病毒能靠實驗室留下的共用 USB 傳播。'],
+  v701: ['campus', 'Some bacteria in yogurt are helpful—is that in the microbiology reading?', '校園：優格裡有些細菌是有益的，微生物閱讀有寫嗎？'],
+  v702: ['reading', 'The campus clinic offers a free flu vaccine in October for students and staff.', '閱讀：校園診所十月為學生與職員提供免費流感疫苗。'],
+  v703: ['lecture', 'Living on campus is an advantage when the first lecture starts at 8 a.m.', '講座：第一堂課八點開始時，住校是優勢。'],
+  v704: ['campus', 'A disadvantage of night class is missing dinner with my host family.', '校園：晚上上課的缺點是沒辦法跟寄宿家庭吃晚餐。'],
+  v705: ['reading', 'The question asks for the reason the author mentions the 1920s in paragraph two.', '閱讀：題目問作者在第二段提到一九二〇年代的原因。'],
+  v706: ['lecture', 'The giraffe neck is an example of adaptation, not a random accident of growth.', '講座：長頸鹿脖子是適應的例子，不是生長的隨機意外。'],
+  v707: ['campus', 'Should I state my opinion in the first sentence of the independent speaking task?', '校園：獨立口說第一句就要表明觀點嗎？'],
+  v708: ['reading', 'Many students agree that the science library should remain open after midnight.', '閱讀：許多學生同意科學圖書館午夜後仍應開放。'],
+  v709: ['lecture', 'Some of you disagree that attendance should count toward the seminar grade.', '講座：有些人不同意把出席算進研討課成績。'],
+  v710: ['campus', 'Compare the two graphs before you pick C—one of them reverses the years.', '校園：選 C 之前先比較兩張圖，其中一張把年份反了。'],
+  v711: ['reading', 'Icy roads were the cause of the stacked buses at the campus entrance.', '閱讀：結冰路面是校門口公車卡住的原因。'],
+  v712: ['lecture', 'One effect of a later start time is that teenagers actually arrive awake.', '講座：更晚上課的一個影響是青少年真的醒著到校。'],
+  v713: ['campus', 'A second bus line was a practical solution—why is it still only a rumor?', '校園：加開第二條公車是務實解法，為什麼還只是謠言？'],
+  v714: ['reading', 'Dorm noise is a common problem in the week before midterm examinations.', '閱讀：期中考前一週，宿舍噪音是常見問題。'],
+  v715: ['lecture', 'The result of the department vote is taped to the office door beside the hours.', '講座：系上投票結果貼在辦公室門上，就在開放時間旁邊。'],
+  v716: ['campus', 'Can the conclusion introduce a new argument, or will that cost points?', '校園：結論可以再提新論點嗎，還是會扣分？'],
+  v717: ['reading', 'A short introduction should state the essay’s purpose in the first two sentences.', '閱讀：簡短引言應在前兩句說明文章目的。'],
+  v718: ['lecture', 'The integrated essay asks you to combine one reading with one lecture.', '講座：綜合寫作要求你把一篇閱讀和一場講座合在一起。'],
+  v719: ['campus', 'Can I break the longest sentence so it is easier to read on the speaking timer?', '校園：最長那句能拆開，讓口說計時比較好唸嗎？'],
+  v720: ['reading', 'The lecture added a detail about ice thickness that the reading never mentioned.', '閱讀：講座補充了閱讀從未提到的冰層厚度細節。'],
+  v721: ['lecture', 'Use one statistic from the graph to support the claim you just made.', '講座：用圖上的一項統計來支持你剛提出的主張。'],
+  v722: ['campus', 'Does the reading provide evidence that the lake is getting saltier, or only a guess?', '校園：閱讀有沒有證據顯示湖水變鹹，還是只是猜測？'],
+  v723: ['reading', 'The professor’s argument is that shade from parks cools streets more than fountains.', '閱讀：教授的論點是公園樹蔭比噴水池更能讓街道降溫。'],
+  v724: ['lecture', 'The author claims that a twenty-minute nap improves memory for word lists.', '講座：作者宣稱二十分鐘小睡能改善詞表記憶。'],
+  v725: ['campus', 'Which statement matches the speaker’s attitude—annoyed, or just in a hurry?', '校園：哪個陳述符合講者態度——不耐煩，還是只是趕時間？'],
+  v726: ['reading', 'Unclear questions should be asked in office hours, not during a timed exam.', '閱讀：不清楚的問題應在面談時間問，不要在計時考試中問。'],
+  v727: ['lecture', 'Write the answer in a complete sentence; a single word will not be counted.', '講座：答案要用完整句子寫，單一個詞不算。'],
+  v728: ['campus', 'You have a choice between the 8 a.m. lab and the 6 p.m. lab this semester.', '校園：這學期你可以選早上八點或晚上六點的實驗。'],
+  v729: ['reading', 'Read the instruction twice before the listening set begins to play.', '閱讀：聽力題組開始播放前，把作答說明讀兩遍。'],
+  v730: ['lecture', 'The map shows the direction of flow; water does not move uphill in this diagram.', '講座：地圖顯示流動方向，這張圖裡水不會往高處流。'],
+  v731: ['campus', 'Is a lab coat a requirement every week, or only when we handle the acid?', '校園：實驗衣每週都要穿，還是只有碰酸的時候？'],
+  v732: ['reading', 'The deadline for housing forms is March 15 at 5 p.m. campus time.', '閱讀：宿舍表格截止是校園時間三月十五日下午五點。'],
+  v733: ['lecture', 'The group assignment is due the week after spring break, not the Friday before.', '講座：小組作業在春假後那週交，不是前一個星期五。'],
+  v734: ['campus', 'Keep the presentation under eight minutes including questions—timer is on the desk.', '校園：報告含提問要在八分鐘內，計時器在桌上。'],
+  v735: ['reading', 'A short discussion followed the film on rooftop farms in dense neighborhoods.', '閱讀：密集住宅區屋頂農場的影片結束後有短暫討論。'],
+  v736: ['lecture', 'This listening item is a conversation between a student and a librarian about fines.', '講座：這題聽力是學生與圖書館員討論罰款的對話。'],
+  v737: ['campus', 'The announcement about the strike was posted at 6 a.m.—did you see it?', '校園：罷工公告清晨六點就貼了，你看到了嗎？'],
+  v738: ['reading', 'Group rooms require an online reservation at least one day in advance.', '閱讀：團體室必須至少提前一天在線上預訂。'],
+  v739: ['lecture', 'Book an appointment with your advisor before you drop a required course.', '講座：退必修課前，先跟指導老師預約面談。'],
+  v740: ['campus', 'Careful observation showed the crows left the roof at the same minute each night.', '校園：仔細觀察發現烏鴉每天晚上同一分鐘離開屋頂。'],
+  v741: ['reading', 'Take the measurement twice so a stuck scale does not ruin the lab notebook.', '閱讀：測量兩次，避免卡住的磅秤毀掉實驗筆記。'],
+  v742: ['lecture', 'Classification of the insect depends on wing veins, not on color alone.', '講座：這種昆蟲的分類看翅脈，不是只看顏色。'],
+  v743: ['campus', 'Temperature is the variable we change; everything else in the tank stays the same.', '校園：溫度是我們改變的變數，水槽裡其他都維持不變。'],
+  v744: ['reading', 'A sample of fifty students is too small for a claim about the whole campus.', '閱讀：五十名學生的樣本太小，不能對全校下結論。'],
+  v745: ['lecture', 'The average walk from the far dorm is twenty-two minutes, according to the survey.', '講座：民調顯示從遠宿舍平均要走二十二分鐘。'],
+  v746: ['campus', 'What percentage of the student budget actually goes to housing this year?', '校園：今年學生預算真正花在住房的百分比是多少？'],
+  v747: ['reading', 'Airport buses increase in frequency after 5 p.m., when laboratory sections end.', '閱讀：實驗室時段結束後的下午五點，機場公車班次增加。'],
+  v748: ['lecture', 'This map shows the distribution of bike-share stations around the lecture halls.', '講座：這張圖顯示講堂周圍共享單車站點的分布。'],
+  v749: ['campus', 'A side-by-side comparison of the two theories is what the TA wants on page two.', '校園：助教要的是第二頁上兩種理論的並排比較。'],
+  v750: ['reading', 'The painting’s description mentions color temperature but never states the size.', '閱讀：畫作描述提到色溫，卻始終沒說尺寸。'],
+  v751: ['lecture', 'Give an explanation for repeating the trial; “because we had time” is not enough.', '講座：說明為何重複試驗，「因為還有時間」是不夠的。'],
+  v752: ['campus', 'Write a one-sentence definition of urban heat island for the quiz tomorrow.', '校園：明天小考要一句話定義都市熱島。'],
+  v753: ['reading', 'The textbook illustration shows a glacier carving a valley in three stages.', '閱讀：教科書插圖用三個階段顯示冰川雕刻山谷。'],
+  v754: ['lecture', 'That advertisement uses persuasion; it offers almost no measurable fact.', '講座：那則廣告靠勸說，幾乎沒有可測量的事實。'],
+  v755: ['campus', 'Is the first paragraph narration, or does analysis already start there?', '校園：第一段是敘述，還是分析已經開始了？'],
+  v756: ['reading', 'Put the eruptions in chronology from earliest to latest before you write.', '閱讀：動筆前先把噴發依時間從早到晚排列。'],
+  v757: ['lecture', 'This question wants an inference; copying a sentence from the text will not score.', '講座：這題要的是推論，從文章抄一句不會給分。'],
+  v758: ['campus', 'One implication of the park study is that we should plant larger shade trees, right?', '校園：公園研究的一個含義是我們該種更大的遮蔭樹，對嗎？'],
+  v759: ['reading', 'The author’s assumption is that every reader has already taken a biology course.', '閱讀：作者的假設是每位讀者都已修過生物。'],
+  v760: ['lecture', 'The committee’s recommendation is to delay pouring concrete until after bird nesting.', '講座：委員會的建議是等鳥類築巢結束再澆混凝土。'],
+  v761: ['campus', 'A tutor’s suggestion was to read the questions before the passage—did that help you?', '校園：家教建議先看題再看文章，對你有用嗎？'],
+  v762: ['reading', 'Time is a limitation of speaking, so examples must stay to one sentence each.', '閱讀：時間是口說的限制，所以例子每則只能一句。'],
+  v763: ['lecture', 'The study’s weakness is that every volunteer came from the same dormitory.', '講座：這項研究的弱點是所有志工都來自同一棟宿舍。'],
+  v764: ['campus', 'Clear organization is a strength of her essay—can I use that outline too?', '校園：清楚組織是她作文的長處，我也能用那個大綱嗎？'],
+  v765: ['reading', 'A tiny sample threatens the validity of any conclusion about the whole campus.', '閱讀：樣本太小會威脅任何針對全校結論的有效性。'],
+  v766: ['lecture', 'Repeating the listening test on another day is one way to check reliability.', '講座：改天再做一次聽力測驗，是檢查信度的一種方式。'],
+  v767: ['campus', 'Double-checking names improved the accuracy of the guest list for the symposium.', '校園：再核對名字提高了座談會賓客名單的準確性。'],
+  v768: ['reading', 'A digital scale offers more precision than a kitchen cup in the nutrition lab.', '閱讀：營養實驗室裡，電子秤比量杯更精確。'],
+  v769: ['lecture', 'Blind scoring can increase the objectivity of writing grades in a large course.', '講座：匿名評分能增加大班寫作成績的客觀性。'],
+  v770: ['campus', '“I liked the lecture” is subjectivity—can I still put it in the last sentence?', '校園：「我喜歡這堂課」是主觀，最後一句還能寫嗎？'],
+  v771: ['reading', 'A correlation between ice-cream sales and drowning is not proof of a real link.', '閱讀：冰淇淋銷量與溺水的相關，並不能證明真正有關聯。'],
+  v772: ['lecture', 'To claim causation, you must rule out other explanations for the same pattern.', '講座：要主張因果，就必須排除同一模式的其他解釋。'],
+  v773: ['campus', 'There is a tendency to sit in the same lecture seat each week—did you notice that too?', '校園：大家有每週坐同一個講座位子的傾向，你也注意到了嗎？'],
+  v774: ['reading', 'The wallpaper pattern in the old dorm repeats every twenty centimeters.', '閱讀：舊宿舍壁紙圖案每二十公分重複一次。'],
+  v775: ['lecture', 'Injured students are an exception to the attendance rule; bring the clinic note.', '講座：受傷學生是出席規定的例外，請帶診所證明。'],
+  v776: ['campus', 'Dry soil is a poor condition for the tomato plot—should we water tonight?', '校園：乾土不適合番茄田，今晚該澆水嗎？'],
+  v777: ['reading', 'Originality is one criterion for the undergraduate writing prize.', '閱讀：原創性是大學部寫作獎的評分標準之一。'],
+  v778: ['lecture', 'The lab standard is 95 percent attendance; two unexcused absences already hurt.', '講座：實驗室標準是百分之九十五出席，兩次無故缺席就已經傷到。'],
+  v779: ['campus', 'Last year’s scores are the benchmark—do we know if the exam was easier then?', '校園：去年分數是基準，那時考題會不會比較簡單？'],
+  v780: ['reading', 'A September fitness test provides the baseline for the later sports-science lab.', '閱讀：九月體能測驗為之後的運動科學實驗提供基線。'],
+  v781: ['lecture', 'Start speaking with a one-sentence overview before you give your first reason.', '講座：口說先用一句話概述，再講第一個理由。'],
+  v782: ['campus', 'Should I write an outline before the independent essay, or just start typing?', '校園：獨立寫作前該先列大綱，還是直接打？'],
+  v783: ['reading', 'The body of the essay should contain two or three reasons, each with an example.', '閱讀：文章主體應包含兩到三個理由，每個都有例子。'],
+  v784: ['lecture', 'Every citation in the paper must match one line in the reference list.', '講座：文中每一筆引文都必須對應參考書目的一行。'],
+  v785: ['campus', 'Does a quotation longer than one sentence need a block format in this class?', '校園：超過一句的引述，這門課要不要用獨立引文格式？'],
+  v786: ['reading', 'Paraphrase the lecture’s claim; copying the speaker’s wording will lose points.', '閱讀：請改寫講座主張，抄講者原句會扣分。'],
+  v787: ['lecture', 'Integrated writing is a synthesis: you show how the lecture responds to the reading.', '講座：綜合寫作是綜合：你要說明講座如何回應閱讀。'],
+  v788: ['campus', 'Is the last paragraph an evaluation of the evidence, or just a repeat of the intro?', '校園：最後一段是在評估證據，還是只是重複引言？'],
+  v789: ['reading', 'Your analysis should show how the example supports the claim, not merely retell it.', '閱讀：分析應說明例子如何支持主張，而不只是複述。'],
+  v790: ['lecture', 'Read the syllabus on day one so no deadline in week twelve is a surprise.', '講座：第一天就讀教學大綱，第十二週的截止才不會突然。'],
+  v791: ['campus', 'Is Friday’s seminar required for the credit, or can I watch the recording?', '校園：星期五研討會是學分必修，還是可以事後看錄影？'],
+  v792: ['reading', 'The writing workshop will edit one paragraph from each student in a single sitting.', '閱讀：寫作工作坊會在一次聚會裡修改每位學生的一段。'],
+  v793: ['lecture', 'She presented a poster at an undergraduate research conference in the student union.', '講座：她在學生活動中心的大學部研究會議上展示海報。'],
+  v794: ['campus', 'Does the biology symposium include short talks, or only the long keynote?', '校園：生物學座談會有短講，還是只有長的主題演講？'],
+  v795: ['reading', 'A dissertation is far longer than a typical course paper in this department.', '閱讀：學位論文比本系一般課程報告長得多。'],
+  v796: ['lecture', 'Most undergraduate students here take four or five courses in a regular term.', '講座：這裡多數大學部學生一學期修四到五門課。'],
+  v797: ['campus', 'She applied to a postgraduate program in environmental policy—any tips on the statement?', '校園：她申請環境政策的研究生課程，讀書計畫有建議嗎？'],
+  v798: ['reading', 'Talk with faculty during office hours before you lock in a second major.', '閱讀：確定第二主修前，先在面談時間和教師談。'],
+  v799: ['lecture', 'Email your advisor if you drop a course after week two; the form alone is not enough.', '講座：第二週後退課請寫信給指導老師，光填表不夠。'],
+  v800: ['campus', 'A lab mentor showed her how to keep a research notebook that a later student could read.', '校園：實驗室導師教她寫後來的學生也看得懂的研究筆記。'],
 }

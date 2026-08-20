@@ -22,7 +22,7 @@ const GRADES = ['again', 'hard', 'good', 'easy']
 const MODE_META = {
   today: {
     title: '今日單字',
-    hint: '先回想意思，翻面後用下方四鍵評分（間隔重複）',
+    hint: '先回想意思，翻面後評分。例句是原創的托福講座／校園對話／閱讀口吻。',
   },
   review: {
     title: '到期複習',
@@ -30,7 +30,7 @@ const MODE_META = {
   },
   all: {
     title: '全部單字',
-    hint: '點擊卡片翻面 · 支援搜尋與分類 · Neural 自然發音',
+    hint: '點擊卡片翻面 · 例句分成講座／校園對話／閱讀三種口吻',
   },
 }
 
@@ -488,6 +488,9 @@ export default function Vocab() {
                   <p className="mt-1 text-base text-tide">{card.phonetic}</p>
                 ) : null}
                 <div className="mt-4 w-full rounded-2xl bg-mist/80 p-4 text-left">
+                  {card.register ? (
+                    <p className="mb-2 text-xs font-medium text-tide">{registerLabel(card.register)}</p>
+                  ) : null}
                   <p className="text-lg leading-relaxed text-ink">{card.example}</p>
                   {showExampleMeaning ? (
                     <p className="mt-2 text-base text-ink-soft">{card.exampleMeaning}</p>
@@ -575,6 +578,13 @@ function gradeClass(grade) {
   if (grade === 'hard') return 'bg-amber-soft text-ink ring-1 ring-line'
   if (grade === 'good') return 'bg-tide text-white'
   return 'bg-ink text-white'
+}
+
+function registerLabel(register) {
+  if (register === 'lecture') return '聽力講座口吻'
+  if (register === 'campus') return '校園對話口吻'
+  if (register === 'reading') return '閱讀篇接口吻'
+  return ''
 }
 
 function FilterChip({ active, onClick, children }) {
