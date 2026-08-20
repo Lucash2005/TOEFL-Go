@@ -82,7 +82,7 @@ export default function Dashboard() {
             label="已掌握單字"
             value={learnedCount}
             target={targets.vocabulary}
-            hint={`目前題庫 ${totalVocab} 字，可持續擴充`}
+            hint={`題庫 ${totalVocab} 字，已對齊目標 ${targets.vocabulary}`}
           />
           <ProgressBar label="閱讀完成篇數" value={sectionStats.reading} target={targets.reading} />
           <ProgressBar

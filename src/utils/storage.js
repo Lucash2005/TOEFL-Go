@@ -1,4 +1,4 @@
-const PREFIX = 'toefl-go:'
+export const PREFIX = 'toefl-go:'
 
 export function loadJSON(key, fallback) {
   try {
