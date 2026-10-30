@@ -24,6 +24,8 @@ export function normalizeEntry(raw, today = todayKey()) {
     due: raw.due || today,
     lapses: typeof raw.lapses === 'number' ? raw.lapses : 0,
     lastGrade: raw.lastGrade ?? null,
+    // Do not invent learnedAt=today — that would inflate「近 7 日」統計
+    learnedAt: raw.learnedAt || null,
   }
 }
 
@@ -36,6 +38,7 @@ export function applyGrade(raw, grade, today = todayKey()) {
     due: today,
     lapses: 0,
     lastGrade: null,
+    learnedAt: null,
   }
 
   let { ease, interval, repetitions, lapses, status } = prev
@@ -49,6 +52,7 @@ export function applyGrade(raw, grade, today = todayKey()) {
       due: today,
       lapses: lapses + 1,
       lastGrade: grade,
+      learnedAt: null,
     }
   }
 
@@ -66,6 +70,7 @@ export function applyGrade(raw, grade, today = todayKey()) {
   }
 
   status = interval >= 7 ? 'learned' : 'learning'
+  const becameLearned = status === 'learned' && prev.status !== 'learned'
   return {
     status,
     ease: Math.round(ease * 100) / 100,
@@ -74,6 +79,7 @@ export function applyGrade(raw, grade, today = todayKey()) {
     due: addDays(today, interval),
     lapses,
     lastGrade: grade,
+    learnedAt: status === 'learned' ? prev.learnedAt || (becameLearned ? today : null) : null,
   }
 }
 
@@ -88,7 +94,20 @@ export function getDueIds(cardProgress = {}, allIds = [], limit = 20, today = to
 
 export function isLearned(entry, today = todayKey()) {
   const n = normalizeEntry(entry, today)
-  return Boolean(n && n.status === 'learned' && n.due > today)
+  // Keep counting as mastered even when due for review — otherwise the
+  // progress bar drops every time SRS brings a card back.
+  return Boolean(n && n.status === 'learned')
+}
+
+/** Count cards whose learnedAt is on/after `sinceDate` (YYYY-MM-DD). */
+export function countLearnedSince(cardProgress, ids, sinceDate, today = todayKey()) {
+  let n = 0
+  for (const id of ids) {
+    const e = normalizeEntry(cardProgress[id], today)
+    if (!e || e.status !== 'learned' || !e.learnedAt) continue
+    if (e.learnedAt >= sinceDate) n += 1
+  }
+  return n
 }
 
 /** Filter-friendly bucket: new | review | learned */

@@ -32,6 +32,10 @@ const MODE_META = {
     title: '全部單字',
     hint: '點擊卡片翻面 · 例句分成講座／校園對話／閱讀三種口吻',
   },
+  listen: {
+    title: '今日聽力',
+    hint: '可循環播放單字＋例句；鎖屏後也會繼續（Neural 音檔）',
+  },
 }
 
 function seededShuffle(list, seed) {
@@ -56,7 +60,17 @@ function seededShuffle(list, seed) {
 }
 
 export default function Vocab() {
-  const { cardProgress, todayVocab, todayReview, gradeCard, getEntry, setCardStatus } = useProgress()
+  const {
+    cardProgress,
+    todayVocab,
+    todayReview,
+    gradeCard,
+    getEntry,
+    setCardStatus,
+    reportCardIssue,
+    reportReasons,
+    isCardReported,
+  } = useProgress()
   const {
     showPhonetic,
     setShowPhonetic,
@@ -85,12 +99,20 @@ export default function Vocab() {
   const [sessionLeft, setSessionLeft] = useState(null)
   const [browseSeed] = useState(() => `${Date.now()}-${Math.random()}`)
   const [playlist, setPlaylist] = useState(() => getPlaylistState())
+  const [showReport, setShowReport] = useState(false)
+  const [reportReasonsSelected, setReportReasonsSelected] = useState(() => ['meaning'])
+  const [reportNote, setReportNote] = useState('')
+  const [reportToast, setReportToast] = useState('')
 
   const filtered = useMemo(() => {
-    if (mode === 'review') return todayReview
-    if (mode === 'today') return todayVocab.length ? todayVocab : vocabulary.slice(0, 20)
+    if (mode === 'review') return todayReview.filter((c) => !isCardReported?.(c.id))
+    if (mode === 'today' || mode === 'listen') {
+      const list = todayVocab.length ? todayVocab : vocabulary.slice(0, 20)
+      return list.filter((c) => !isCardReported?.(c.id))
+    }
     const q = query.trim().toLowerCase()
     const list = vocabulary.filter((card) => {
+      if (isCardReported?.(card.id)) return false
       const status = getFilterStatus(cardProgress, card.id)
       if (statusFilter !== 'all' && status !== statusFilter) return false
       if (!q) return true
@@ -101,7 +123,7 @@ export default function Vocab() {
       return hay.includes(q)
     })
     return seededShuffle(list, `browse:${browseSeed}:${statusFilter}:${q}`)
-  }, [mode, todayVocab, todayReview, query, statusFilter, cardProgress, browseSeed])
+  }, [mode, todayVocab, todayReview, query, statusFilter, cardProgress, browseSeed, isCardReported])
 
   const deck = sessionLeft ?? filtered
 
@@ -110,6 +132,7 @@ export default function Vocab() {
   useEffect(() => {
     setIndex(0)
     setFlipped(false)
+    setShowReport(false)
     if (!srsMode) setSessionLeft(null)
   }, [mode, query, statusFilter, srsMode])
 
@@ -136,6 +159,10 @@ export default function Vocab() {
   const safeIndex = deck.length ? Math.min(index, deck.length - 1) : 0
   const card = deck[safeIndex]
   const entry = card ? getEntry(card.id) : null
+
+  useEffect(() => {
+    setShowReport(false)
+  }, [card?.id])
   const doneSession = srsMode && sessionLeft && sessionLeft.length === 0
   const loopActive = playlist.total > 0
   const meta = MODE_META[mode] || MODE_META.all
@@ -173,6 +200,36 @@ export default function Vocab() {
     }
 
     go(1)
+  }
+
+  function toggleReportReason(id) {
+    setReportReasonsSelected((prev) => {
+      if (prev.includes(id)) {
+        return prev.length === 1 ? prev : prev.filter((x) => x !== id)
+      }
+      return [...prev, id]
+    })
+  }
+
+  function submitReport() {
+    if (!card || !reportCardIssue || !reportReasonsSelected.length) return
+    reportCardIssue(card, reportReasonsSelected, reportNote)
+    setShowReport(false)
+    setReportNote('')
+    setReportToast('已回報並隱藏此卡')
+    window.setTimeout(() => setReportToast(''), 2800)
+    if (srsMode && sessionLeft) {
+      const nextDeck = sessionLeft.filter((c) => c.id !== card.id)
+      setSessionLeft(nextDeck)
+      if (!nextDeck.length) {
+        setIndex(0)
+        return
+      }
+      setIndex(Math.min(safeIndex, nextDeck.length - 1))
+      setFlipped(false)
+      return
+    }
+    setFlipped(false)
   }
 
   function playAudio() {
@@ -276,7 +333,11 @@ export default function Vocab() {
           <Link to="/vocab?mode=all" className="text-tide underline-offset-2 hover:underline">
             全部
           </Link>
+          <Link to="/vocab?mode=listen" className="text-tide underline-offset-2 hover:underline">
+            聽力
+          </Link>
         </div>
+        {reportToast ? <p className="mt-2 text-xs text-tide">{reportToast}</p> : null}
       </section>
 
       <section className="surface soft-shadow animate-fade-up stagger-1 space-y-3 rounded-3xl p-4 sm:p-5">
@@ -567,6 +628,79 @@ export default function Vocab() {
               </StatusButton>
             </div>
           )}
+
+          <div className="mt-1">
+            {!showReport ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowReport(true)
+                }}
+                className="w-full rounded-2xl bg-white/80 px-4 py-2.5 text-sm text-ink-soft ring-1 ring-line hover:bg-mist"
+              >
+                回報問題（隱藏此卡）
+              </button>
+            ) : (
+              <div
+                className="surface soft-shadow rounded-3xl p-4 sm:p-5"
+                onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <p className="text-sm font-medium text-ink">回報問題並隱藏</p>
+                  <button
+                    type="button"
+                    onClick={() => setShowReport(false)}
+                    className="text-xs text-ink-soft underline-offset-2 hover:underline"
+                  >
+                    取消
+                  </button>
+                </div>
+                <p className="mb-3 text-xs leading-relaxed text-ink-soft">
+                  可多選問題類型。確認後此卡不會再出現，等內容更新後再一併處理。
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {(reportReasons || []).map((reason) => {
+                    const active = reportReasonsSelected.includes(reason.id)
+                    return (
+                      <button
+                        key={reason.id}
+                        type="button"
+                        onClick={() => toggleReportReason(reason.id)}
+                        className={`rounded-full px-3 py-1.5 text-xs transition ${
+                          active
+                            ? 'bg-coral/15 font-medium text-coral ring-1 ring-coral/40'
+                            : 'bg-mist text-ink-soft ring-1 ring-line hover:bg-white'
+                        }`}
+                      >
+                        {active ? '✓ ' : ''}
+                        {reason.label}
+                      </button>
+                    )
+                  })}
+                </div>
+                <textarea
+                  value={reportNote}
+                  onChange={(e) => setReportNote(e.target.value)}
+                  rows={2}
+                  placeholder="補充說明（選填）…"
+                  className="mt-3 w-full resize-y rounded-2xl border border-line bg-white/80 px-3 py-2.5 text-sm text-ink outline-none ring-tide/30 placeholder:text-ink-soft/70 focus:ring-2"
+                />
+                <button
+                  type="button"
+                  onClick={submitReport}
+                  disabled={!reportReasonsSelected.length}
+                  className="mt-3 w-full rounded-2xl bg-coral px-4 py-2.5 text-sm font-medium text-white hover:bg-coral/90 disabled:opacity-50"
+                >
+                  確認回報並隱藏
+                  {reportReasonsSelected.length > 1
+                    ? `（${reportReasonsSelected.length} 項）`
+                    : ''}
+                </button>
+              </div>
+            )}
+          </div>
         </>
       )}
     </div>

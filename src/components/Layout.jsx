@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 const links = [
   { to: '/', label: '今日', end: true, icon: HomeIcon },
@@ -9,6 +9,9 @@ const links = [
 ]
 
 export default function Layout() {
+  const location = useLocation()
+  const quizSection = location.pathname === '/quiz' || location.pathname === '/drill'
+
   return (
     <div className="mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-28 pt-6 sm:px-5">
       <header className="animate-fade-up mb-5">
@@ -16,7 +19,7 @@ export default function Layout() {
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           TOEFL Go
         </h1>
-        <p className="mt-1 text-sm text-ink-soft">四大科練習 · 單字 SRS · Neural 發音</p>
+        <p className="mt-1 text-sm text-ink-soft">四大科練習 · 單字 SRS · 基礎加強</p>
       </header>
 
       <main className="flex-1">
@@ -33,11 +36,13 @@ export default function Layout() {
               <NavLink
                 to={link.to}
                 end={link.end}
-                className={({ isActive }) =>
-                  `touch-target flex flex-col items-center justify-center gap-0.5 rounded-xl px-1 py-1.5 text-[11px] font-medium transition ${
-                    isActive ? 'bg-tide text-white' : 'text-ink-soft hover:bg-mist'
+                className={({ isActive }) => {
+                  const on =
+                    link.to === '/quiz' ? quizSection : isActive
+                  return `touch-target flex flex-col items-center justify-center gap-0.5 rounded-xl px-1 py-1.5 text-[11px] font-medium transition ${
+                    on ? 'bg-tide text-white' : 'text-ink-soft hover:bg-mist'
                   }`
-                }
+                }}
               >
                 <link.icon />
                 <span>{link.label}</span>
