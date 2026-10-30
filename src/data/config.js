@@ -9,8 +9,14 @@ export const TARGETS = {
   writing: 20,
 }
 
+/**
+ * Bump when vocab / drill content is fixed.
+ * Reported-card hides persist until the learner manually clears them.
+ */
+export const CONTENT_VERSION = 1
+
 export const DEFAULT_TASKS = [
-  { id: 'vocab-20', label: '單字 SRS 20 張', done: false },
+  { id: 'vocab-20', label: '單字 SRS（落後時可手動加量）', done: false },
   { id: 'reading-1', label: '閱讀練習 1 篇', done: false },
   { id: 'listening-1', label: '聽力練習 1 題組', done: false },
   { id: 'speaking-or-writing', label: '口說或寫作 1 題', done: false },

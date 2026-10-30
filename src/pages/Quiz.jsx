@@ -1,10 +1,14 @@
 import { useMemo, useRef, useState } from 'react'
-import { pickQuiz } from '../data/quiz'
+import { Link } from 'react-router-dom'
 import { useProgress } from '../hooks/useProgress'
+import { todayKey } from '../utils/storage'
+import { describeQuizSource, pickAdaptiveQuiz } from '../utils/quizFromProgress'
 
 export default function Quiz() {
-  const { recordQuiz } = useProgress()
+  const { recordQuiz, cardProgress, dailyPlan, todayVocab, todayReview, dueDrillCount } =
+    useProgress()
   const [section, setSection] = useState('all')
+  const [view, setView] = useState('hub')
   const [started, setStarted] = useState(false)
   const [questions, setQuestions] = useState([])
   const [current, setCurrent] = useState(0)
@@ -12,7 +16,9 @@ export default function Quiz() {
   const [revealed, setRevealed] = useState(false)
   const [finished, setFinished] = useState(false)
   const [correctCount, setCorrectCount] = useState(0)
+  const [sourceInfo, setSourceInfo] = useState(null)
   const correctRef = useRef(0)
+  const missedRef = useRef([])
 
   const question = questions[current]
   const progressLabel = useMemo(() => {
@@ -20,15 +26,30 @@ export default function Quiz() {
     return `${current + 1} / ${questions.length}`
   }, [current, questions.length])
 
+  const focusHint = useMemo(() => {
+    const n = (todayVocab?.length || 0) + (todayReview?.length || 0)
+    return n > 0
+      ? `優先考今日 ${todayVocab?.length || 0} 單字與 ${todayReview?.length || 0} 張到期複習`
+      : '依已學單字與 SRS 動態出題，不足再補題庫'
+  }, [todayVocab, todayReview])
+
   function start() {
-    const qs = pickQuiz(8, section)
+    const qs = pickAdaptiveQuiz({
+      count: 8,
+      section,
+      cardProgress,
+      dailyPlan,
+      today: todayKey(),
+    })
     setQuestions(qs)
+    setSourceInfo(describeQuizSource(qs))
     setCurrent(0)
     setSelected(null)
     setRevealed(false)
     setFinished(false)
     setCorrectCount(0)
     correctRef.current = 0
+    missedRef.current = []
     setStarted(true)
   }
 
@@ -39,12 +60,16 @@ export default function Quiz() {
     if (idx === question.answer) {
       correctRef.current += 1
       setCorrectCount(correctRef.current)
+    } else {
+      if (question.vocabId) missedRef.current.push(question.vocabId)
+      const correctText = question.options[question.answer]
+      if (correctText) missedRef.current.push(correctText)
     }
   }
 
   function next() {
     if (current + 1 >= questions.length) {
-      recordQuiz(correctRef.current, questions.length)
+      recordQuiz(correctRef.current, questions.length, missedRef.current)
       setFinished(true)
       return
     }
@@ -53,12 +78,70 @@ export default function Quiz() {
     setRevealed(false)
   }
 
+  if (!started && view === 'hub') {
+    return (
+      <div className="space-y-5">
+        <section className="animate-fade-up">
+          <h2 className="font-display text-2xl font-bold text-ink">測驗與加強</h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            模擬測驗對齊你的單字進度；基礎加強專補易混對照，不影響今日單字排程。
+          </p>
+        </section>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <section className="surface soft-shadow animate-fade-up stagger-1 flex flex-col rounded-3xl p-5 sm:p-6">
+            <h3 className="font-display text-lg font-bold text-ink">托福模擬測驗</h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">
+              依今日計畫與 SRS 動態出題。錯題會把對應單字卡排進複習。
+            </p>
+            <p className="mt-2 text-xs text-tide">{focusHint}</p>
+            <button
+              type="button"
+              onClick={() => setView('exam')}
+              className="mt-5 w-full rounded-2xl bg-tide px-4 py-3.5 text-base font-medium text-white transition hover:bg-tide-deep"
+            >
+              進入模擬測驗
+            </button>
+          </section>
+
+          <section className="surface soft-shadow animate-fade-up stagger-2 flex flex-col rounded-3xl p-5 sm:p-6">
+            <h3 className="font-display text-lg font-bold text-ink">基礎加強</h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">
+              易混單字、搭配與閱讀／校園填空。錯題走獨立佇列，不扣掌握進度。
+            </p>
+            {dueDrillCount > 0 ? (
+              <p className="mt-2 text-xs text-coral">{dueDrillCount} 題待複習</p>
+            ) : (
+              <p className="mt-2 text-xs text-tide">選修 · 約 8 題一輪</p>
+            )}
+            <Link
+              to="/drill"
+              className="mt-5 block w-full rounded-2xl bg-coral px-4 py-3.5 text-center text-base font-medium text-white transition hover:bg-coral/90"
+            >
+              開始加強練習
+            </Link>
+          </section>
+        </div>
+      </div>
+    )
+  }
+
   if (!started) {
     return (
       <div className="space-y-5">
         <section className="animate-fade-up">
-          <h2 className="font-display text-2xl font-bold text-ink">快速測驗</h2>
-          <p className="mt-1 text-sm text-ink-soft">每次題目與選項順序都會重洗</p>
+          <button
+            type="button"
+            onClick={() => setView('hub')}
+            className="text-sm text-tide hover:underline"
+          >
+            ← 回測驗首頁
+          </button>
+          <h2 className="font-display mt-2 text-2xl font-bold text-ink">托福模擬測驗</h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            依學習進度動態出題。每次題目與選項順序都會重洗。
+          </p>
+          <p className="mt-2 text-xs text-tide">{focusHint}</p>
         </section>
         <section className="surface soft-shadow rounded-3xl p-5">
           <h3 className="font-medium text-ink">選擇範圍</h3>
@@ -104,17 +187,24 @@ export default function Quiz() {
           {correctCount}/{questions.length}
         </h2>
         <p className="mt-2 text-ink-soft">正確率 {pct}%</p>
+        {sourceInfo ? (
+          <p className="mt-2 text-xs text-ink-soft">
+            本回：進度題 {sourceInfo.dynamic} · 補充題 {sourceInfo.curated}
+          </p>
+        ) : null}
+        <div className="mx-auto mt-5 h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-mist">
+          <div className="h-full rounded-full bg-tide" style={{ width: `${pct}%` }} />
+        </div>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
-          <button
-            type="button"
-            onClick={start}
-            className="rounded-2xl bg-tide px-5 py-3 text-white"
-          >
+          <button type="button" onClick={start} className="rounded-2xl bg-tide px-5 py-3 text-white">
             再考一回
           </button>
           <button
             type="button"
-            onClick={() => setStarted(false)}
+            onClick={() => {
+              setStarted(false)
+              setView('hub')
+            }}
             className="rounded-2xl bg-white px-5 py-3 ring-1 ring-line"
           >
             回設定
@@ -127,14 +217,26 @@ export default function Quiz() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-xl font-bold text-ink">快速測驗</h2>
+        <h2 className="font-display text-xl font-bold text-ink">模擬測驗</h2>
         <span className="rounded-full bg-mist px-3 py-1 text-xs text-tide">{progressLabel}</span>
       </div>
+      {sourceInfo ? (
+        <p className="text-xs text-ink-soft">
+          依進度出題（動態 {sourceInfo.dynamic}／補充 {sourceInfo.curated}）
+        </p>
+      ) : null}
       <article className="surface soft-shadow rounded-3xl p-5 sm:p-6">
         <span className="rounded-full bg-tide/10 px-3 py-1 text-xs font-medium text-tide">
           {question.section}
         </span>
-        <p className="mt-4 text-base leading-relaxed text-ink">{question.prompt}</p>
+        {question.passage ? (
+          <div className="mt-4 rounded-2xl bg-mist/80 p-4 text-sm leading-relaxed text-ink">
+            {question.passage}
+          </div>
+        ) : null}
+        <p className="mt-4 whitespace-pre-wrap text-base leading-relaxed text-ink">
+          {question.prompt}
+        </p>
         <div className="mt-5 space-y-2">
           {question.options.map((opt, idx) => {
             let style = 'bg-white ring-1 ring-line'
@@ -164,6 +266,9 @@ export default function Quiz() {
               {selected === question.answer ? '答對了！' : '再接再厲'}
             </p>
             <p className="mt-2 text-sm text-ink">{question.explanation}</p>
+            {selected !== question.answer && question.vocabId ? (
+              <p className="mt-2 text-xs text-ink-soft">這張單字已排進今天的複習佇列。</p>
+            ) : null}
             <button
               type="button"
               onClick={next}

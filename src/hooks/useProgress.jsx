@@ -1,7 +1,19 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { DAILY_QUOTA, DEFAULT_TASKS, TARGETS } from '../data/config'
 import { vocabulary } from '../data/vocabulary'
-import { addDays, applyGrade, getDueIds, isLearned, normalizeEntry } from '../utils/srs'
+import {
+  clearAllReports,
+  exportReportsJson,
+  filterOutReported,
+  loadReportedCards,
+  REPORT_REASONS,
+  reportCard as saveReport,
+  reportedIdSet,
+  unreportCard as removeReport,
+} from '../utils/cardReports'
+import { countDueDrills, describeDrillProgress, recordDrillResult } from '../utils/drillProgress'
+import { getPlanProgress } from '../utils/planProgress'
+import { addDays, applyGrade, countLearnedSince, getDueIds, isLearned, normalizeEntry } from '../utils/srs'
 import { todayKey } from '../utils/storage'
 import { useLocalStorage } from './useLocalStorage'
 
@@ -16,31 +28,80 @@ function shuffle(items) {
   return copy
 }
 
-function buildDailyPlan(date, cardProgress, seedExtra = '') {
-  const due = getDueIds(
+function sameIds(a = [], b = []) {
+  if (a.length !== b.length) return false
+  const setB = new Set(b)
+  return a.every((id) => setB.has(id))
+}
+
+function catchUpPlanOptions(cardProgress) {
+  const today = todayKey()
+  const learnedVocab = vocabulary.filter((v) => isLearned(cardProgress[v.id], today)).length
+  const weekVocabGain = countLearnedSince(
     cardProgress,
     vocabulary.map((v) => v.id),
+    addDays(today, -6),
+    today,
+  )
+  const plan = getPlanProgress({
+    learnedVocab,
+    quizRate: null,
+    appVocab: vocabulary.length,
+    weekVocabGain,
+  })
+  const vocabQuota = plan.behind.vocab
+    ? Math.min(
+        40,
+        Math.max(20, Math.ceil(plan.month.vocabRemaining / Math.max(7, plan.month.daysLeft))),
+      )
+    : DAILY_QUOTA.vocab
+  return { vocabQuota }
+}
+
+function buildDailyPlan(date, cardProgress, seedExtra = '', opts = {}) {
+  const vocabQuota = opts.vocabQuota || DAILY_QUOTA.vocab
+  const hiddenIds = opts.hiddenIds || new Set()
+  const pool = vocabulary.filter((v) => !hiddenIds.has(v.id))
+  const due = getDueIds(
+    cardProgress,
+    pool.map((v) => v.id),
     DAILY_QUOTA.review,
     date,
   )
   const dueSet = new Set(due)
-  const fresh = shuffle(vocabulary.filter((v) => !cardProgress[v.id] && !dueSet.has(v.id))).slice(
+  const fresh = shuffle(pool.filter((v) => !cardProgress[v.id] && !dueSet.has(v.id))).slice(
     0,
-    DAILY_QUOTA.vocab,
+    vocabQuota,
   )
-  // fill remaining with not-due learning cards
   const filler = shuffle(
-    vocabulary.filter((v) => !dueSet.has(v.id) && !fresh.find((f) => f.id === v.id)),
-  ).slice(0, Math.max(0, DAILY_QUOTA.vocab - fresh.length))
+    pool.filter((v) => !dueSet.has(v.id) && !fresh.find((f) => f.id === v.id)),
+  ).slice(0, Math.max(0, vocabQuota - fresh.length))
 
   return {
     date,
     seedExtra,
-    vocabIds: [...fresh, ...filler].slice(0, DAILY_QUOTA.vocab).map((v) => v.id),
+    vocabQuota,
+    vocabIds: [...fresh, ...filler].slice(0, vocabQuota).map((v) => v.id),
     reviewIds: due,
     studiedIds: [],
     practiceDone: { reading: false, listening: false, speaking: false, writing: false },
   }
+}
+
+function findCardsForAnswer(answerText = '') {
+  const text = String(answerText).trim()
+  if (!text) return []
+  const byId = vocabulary.find((c) => c.id === text)
+  if (byId) return [byId]
+  const lower = text.toLowerCase()
+  return vocabulary
+    .filter(
+      (c) =>
+        c.word === text ||
+        c.word?.toLowerCase() === lower ||
+        (text.length >= 2 && c.meaning === text),
+    )
+    .slice(0, 2)
 }
 
 export function ProgressProvider({ children }) {
@@ -62,6 +123,13 @@ export function ProgressProvider({ children }) {
     speaking: 0,
     writing: 0,
   })
+  const [drillProgress, setDrillProgress] = useLocalStorage('drill-progress', {})
+  const [drillStats, setDrillStats] = useLocalStorage('drill-stats', {
+    attempted: 0,
+    correct: 0,
+    lastScore: null,
+  })
+  const [reportedStore, setReportedStore] = useState(() => loadReportedCards())
 
   useEffect(() => {
     const today = todayKey()
@@ -69,16 +137,35 @@ export function ProgressProvider({ children }) {
       setDailyTasks({ date: today, tasks: DEFAULT_TASKS.map((t) => ({ ...t, done: false })) })
     }
     if (dailyPlan.date !== today) {
-      setDailyPlan(buildDailyPlan(today, cardProgress))
+      const catchUp = catchUpPlanOptions(cardProgress)
+      setDailyPlan(
+        buildDailyPlan(today, cardProgress, '', {
+          ...catchUp,
+          hiddenIds: reportedIdSet(reportedStore),
+        }),
+      )
     }
-  }, [dailyTasks.date, dailyPlan.date, cardProgress, setDailyTasks, setDailyPlan])
+  }, [dailyTasks.date, dailyPlan.date, cardProgress, reportedStore, setDailyTasks, setDailyPlan])
 
-  // Sync due review queue
+  useEffect(() => {
+    if (dailyPlan.date !== todayKey()) return
+    const hidden = reportedIdSet(reportedStore)
+    if (!hidden.size) return
+    setDailyPlan((prev) => {
+      if (prev.date !== todayKey()) return prev
+      const vocabIds = (prev.vocabIds || []).filter((id) => !hidden.has(id))
+      const reviewIds = (prev.reviewIds || []).filter((id) => !hidden.has(id))
+      const studiedIds = (prev.studiedIds || []).filter((id) => !hidden.has(id))
+      if (sameIds(prev.vocabIds, vocabIds) && sameIds(prev.reviewIds, reviewIds)) return prev
+      return { ...prev, vocabIds, reviewIds, studiedIds }
+    })
+  }, [reportedStore, dailyPlan.date, setDailyPlan])
+
   useEffect(() => {
     if (dailyPlan.date !== todayKey()) return
     const live = getDueIds(
       cardProgress,
-      vocabulary.map((v) => v.id),
+      vocabulary.filter((v) => !reportedIdSet(reportedStore).has(v.id)).map((v) => v.id),
       DAILY_QUOTA.review,
     )
     setDailyPlan((prev) => {
@@ -86,23 +173,45 @@ export function ProgressProvider({ children }) {
       if (prev.reviewIds.join() === live.join()) return prev
       return { ...prev, reviewIds: live }
     })
-  }, [cardProgress, dailyPlan.date, setDailyPlan])
+  }, [cardProgress, dailyPlan.date, reportedStore, setDailyPlan])
 
   const value = useMemo(() => {
     const today = todayKey()
+    const hiddenIds = reportedIdSet(reportedStore)
     const plan =
-      dailyPlan.date === today ? dailyPlan : buildDailyPlan(today, cardProgress, sessionSeed)
+      dailyPlan.date === today
+        ? dailyPlan
+        : buildDailyPlan(today, cardProgress, sessionSeed, {
+            ...catchUpPlanOptions(cardProgress),
+            hiddenIds,
+          })
     const studied = new Set(plan.studiedIds || [])
     const learnedCount = vocabulary.filter((v) => isLearned(cardProgress[v.id], today)).length
+    const learningVocab = vocabulary.filter((v) => {
+      const e = normalizeEntry(cardProgress[v.id], today)
+      return e && e.status === 'learning'
+    }).length
     const dueCount = getDueIds(
       cardProgress,
       vocabulary.map((v) => v.id),
       0,
     ).length
+    const weekVocabGain = countLearnedSince(
+      cardProgress,
+      vocabulary.map((v) => v.id),
+      addDays(today, -6),
+      today,
+    )
 
     const vocabMap = new Map(vocabulary.map((v) => [v.id, v]))
-    const todayVocab = shuffle(plan.vocabIds.map((id) => vocabMap.get(id)).filter(Boolean))
-    const todayReview = plan.reviewIds.map((id) => vocabMap.get(id)).filter(Boolean)
+    const todayVocab = filterOutReported(
+      shuffle(plan.vocabIds.map((id) => vocabMap.get(id)).filter(Boolean)),
+      reportedStore,
+    )
+    const todayReview = filterOutReported(
+      plan.reviewIds.map((id) => vocabMap.get(id)).filter(Boolean),
+      reportedStore,
+    )
 
     function markStudied(id) {
       setDailyPlan((prev) => {
@@ -136,6 +245,7 @@ export function ProgressProvider({ children }) {
           due: today,
           lapses: 0,
           lastGrade: null,
+          learnedAt: null,
         }
         if (status === 'learned') {
           return {
@@ -145,12 +255,13 @@ export function ProgressProvider({ children }) {
               status: 'learned',
               interval: Math.max(entry.interval || 0, 7),
               due: addDays(today, 7),
+              learnedAt: entry.learnedAt || today,
             },
           }
         }
         return {
           ...prev,
-          [id]: { ...entry, status: 'review', due: today },
+          [id]: { ...entry, status: 'review', due: today, learnedAt: null },
         }
       })
     }
@@ -185,29 +296,83 @@ export function ProgressProvider({ children }) {
       if (section === 'speaking' || section === 'writing') setTaskDone('speaking-or-writing', true)
     }
 
-    function recordQuiz(correct, total) {
+    function recordQuiz(correct, total, missedAnswers = []) {
       setQuizStats((prev) => ({
         attempted: prev.attempted + total,
         correct: prev.correct + correct,
         lastScore: { correct, total, at: new Date().toISOString() },
       }))
+
+      if (missedAnswers.length) {
+        setCardProgress((prev) => {
+          const next = { ...prev }
+          for (const answer of missedAnswers) {
+            for (const card of findCardsForAnswer(answer)) {
+              next[card.id] = applyGrade(next[card.id], 'again', today)
+            }
+          }
+          return next
+        })
+      }
+    }
+
+    function recordDrillAnswer(drillId, correct) {
+      setDrillProgress((prev) => recordDrillResult(prev, drillId, correct, today))
+      setDrillStats((prev) => ({
+        attempted: prev.attempted + 1,
+        correct: prev.correct + (correct ? 1 : 0),
+        lastScore: { drillId, correct, at: new Date().toISOString() },
+      }))
     }
 
     function reshuffleTodayPlan() {
-      setDailyPlan(buildDailyPlan(today, cardProgress, `reshuffle:${Date.now()}`))
+      const catchUp = catchUpPlanOptions(cardProgress)
+      setDailyPlan(
+        buildDailyPlan(today, cardProgress, `reshuffle:${Date.now()}`, {
+          ...catchUp,
+          hiddenIds,
+        }),
+      )
       setDailyTasks({ date: today, tasks: DEFAULT_TASKS.map((t) => ({ ...t, done: false })) })
     }
 
-    // Auto complete vocab task
+    function catchUpTodayPlan() {
+      const catchUp = catchUpPlanOptions(cardProgress)
+      setDailyPlan(
+        buildDailyPlan(today, cardProgress, `catch-up:${Date.now()}`, {
+          ...catchUp,
+          hiddenIds,
+        }),
+      )
+    }
+
+    function reportCardIssue(card, reasonIds, note = '') {
+      if (!card?.id) return
+      setReportedStore(saveReport(card, reasonIds, note, reportedStore))
+    }
+
+    function unreportCardIssue(id) {
+      if (!id) return
+      setReportedStore(removeReport(id, reportedStore))
+    }
+
+    function clearCardReports() {
+      setReportedStore(clearAllReports())
+    }
+
+    function copyReportsExport() {
+      const text = exportReportsJson(reportedStore)
+      if (navigator.clipboard?.writeText) {
+        return navigator.clipboard.writeText(text).then(() => text)
+      }
+      return Promise.resolve(text)
+    }
+
     const vocabStudied = plan.vocabIds.filter((id) => studied.has(id)).length
     const reviewStudied = plan.reviewIds.filter((id) => studied.has(id)).length
-    if (
-      plan.vocabIds.length > 0 &&
-      plan.vocabIds.every((id) => studied.has(id)) &&
-      !dailyTasks.tasks.find((t) => t.id === 'vocab-20')?.done
-    ) {
-      // deferred via effect-like call in consumer; set here safely
-    }
+    const dueDrillCount = countDueDrills(drillProgress, today)
+    const drillSummary = describeDrillProgress(drillProgress, today)
+    const reportedItems = Object.values(reportedStore.items || {})
 
     return {
       cardProgress,
@@ -222,6 +387,8 @@ export function ProgressProvider({ children }) {
       sectionStats,
       recordPractice,
       learnedCount,
+      learningVocab,
+      weekVocabGain,
       dueCount,
       targets: TARGETS,
       totalVocab: vocabulary.length,
@@ -232,7 +399,22 @@ export function ProgressProvider({ children }) {
       isStudied: (id) => studied.has(id),
       markStudied,
       reshuffleTodayPlan,
+      catchUpTodayPlan,
       practiceDone: plan.practiceDone || {},
+      dailyPlan: plan,
+      drillProgress,
+      drillStats,
+      dueDrillCount,
+      drillSummary,
+      recordDrillAnswer,
+      reportCardIssue,
+      unreportCardIssue,
+      clearCardReports,
+      copyReportsExport,
+      reportedItems,
+      reportedCount: reportedItems.length,
+      reportReasons: REPORT_REASONS,
+      isCardReported: (id) => Boolean(id && reportedStore.items?.[id]),
     }
   }, [
     cardProgress,
@@ -240,15 +422,19 @@ export function ProgressProvider({ children }) {
     dailyPlan,
     quizStats,
     sectionStats,
+    drillProgress,
+    drillStats,
+    reportedStore,
     sessionSeed,
     setCardProgress,
     setDailyTasks,
     setDailyPlan,
     setQuizStats,
     setSectionStats,
+    setDrillProgress,
+    setDrillStats,
   ])
 
-  // Auto-check vocab task when all studied
   useEffect(() => {
     const today = todayKey()
     if (dailyPlan.date !== today) return
