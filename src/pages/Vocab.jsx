@@ -34,7 +34,7 @@ const MODE_META = {
   },
   listen: {
     title: '今日聽力',
-    hint: '可循環播放單字＋例句；鎖屏後也會繼續（Neural 音檔）',
+    hint: '可循環播放單字、中文詞義、例句與例句翻譯；鎖屏後也會繼續（Neural 音檔）',
   },
 }
 
@@ -151,7 +151,11 @@ export default function Vocab() {
     const idx = deck.findIndex((c) => c.id === cardId)
     if (idx >= 0 && idx !== index) {
       setIndex(idx)
-      setFlipped(playlist.track?.kind === 'example' || playlist.track?.kind === 'exampleMeaning')
+      setFlipped(
+        playlist.track?.kind === 'meaning' ||
+          playlist.track?.kind === 'example' ||
+          playlist.track?.kind === 'exampleMeaning',
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist.track?.id, playlist.playing])
@@ -380,7 +384,8 @@ export default function Vocab() {
             <div>
               <p className="font-medium text-ink">循環播放</p>
               <p className="mt-1 text-xs text-ink-soft">
-                可開關要播的內容。英文／中文皆為 Neural 音檔，鎖屏後也可繼續。
+                預設每張依序播：英文單字 → 中文詞義 → 英文例句 → 例句中文。皆為 Neural
+                音檔，鎖屏後也可繼續。
               </p>
             </div>
             <button
@@ -404,7 +409,7 @@ export default function Vocab() {
               active={loopPlayMeaning}
               onClick={() => toggleLoopOption('meaning', !loopPlayMeaning, setLoopPlayMeaning)}
             >
-              詞義解釋
+              詞義（中文）
             </FilterChip>
             <FilterChip
               active={loopPlayExample}
@@ -422,7 +427,7 @@ export default function Vocab() {
                 )
               }
             >
-              例句解釋
+              例句中文
             </FilterChip>
           </div>
 

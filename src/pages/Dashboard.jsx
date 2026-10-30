@@ -158,7 +158,7 @@ export default function Dashboard() {
               <div>
                 <p className="font-medium text-ink">單字聽力循環</p>
                 <p className="mt-0.5 text-xs text-ink-soft">
-                  Neural 播放今日單字＋例句，鎖屏後也可繼續
+                  Neural 播放今日單字、中文詞義、例句與例句翻譯，鎖屏後也可繼續
                 </p>
               </div>
               <Link

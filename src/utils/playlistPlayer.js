@@ -255,8 +255,8 @@ export function buildCardTracks(cards, options = {}) {
   const {
     playWord = true,
     playExample = true,
-    playMeaning = false,
-    playExampleMeaning = false,
+    playMeaning = true,
+    playExampleMeaning = true,
   } = options
   const base = import.meta.env.BASE_URL || './'
   const tracks = []
@@ -282,7 +282,7 @@ export function buildCardTracks(cards, options = {}) {
         kind: 'meaning',
         url: `${base}audio/${card.id}-meaning.mp3`,
         title: card.word,
-        subtitle: '詞義解釋',
+        subtitle: '詞義（中文）',
       })
     }
 
@@ -304,7 +304,7 @@ export function buildCardTracks(cards, options = {}) {
         kind: 'exampleMeaning',
         url: `${base}audio/${card.id}-example-meaning.mp3`,
         title: card.word,
-        subtitle: '例句解釋',
+        subtitle: '例句中文',
       })
     }
   }
