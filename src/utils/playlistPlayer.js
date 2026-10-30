@@ -5,6 +5,8 @@
  * Do not import tts.js here (tts imports stopPlaylist from this file).
  */
 
+import { AUDIO_CACHE_VERSION } from '../data/config'
+
 let audio = null
 let playlist = []
 let cursor = 0
@@ -255,10 +257,11 @@ export function buildCardTracks(cards, options = {}) {
   const {
     playWord = true,
     playExample = true,
-    playMeaning = false,
-    playExampleMeaning = false,
+    playMeaning = true,
+    playExampleMeaning = true,
   } = options
   const base = import.meta.env.BASE_URL || './'
+  const bust = `?v=${AUDIO_CACHE_VERSION}`
   const tracks = []
 
   for (const card of cards || []) {
@@ -269,7 +272,7 @@ export function buildCardTracks(cards, options = {}) {
         id: `${card.id}-word`,
         cardId: card.id,
         kind: 'word',
-        url: `${base}audio/${card.id}-word.mp3`,
+        url: `${base}audio/${card.id}-word.mp3${bust}`,
         title: card.word,
         subtitle: card.phonetic ? `${card.phonetic} · 單字` : '單字',
       })
@@ -280,9 +283,9 @@ export function buildCardTracks(cards, options = {}) {
         id: `${card.id}-meaning`,
         cardId: card.id,
         kind: 'meaning',
-        url: `${base}audio/${card.id}-meaning.mp3`,
+        url: `${base}audio/${card.id}-meaning.mp3${bust}`,
         title: card.word,
-        subtitle: '詞義解釋',
+        subtitle: '詞義（中文）',
       })
     }
 
@@ -291,7 +294,7 @@ export function buildCardTracks(cards, options = {}) {
         id: `${card.id}-example`,
         cardId: card.id,
         kind: 'example',
-        url: `${base}audio/${card.id}-example.mp3`,
+        url: `${base}audio/${card.id}-example.mp3${bust}`,
         title: card.word,
         subtitle: '例句',
       })
@@ -302,9 +305,9 @@ export function buildCardTracks(cards, options = {}) {
         id: `${card.id}-example-meaning`,
         cardId: card.id,
         kind: 'exampleMeaning',
-        url: `${base}audio/${card.id}-example-meaning.mp3`,
+        url: `${base}audio/${card.id}-example-meaning.mp3${bust}`,
         title: card.word,
-        subtitle: '例句解釋',
+        subtitle: '例句中文',
       })
     }
   }

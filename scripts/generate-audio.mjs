@@ -4,17 +4,23 @@
  * English: en-US-JennyNeural (word / example / listening scripts)
  * Chinese: zh-TW-HsiaoChenNeural (meaning / exampleMeaning)
  *
+ * Prefers the Python `edge-tts` CLI (reliable). Falls back to
+ * `edge-tts-universal` if the CLI is missing.
+ *
  * Run: node scripts/generate-audio.mjs
  * Force regenerate: FORCE=1 node scripts/generate-audio.mjs
- * Subset: ONLY=en|zh|listening node scripts/generate-audio.mjs
+ * Subset: ONLY=en|zh|listening|example-meaning node scripts/generate-audio.mjs
  * Concurrency: CONCURRENCY=6 node scripts/generate-audio.mjs
  */
-import { mkdirSync, writeFileSync, existsSync } from 'fs'
+import { spawn } from 'child_process'
+import { mkdirSync, writeFileSync, existsSync, unlinkSync } from 'fs'
+import { homedir } from 'os'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { EdgeTTS } from 'edge-tts-universal'
 import { vocabulary } from '../src/data/vocabulary.js'
 import { listeningSets } from '../src/data/practice.js'
+import { stripSpokenRegister } from '../src/utils/speechText.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outDir = join(__dirname, '../public/audio')
@@ -22,7 +28,7 @@ mkdirSync(outDir, { recursive: true })
 
 const EN_VOICE = 'en-US-JennyNeural'
 const ZH_VOICE = 'zh-TW-HsiaoChenNeural'
-const only = process.env.ONLY || 'all' // all | en | zh | listening
+const only = process.env.ONLY || 'all' // all | en | zh | listening | example-meaning
 const concurrency = Math.max(1, Number(process.env.CONCURRENCY || 6))
 const force = process.env.FORCE === '1'
 
@@ -52,6 +58,73 @@ function withTimeout(promise, ms, label) {
   })
 }
 
+function resolveEdgeTtsBin() {
+  const candidates = [
+    process.env.EDGE_TTS_BIN,
+    join(homedir(), '.local/bin/edge-tts'),
+    '/usr/local/bin/edge-tts',
+    '/usr/bin/edge-tts',
+  ].filter(Boolean)
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) return candidate
+  }
+  return 'edge-tts'
+}
+
+const EDGE_TTS_BIN = resolveEdgeTtsBin()
+
+function synthesizeWithCli(text, filePath, voice, timeoutMs = 40000) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(
+      EDGE_TTS_BIN,
+      [
+        `--voice=${voice}`,
+        '--rate=-5%',
+        '--pitch=+0Hz',
+        `--text=${text}`,
+        `--write-media=${filePath}`,
+        '--no-progress',
+      ],
+      {
+        env: {
+          ...process.env,
+          PATH: `${join(homedir(), '.local/bin')}:${process.env.PATH || ''}`,
+        },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      },
+    )
+    let stderr = ''
+    const timer = setTimeout(() => {
+      child.kill('SIGKILL')
+      reject(new Error(`edge-tts timeout ${timeoutMs}ms`))
+    }, timeoutMs)
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk
+    })
+    child.on('error', (err) => {
+      clearTimeout(timer)
+      reject(err)
+    })
+    child.on('close', (code) => {
+      clearTimeout(timer)
+      if (code === 0 && existsSync(filePath)) {
+        resolve('ok')
+        return
+      }
+      reject(new Error(stderr.trim() || `edge-tts exit ${code}`))
+    })
+  })
+}
+
+async function synthesizeWithLibrary(text, filePath, voice) {
+  const tts = new EdgeTTS(text, voice, { rate: '-5%', pitch: '+0Hz' })
+  const result = await withTimeout(tts.synthesize(), 25000, 'synthesize')
+  const raw = result.audio
+  const buf = Buffer.from(raw instanceof Blob ? await raw.arrayBuffer() : raw)
+  if (buf.length < 200) throw new Error(`tiny audio ${buf.length}`)
+  writeFileSync(filePath, buf)
+}
+
 async function synthesizeToFile(text, filePath, voice) {
   const cleaned = cleanText(text)
   if (!cleaned) return 'empty'
@@ -59,12 +132,13 @@ async function synthesizeToFile(text, filePath, voice) {
   let lastErr
   for (let attempt = 0; attempt < 5; attempt += 1) {
     try {
-      const tts = new EdgeTTS(cleaned, voice, { rate: '-5%', pitch: '+0Hz' })
-      const result = await withTimeout(tts.synthesize(), 25000, 'synthesize')
-      const raw = result.audio
-      const buf = Buffer.from(raw instanceof Blob ? await raw.arrayBuffer() : raw)
-      if (buf.length < 200) throw new Error(`tiny audio ${buf.length}`)
-      writeFileSync(filePath, buf)
+      if (existsSync(filePath)) unlinkSync(filePath)
+      if (EDGE_TTS_BIN) {
+        await synthesizeWithCli(cleaned, filePath, voice)
+      } else {
+        await synthesizeWithLibrary(cleaned, filePath, voice)
+      }
+      if (!existsSync(filePath)) throw lastErr || new Error('no audio written')
       return 'ok'
     } catch (err) {
       lastErr = err
@@ -91,14 +165,16 @@ function jobsForCard(card) {
   if (only === 'all' || only === 'zh') {
     if (card.meaning) {
       jobs.push({
-        text: card.meaning,
+        text: stripSpokenRegister(card.meaning),
         path: join(outDir, `${card.id}-meaning.mp3`),
         voice: ZH_VOICE,
       })
     }
+  }
+  if (only === 'all' || only === 'zh' || only === 'example-meaning') {
     if (card.exampleMeaning) {
       jobs.push({
-        text: card.exampleMeaning,
+        text: stripSpokenRegister(card.exampleMeaning),
         path: join(outDir, `${card.id}-example-meaning.mp3`),
         voice: ZH_VOICE,
       })
@@ -161,6 +237,8 @@ async function main() {
     jobs.length,
     'concurrency',
     concurrency,
+    'edge-tts',
+    EDGE_TTS_BIN,
   )
   const stats = await runPool(jobs, concurrency, (job) =>
     synthesizeToFile(job.text, job.path, job.voice),

@@ -1,5 +1,6 @@
 import { quizQuestions, shuffle, withShuffledOptions } from '../data/quiz'
 import { vocabulary } from '../data/vocabulary'
+import { stripSpokenRegister } from './speechText'
 import { normalizeEntry } from './srs'
 import { todayKey } from './storage'
 
@@ -127,7 +128,7 @@ function vocabQuestionsFor(card, pool) {
         prompt: `Choose the word that best completes the sentence.\n${blanked}`,
         correct: card.word,
         options: wordOpts,
-        explanation: `正解是「${card.word}」。例句意思：${card.exampleMeaning}`,
+        explanation: `正解是「${card.word}」。例句意思：${stripSpokenRegister(card.exampleMeaning)}`,
       }),
     )
   }

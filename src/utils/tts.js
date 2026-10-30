@@ -1,3 +1,4 @@
+import { AUDIO_CACHE_VERSION } from '../data/config'
 import { stopPlaylist } from './playlistPlayer'
 
 let audioEl = null
@@ -26,13 +27,13 @@ export function audioClipForCard(card, { flipped = false } = {}) {
   if (!card?.id) return null
   const kind = flipped ? 'example' : 'word'
   const base = import.meta.env.BASE_URL || './'
-  return `${base}audio/${card.id}-${kind}.mp3`
+  return `${base}audio/${card.id}-${kind}.mp3?v=${AUDIO_CACHE_VERSION}`
 }
 
 export function audioClipForListening(id) {
   if (!id) return null
   const base = import.meta.env.BASE_URL || './'
-  return `${base}audio/${id}.mp3`
+  return `${base}audio/${id}.mp3?v=${AUDIO_CACHE_VERSION}`
 }
 
 function playUrl(url, options = {}) {

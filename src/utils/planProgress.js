@@ -236,7 +236,7 @@ function buildRemedies({
 
   items.push({
     title: '週末補課（單字聽力循環）',
-    detail: '用 Neural 音檔循環今日單字＋例句，鎖屏也可繼續。',
+    detail: '用 Neural 音檔循環今日單字、中文詞義、例句與例句翻譯，鎖屏也可繼續。',
     to: '/vocab?mode=listen',
     cta: '開始聽力',
   })

@@ -15,6 +15,9 @@ export const TARGETS = {
  */
 export const CONTENT_VERSION = 1
 
+/** Bump when Neural mp3s are regenerated so browsers don't keep stale clips. */
+export const AUDIO_CACHE_VERSION = 2
+
 export const DEFAULT_TASKS = [
   { id: 'vocab-20', label: '單字 SRS（落後時可手動加量）', done: false },
   { id: 'reading-1', label: '閱讀練習 1 篇', done: false },

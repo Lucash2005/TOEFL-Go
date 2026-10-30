@@ -16,13 +16,14 @@ import {
   subscribePlaylist,
 } from '../utils/playlistPlayer'
 import { speakEnglish, speechTextForCard, audioClipForCard, stopSpeaking } from '../utils/tts'
+import { stripSpokenRegister } from '../utils/speechText'
 
 const GRADES = ['again', 'hard', 'good', 'easy']
 
 const MODE_META = {
   today: {
     title: '今日單字',
-    hint: '先回想意思，翻面後評分。例句是原創的托福講座／校園對話／閱讀口吻。',
+    hint: '先回想意思，翻面後評分。例句是原創的托福情境。',
   },
   review: {
     title: '到期複習',
@@ -30,11 +31,11 @@ const MODE_META = {
   },
   all: {
     title: '全部單字',
-    hint: '點擊卡片翻面 · 例句分成講座／校園對話／閱讀三種口吻',
+    hint: '點擊卡片翻面 · 看英文例句與中文翻譯',
   },
   listen: {
     title: '今日聽力',
-    hint: '可循環播放單字＋例句；鎖屏後也會繼續（Neural 音檔）',
+    hint: '可循環播放單字、中文詞義、例句與例句翻譯；鎖屏後也會繼續（Neural 音檔）',
   },
 }
 
@@ -151,7 +152,11 @@ export default function Vocab() {
     const idx = deck.findIndex((c) => c.id === cardId)
     if (idx >= 0 && idx !== index) {
       setIndex(idx)
-      setFlipped(playlist.track?.kind === 'example' || playlist.track?.kind === 'exampleMeaning')
+      setFlipped(
+        playlist.track?.kind === 'meaning' ||
+          playlist.track?.kind === 'example' ||
+          playlist.track?.kind === 'exampleMeaning',
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist.track?.id, playlist.playing])
@@ -380,7 +385,8 @@ export default function Vocab() {
             <div>
               <p className="font-medium text-ink">循環播放</p>
               <p className="mt-1 text-xs text-ink-soft">
-                可開關要播的內容。英文／中文皆為 Neural 音檔，鎖屏後也可繼續。
+                預設每張依序播：英文單字 → 中文詞義 → 英文例句 → 例句中文。皆為 Neural
+                音檔，鎖屏後也可繼續。
               </p>
             </div>
             <button
@@ -404,7 +410,7 @@ export default function Vocab() {
               active={loopPlayMeaning}
               onClick={() => toggleLoopOption('meaning', !loopPlayMeaning, setLoopPlayMeaning)}
             >
-              詞義解釋
+              詞義（中文）
             </FilterChip>
             <FilterChip
               active={loopPlayExample}
@@ -422,7 +428,7 @@ export default function Vocab() {
                 )
               }
             >
-              例句解釋
+              例句中文
             </FilterChip>
           </div>
 
@@ -544,17 +550,16 @@ export default function Vocab() {
                 className="[grid-area:stack] [backface-visibility:hidden] [transform:rotateY(180deg)]"
               >
                 <Badge>{card.category}</Badge>
-                <p className="mt-4 text-3xl font-bold text-ink">{card.meaning}</p>
+                <p className="mt-4 text-3xl font-bold text-ink">{stripSpokenRegister(card.meaning)}</p>
                 {showPhonetic && card.phonetic ? (
                   <p className="mt-1 text-base text-tide">{card.phonetic}</p>
                 ) : null}
                 <div className="mt-4 w-full rounded-2xl bg-mist/80 p-4 text-left">
-                  {card.register ? (
-                    <p className="mb-2 text-xs font-medium text-tide">{registerLabel(card.register)}</p>
-                  ) : null}
                   <p className="text-lg leading-relaxed text-ink">{card.example}</p>
                   {showExampleMeaning ? (
-                    <p className="mt-2 text-base text-ink-soft">{card.exampleMeaning}</p>
+                    <p className="mt-2 text-base text-ink-soft">
+                      {stripSpokenRegister(card.exampleMeaning)}
+                    </p>
                   ) : (
                     <p className="mt-2 text-sm text-ink-soft">中文解釋已隱藏</p>
                   )}
@@ -712,13 +717,6 @@ function gradeClass(grade) {
   if (grade === 'hard') return 'bg-amber-soft text-ink ring-1 ring-line'
   if (grade === 'good') return 'bg-tide text-white'
   return 'bg-ink text-white'
-}
-
-function registerLabel(register) {
-  if (register === 'lecture') return '聽力講座口吻'
-  if (register === 'campus') return '校園對話口吻'
-  if (register === 'reading') return '閱讀篇接口吻'
-  return ''
 }
 
 function FilterChip({ active, onClick, children }) {
