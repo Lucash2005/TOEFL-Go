@@ -1,4 +1,4 @@
-import { todayKey } from './storage'
+import { todayKey } from './storage.js'
 
 const DEFAULT_EASE = 2.5
 const MIN_EASE = 1.3
