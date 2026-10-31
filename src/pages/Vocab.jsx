@@ -23,7 +23,7 @@ const GRADES = ['again', 'hard', 'good', 'easy']
 const MODE_META = {
   today: {
     title: '今日單字',
-    hint: '先回想意思，翻面後評分。例句是原創的托福情境。',
+    hint: '先回想意思，翻面後評分。今日卡組同一主題，例句已縮短方便背誦。',
   },
   review: {
     title: '到期複習',
@@ -31,7 +31,7 @@ const MODE_META = {
   },
   all: {
     title: '全部單字',
-    hint: '點擊卡片翻面 · 看英文例句與中文翻譯',
+    hint: '點擊卡片翻面 · 短例句方便背誦',
   },
   listen: {
     title: '今日聽力',
@@ -64,6 +64,7 @@ export default function Vocab() {
   const {
     cardProgress,
     todayVocab,
+    todayThemeLabel,
     todayReview,
     gradeCard,
     getEntry,
@@ -327,7 +328,12 @@ export default function Vocab() {
     <div className="space-y-5">
       <section className="animate-fade-up">
         <h2 className="font-display text-2xl font-bold text-ink">{meta.title}</h2>
-        <p className="mt-1 text-sm text-ink-soft">{meta.hint}</p>
+        <p className="mt-1 text-sm text-ink-soft">
+          {meta.hint}
+          {todayThemeLabel && (mode === 'today' || mode === 'listen')
+            ? ` 今日主題：${todayThemeLabel}。`
+            : ''}
+        </p>
         <div className="mt-2 flex flex-wrap gap-3 text-sm">
           <Link to="/vocab?mode=today" className="text-tide underline-offset-2 hover:underline">
             今日

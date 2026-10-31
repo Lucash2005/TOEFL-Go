@@ -156,6 +156,8 @@ function jobsForCard(card) {
       path: join(outDir, `${card.id}-word.mp3`),
       voice: EN_VOICE,
     })
+  }
+  if (only === 'all' || only === 'en' || only === 'examples') {
     jobs.push({
       text: card.example,
       path: join(outDir, `${card.id}-example.mp3`),
@@ -171,7 +173,7 @@ function jobsForCard(card) {
       })
     }
   }
-  if (only === 'all' || only === 'zh' || only === 'example-meaning') {
+  if (only === 'all' || only === 'zh' || only === 'example-meaning' || only === 'examples') {
     if (card.exampleMeaning) {
       jobs.push({
         text: stripSpokenRegister(card.exampleMeaning),

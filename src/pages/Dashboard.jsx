@@ -17,7 +17,9 @@ export default function Dashboard() {
     targets,
     totalVocab,
     todayVocab,
+    todayThemeLabel,
     todayReview,
+    isStudied,
     vocabStudied,
     reviewStudied,
     sectionStats,
@@ -117,7 +119,10 @@ export default function Dashboard() {
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="font-display text-xl font-bold text-ink">今日節奏</h2>
-            <p className="mt-1 text-sm text-ink-soft">單字回想評分＋四大科短練習</p>
+            <p className="mt-1 text-sm text-ink-soft">
+              今日單字優先抽同一主題
+              {todayThemeLabel ? `（${todayThemeLabel}）` : ''}，方便一起記
+            </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button
@@ -144,6 +149,9 @@ export default function Dashboard() {
             progress={`${vocabStudied}/${todayVocab.length}`}
             to="/vocab?mode=today"
             cta="開始 SRS"
+            items={todayVocab}
+            isStudied={isStudied}
+            note={todayThemeLabel ? `主題：${todayThemeLabel}` : ''}
           />
           <PlanLink
             title="到期複習"
@@ -328,13 +336,14 @@ export default function Dashboard() {
   )
 }
 
-function PlanLink({ title, progress, to, cta, empty, emptyText }) {
+function PlanLink({ title, progress, to, cta, empty, emptyText, items, isStudied, note }) {
   return (
     <div className="rounded-2xl bg-white/75 p-4 ring-1 ring-line/50">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <p className="font-medium text-ink">{title}</p>
           <p className="mt-0.5 text-xs text-ink-soft">{empty ? emptyText : `進度 ${progress}`}</p>
+          {note ? <p className="mt-1 text-xs leading-relaxed text-tide">{note}</p> : null}
         </div>
         {!empty ? (
           <Link
@@ -345,6 +354,22 @@ function PlanLink({ title, progress, to, cta, empty, emptyText }) {
           </Link>
         ) : null}
       </div>
+      {items?.length ? (
+        <ul className="mt-3 flex flex-wrap gap-1.5">
+          {items.map((card) => (
+            <li
+              key={card.id}
+              className={`rounded-full px-2.5 py-1 text-xs ${
+                isStudied?.(card.id)
+                  ? 'bg-tide/15 text-tide line-through'
+                  : 'bg-mist text-ink'
+              }`}
+            >
+              {card.word}
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   )
 }

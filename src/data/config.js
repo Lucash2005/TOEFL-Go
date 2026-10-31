@@ -13,10 +13,10 @@ export const TARGETS = {
  * Bump when vocab / drill content is fixed.
  * Reported-card hides persist until the learner manually clears them.
  */
-export const CONTENT_VERSION = 1
+export const CONTENT_VERSION = 2
 
 /** Bump when Neural mp3s are regenerated so browsers don't keep stale clips. */
-export const AUDIO_CACHE_VERSION = 2
+export const AUDIO_CACHE_VERSION = 3
 
 export const DEFAULT_TASKS = [
   { id: 'vocab-20', label: '單字 SRS（落後時可手動加量）', done: false },

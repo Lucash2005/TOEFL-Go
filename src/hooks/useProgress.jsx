@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { DAILY_QUOTA, DEFAULT_TASKS, TARGETS } from '../data/config'
+import { THEME_PLAN_VERSION } from '../data/themes'
 import { vocabulary } from '../data/vocabulary'
+import { buildDailyPlan, describeTodayThemes, seededShuffle } from '../utils/dailyPlan'
 import {
   clearAllReports,
   exportReportsJson,
@@ -18,15 +20,6 @@ import { todayKey } from '../utils/storage'
 import { useLocalStorage } from './useLocalStorage'
 
 const ProgressContext = createContext(null)
-
-function shuffle(items) {
-  const copy = [...items]
-  for (let i = copy.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[copy[i], copy[j]] = [copy[j], copy[i]]
-  }
-  return copy
-}
 
 function sameIds(a = [], b = []) {
   if (a.length !== b.length) return false
@@ -56,36 +49,6 @@ function catchUpPlanOptions(cardProgress) {
       )
     : DAILY_QUOTA.vocab
   return { vocabQuota }
-}
-
-function buildDailyPlan(date, cardProgress, seedExtra = '', opts = {}) {
-  const vocabQuota = opts.vocabQuota || DAILY_QUOTA.vocab
-  const hiddenIds = opts.hiddenIds || new Set()
-  const pool = vocabulary.filter((v) => !hiddenIds.has(v.id))
-  const due = getDueIds(
-    cardProgress,
-    pool.map((v) => v.id),
-    DAILY_QUOTA.review,
-    date,
-  )
-  const dueSet = new Set(due)
-  const fresh = shuffle(pool.filter((v) => !cardProgress[v.id] && !dueSet.has(v.id))).slice(
-    0,
-    vocabQuota,
-  )
-  const filler = shuffle(
-    pool.filter((v) => !dueSet.has(v.id) && !fresh.find((f) => f.id === v.id)),
-  ).slice(0, Math.max(0, vocabQuota - fresh.length))
-
-  return {
-    date,
-    seedExtra,
-    vocabQuota,
-    vocabIds: [...fresh, ...filler].slice(0, vocabQuota).map((v) => v.id),
-    reviewIds: due,
-    studiedIds: [],
-    practiceDone: { reading: false, listening: false, speaking: false, writing: false },
-  }
 }
 
 function findCardsForAnswer(answerText = '') {
@@ -136,7 +99,7 @@ export function ProgressProvider({ children }) {
     if (dailyTasks.date !== today) {
       setDailyTasks({ date: today, tasks: DEFAULT_TASKS.map((t) => ({ ...t, done: false })) })
     }
-    if (dailyPlan.date !== today) {
+    if (dailyPlan.date !== today || dailyPlan.themePlanVersion !== THEME_PLAN_VERSION) {
       const catchUp = catchUpPlanOptions(cardProgress)
       setDailyPlan(
         buildDailyPlan(today, cardProgress, '', {
@@ -145,7 +108,7 @@ export function ProgressProvider({ children }) {
         }),
       )
     }
-  }, [dailyTasks.date, dailyPlan.date, cardProgress, reportedStore, setDailyTasks, setDailyPlan])
+  }, [dailyTasks.date, dailyPlan.date, dailyPlan.themePlanVersion, cardProgress, reportedStore, setDailyTasks, setDailyPlan])
 
   useEffect(() => {
     if (dailyPlan.date !== todayKey()) return
@@ -205,9 +168,13 @@ export function ProgressProvider({ children }) {
 
     const vocabMap = new Map(vocabulary.map((v) => [v.id, v]))
     const todayVocab = filterOutReported(
-      shuffle(plan.vocabIds.map((id) => vocabMap.get(id)).filter(Boolean)),
+      seededShuffle(
+        plan.vocabIds.map((id) => vocabMap.get(id)).filter(Boolean),
+        `session:${sessionSeed}:vocab`,
+      ),
       reportedStore,
     )
+    const todayThemeLabel = describeTodayThemes(plan)
     const todayReview = filterOutReported(
       plan.reviewIds.map((id) => vocabMap.get(id)).filter(Boolean),
       reportedStore,
@@ -393,6 +360,7 @@ export function ProgressProvider({ children }) {
       targets: TARGETS,
       totalVocab: vocabulary.length,
       todayVocab,
+      todayThemeLabel,
       todayReview,
       vocabStudied,
       reviewStudied,
